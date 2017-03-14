@@ -5,6 +5,7 @@
 """
 from __future__ import print_function
 from __future__ import unicode_literals
+
 import time
 
 # 循环可以用来生成列表：
