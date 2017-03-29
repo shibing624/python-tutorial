@@ -11,13 +11,21 @@ from numpy import *
 a = array([[0, 1, 2, 3], [4, 5, 6, 7]])
 print(a)
 
+for row in a:
+    print(row)
+
+# 所有元素的迭代器：
+for i in a.flat:
+    print(i)
+
+
 # 转置：
 print(a.T)
 print(a)
 print(a.shape)  # 数组形状 (m,n,o,...)
 
 print(a.size)  # 数组元素数
-a.resize((1, 2, 2))
+a.resize((4, 2))
 print(a)
 print(a.shape)
 

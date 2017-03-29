@@ -1,0 +1,5 @@
+mon feb
+% Day, Month, Year, Skip, Power
+01, 01, 2000, x876, 13 % wow!
+% we don't want have Jan 03rd
+04, 01, 2000, xfed, 55
