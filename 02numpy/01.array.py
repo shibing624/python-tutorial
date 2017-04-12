@@ -9,7 +9,6 @@ from __future__ import unicode_literals
 # 导入numpy
 # 很多其他科学计算的第三方库都是以Numpy为基础建立的。
 # Numpy的一个重要特性是它的数组计算。
-
 from numpy import *
 
 # 使用前一定要先导入 Numpy 包，导入的方法有以下几种：

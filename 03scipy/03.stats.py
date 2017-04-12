@@ -94,7 +94,7 @@ p = pyplot.plot(x, norm.pdf(x, loc=-0.5, scale=.5))
 pyplot.show()
 
 # 不同参数的对数正态分布：
-from scipy.stats import lognorm, t, dweibull
+from scipy.stats import lognorm
 
 x = linspace(0.01, 3, 100)
 
@@ -106,7 +106,7 @@ pyplot.legend()
 pyplot.show()
 
 # 离散分布
-from scipy.stats import binom, poisson, randint
+from scipy.stats import randint
 
 # 离散均匀分布的概率质量函数（PMF）：
 high = 10
@@ -124,8 +124,7 @@ pyplot.show()
 # 3.学生 t 分布
 
 from scipy.stats import norm
-from scipy.stats import ttest_ind, ttest_rel, ttest_1samp
-from scipy.stats import t
+from scipy.stats import ttest_ind
 
 # 独立样本 t 检验
 # 两组参数不同的正态分布：

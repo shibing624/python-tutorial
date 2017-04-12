@@ -5,10 +5,10 @@
 """
 from __future__ import print_function  # 兼容python3的print写法
 from __future__ import unicode_literals  # 兼容python3的编码处理
+
 # PyMySQL是一个纯Python写的MySQL客户端，它的目标是替代MySQLdb，
 # PyMySQL的性能和MySQLdb几乎相当，如果对性能要求不是特别的强，
 # 使用PyMySQL将更加方便。
-
 import pymysql
 
 config = {

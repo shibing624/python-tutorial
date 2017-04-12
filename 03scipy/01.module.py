@@ -22,10 +22,8 @@ from __future__ import unicode_literals
 # special	特殊方程
 # stats	统计分布和函数
 # weave	C/C++ 积分
-
 # 使用scipy之前，基础模块需要导入：
 import numpy as np
-
 # 使用scipy的子模块时，需要导入：
 from scipy import optimize
 
