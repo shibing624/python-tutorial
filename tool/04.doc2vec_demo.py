@@ -33,6 +33,14 @@ def get_data(pos_file, neg_file, unsup_file):
     neg_reviews = get_folder_txt(neg_file)
     unsup_reviews = get_folder_txt(unsup_file)
 
+    def save_txt(out_path, list):
+        with open(out_path, 'w+',encoding='utf-8') as f:
+            for i in list:
+                f.write(i + '\n')
+
+    save_txt('pos.txt', pos_reviews)
+    save_txt('neg.txt', neg_reviews)
+    save_txt('unsup.txt', unsup_reviews)
     # 使用1表示正面情感，0为负面
     y = np.concatenate((np.ones(len(pos_reviews)), np.zeros(len(neg_reviews))))
     # 将数据分割为训练与测试集
