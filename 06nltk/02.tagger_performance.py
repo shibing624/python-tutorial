@@ -9,6 +9,7 @@ from __future__ import unicode_literals  # 兼容python3的编码处理
 import nltk
 from nltk.corpus import brown
 
+
 # user define tagger performance
 def performance(cfd, wordlist):
     lt = dict((word, cfd[word].max()) for word in wordlist)

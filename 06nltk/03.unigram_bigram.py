@@ -38,7 +38,7 @@ print('bigram_rate', bigram_rate)
 t0 = nltk.DefaultTagger('NN')
 t1 = nltk.UnigramTagger(train_sents, backoff=t0)
 t2 = nltk.BigramTagger(train_sents, backoff=t1)
-t3 = nltk.TrigramTagger(train_sents,cutoff=2, backoff=t2)
+t3 = nltk.TrigramTagger(train_sents, cutoff=2, backoff=t2)
 conbine_rate = t3.evaluate(test_sents)
 print('conbine_rate', conbine_rate)
 
@@ -47,5 +47,3 @@ t1 = nltk.UnigramTagger(train_sents, backoff=t0)
 t2 = nltk.BigramTagger(train_sents, backoff=t1)
 conbine_rate_simple = t2.evaluate(test_sents)
 print('conbine_rate_simple', conbine_rate_simple)
-
-
