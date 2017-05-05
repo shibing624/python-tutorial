@@ -8,7 +8,6 @@ from __future__ import unicode_literals  # 兼容python3的编码处理
 
 from nltk.corpus import stopwords
 
-
 def bag_of_words(words):
     return dict([(word, True) for word in words])
 
@@ -99,3 +98,4 @@ print(probs.samples())
 print(probs.max())
 print(probs.prob('pos'))
 print(probs.prob('neg'))
+

@@ -34,7 +34,7 @@ size = int(len(featuresets) * 0.1)
 train_set, test_set = featuresets[size:], featuresets[:size]
 classifier = nltk.NaiveBayesClassifier.train(train_set)
 pos_classifier_nb_rate = nltk.classify.accuracy(classifier, test_set)
-print('pos_classifier_nb_rate',pos_classifier_nb_rate)  # 0.789
+print('pos_classifier_nb_rate', pos_classifier_nb_rate)  # 0.789
 
 
 # optimize classifier
@@ -76,4 +76,4 @@ tagged_sents = brown.tagged_sents(categories='news')
 size = int(len(tagged_sents) * 0.1)
 train_sents, test_sents = tagged_sents[size:], tagged_sents[:size]
 tagger = ConsecutivePosTagger(train_sents)
-print('ConsecutivePosTagger',tagger.evaluate(test_sents))
+print('ConsecutivePosTagger', tagger.evaluate(test_sents))
