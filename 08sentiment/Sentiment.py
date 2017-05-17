@@ -6,7 +6,7 @@
 from __future__ import print_function  # 兼容python3的print写法
 from __future__ import unicode_literals  # 兼容python3的编码处理
 
-import re, math, requests, json, string
+import re, math, string
 from itertools import product
 from inspect import getsourcefile
 from os.path import abspath, join, dirname
@@ -17,7 +17,7 @@ B_DECR = -0.293
 C_INCR = 0.733
 N_SCALAR = -0.74
 
-REGEX_REMOVE_PUNCTUATION = re.compile('[%s]' % re.escape(string.punctuation))
+REGEX_REMOVE_PUNCTUATION = re.compile('[{0}]'.format(re.escape(string.punctuation)))
 PUNC_LIST = [".", "!", "?", ",", ";", ":", "-", "'", "\"", "!!",
              "!!!", "??", "???", "?!?", "!?!", "?!?!", "!?!?"]
 NEGATE = ['aint', 'arent', 'cannot', 'cant', 'couldnt', 'darent', 'didnt',
@@ -103,7 +103,7 @@ def allcap_differential(words):
         if word.isupper():
             allcap_words += 1
     cap_differential = len(words) - allcap_words
-    if cap_differential > 0 and cap_differential < len(words):
+    if 0 < cap_differential < len(words):
         is_different = True
     return is_different
 
@@ -122,7 +122,7 @@ def scalar_inc_dec(word, valence, is_cap_diff):
         scalar = BOOSTER_DICT[word_lower]
         if valence < 0:
             scalar *= -1
-        # check if word in ALLCAPS
+        # check if word in ALL CAPS
         if word.isupper() and is_cap_diff:
             if valence > 0:
                 scalar += C_INCR
@@ -140,8 +140,8 @@ class SentiText(object):
         if not isinstance(text, str):
             text = str(text.encode('utf-8'))
         self.text = text
-        self.word_and_emoticons = self._words_and_emoticons()
-        self.is_cap_diff = allcap_differential(self.word_and_emoticons)
+        self.words_and_emoticons = self._words_and_emoticons()
+        self.is_cap_diff = allcap_differential(self.words_and_emoticons)
 
     def _words_plus_punc(self):
         """
@@ -211,12 +211,13 @@ class SentimentIntensityAnalyzer(object):
         sentitext = SentiText(text)
 
         sentiments = []
-        words_and_emoticons = sentitext.word_and_emoticons
+        words_and_emoticons = sentitext.words_and_emoticons
         for item in words_and_emoticons:
             valence = 0
             i = words_and_emoticons.index(item)
             if (i < len(words_and_emoticons) - 1 and item.lower() == "kind" and \
-                        words_and_emoticons[i + 1].lower() == "of") or item.lower() in BOOSTER_DICT:
+                        words_and_emoticons[i + 1].lower() == "of") or \
+                    item.lower() in BOOSTER_DICT:
                 sentiments.append(valence)
                 continue
 
@@ -237,8 +238,10 @@ class SentimentIntensityAnalyzer(object):
                 else:
                     valence -= C_INCR
             for start_i in range(0, 3):
-                if i > start_i and words_and_emoticons[i - (start_i + 1)].lower() not in self.lexicon:
-                    s = scalar_inc_dec(words_and_emoticons[i - (start_i + 1)], valence, is_cap_diff)
+                if i > start_i and words_and_emoticons[i - (start_i + 1)].lower() \
+                    not in self.lexicon:
+                    s = scalar_inc_dec(words_and_emoticons[i - (start_i + 1)], \
+                                       valence, is_cap_diff)
                     if start_i == 1 and s != 0:
                         s = s * 0.95
                     if start_i == 2 and s != 0:
@@ -262,10 +265,11 @@ class SentimentIntensityAnalyzer(object):
         """
         if i > 1 and words_and_emoticons[i - 1].lower() not in self.lexicon \
             and words_and_emoticons[i - 1].lower() == "least":
-            if words_and_emoticons[i - 2].lower() != "at" and words_and_emoticons[i - 2].lower() != "very":
+            if words_and_emoticons[i - 2].lower() != "at" and \
+                    words_and_emoticons[i - 2].lower() != "very":
                 valence = valence * N_SCALAR
-        elif i > 0 and words_and_emoticons[i - 1].lower() not in self.lexicon \
-            and words_and_emoticons[i - 1].lower() == "least":
+        elif i > 0 and words_and_emoticons[i - 1].lower() not in self.lexicon and \
+                words_and_emoticons[i - 1].lower() == "least":
             valence = valence * N_SCALAR
         return valence
 
@@ -331,23 +335,30 @@ class SentimentIntensityAnalyzer(object):
                 valence = valence * N_SCALAR
         return valence
 
-    def _punctuation_emphasis(self, sum_s, text):
+    def _punctuation_emphasis(self, text):
         # add emphasis
         ep_amplifier = self._amplify_ep(text)
         qm_amplifier = self._amplify_qm(text)
         punc_emph_amplifier = ep_amplifier + qm_amplifier
         return punc_emph_amplifier
 
-    def _amplify_eq(self, text):
-        # check for added emphasis
+    def _amplify_qm(self, text):
         qm_count = text.count("?")
-        qm_amplifier = 0
+        qm_amplifier = 0;
         if qm_count > 1:
             if qm_count <= 3:
                 qm_amplifier = qm_count * 0.18
             else:
                 qm_amplifier = 0.96
         return qm_amplifier
+
+    def _amplify_ep(self, text):
+        # check for added emphasis
+        ep_count = text.count("!")
+        if ep_count > 4:
+            ep_count = 4
+        ep_amplifier = ep_count * 0.292
+        return ep_amplifier
 
     def _sift_sentiment_scores(self, sentiments):
         # separate positive versus negative sentiment scores
@@ -366,7 +377,7 @@ class SentimentIntensityAnalyzer(object):
     def score_valence(self, sentiments, text):
         if sentiments:
             sum_s = float(sum(sentiments))
-            punct_emph_amplifier = self._punctuation_emphasis(sum_s, text)
+            punct_emph_amplifier = self._punctuation_emphasis( text)
             if sum_s > 0:
                 sum_s += punct_emph_amplifier
             elif sum_s < 0:
@@ -393,5 +404,5 @@ class SentimentIntensityAnalyzer(object):
         sentiment_dict = {"neg": round(neg, 3),
                           "neu": round(neu, 3),
                           "pos": round(pos, 3),
-                          "compund": round(compound, 4)}
+                          "compound": round(compound, 4)}
         return sentiment_dict
