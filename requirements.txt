@@ -1,2 +1,6 @@
 numpy
 scipy
+matplotlib
+nltk
+Keras
+scikit-learn

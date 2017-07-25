@@ -6,7 +6,6 @@
 from __future__ import print_function  # 兼容python3的print写法
 from __future__ import unicode_literals  # 兼容python3的编码处理
 
-
 # 在 Python 中，函数是一种基本类型的对象，这意味着
 #
 # 可以将函数作为参数传给另一个函数
