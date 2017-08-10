@@ -33,5 +33,3 @@ except KeyboardInterrupt:
 
 myServer.server_close()
 print(time.asctime(), "Server Stops - %s:%s" % (hostName, hostPort))
-
-'dfs'.encode()
