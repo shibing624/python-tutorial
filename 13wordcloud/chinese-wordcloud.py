@@ -14,7 +14,7 @@ text = ' '.join(jieba.lcut(text))
 with open('../data/stopword.txt', encoding='utf-8') as f:
     for line in f:
         STOPWORDS.add(line.strip())
-print("stopwrod size:" + len(STOPWORDS))
+print("stopwrod size:", len(STOPWORDS))
 backgroud_Image = plt.imread('../data/cloud/girl.jpg')
 wc = WordCloud(background_color='white',  # 设置背景颜色
                # mask=backgroud_Image,  # 设置背景图片
