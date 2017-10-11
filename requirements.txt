@@ -4,3 +4,4 @@ matplotlib
 nltk
 Keras
 scikit-learn
+pypinyin
