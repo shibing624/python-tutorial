@@ -59,5 +59,5 @@ def read_label(filename, saveFilename):
 
 
 if __name__ == '__main__':
-    read_image('data/t10k-images-idx3-ubyte')
-    read_label('data/t10k-labels-idx1-ubyte', 'data/label.txt')
+    read_image('../data/t10k-images-idx3-ubyte')
+    read_label('../data/t10k-labels-idx1-ubyte', '../data/label.txt')
