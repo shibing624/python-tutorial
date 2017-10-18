@@ -29,6 +29,6 @@ config = {
 }
 
 evaluate = {
-    "checkpoint_dir": "",  # checkpoint directory from training run
+    "checkpoint_dir": "runs/1508229684/checkpoints",  # checkpoint directory from training run
     "eval_all_train_data": False,  # evaluate on all training data
 }

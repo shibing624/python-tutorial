@@ -3,7 +3,6 @@
 # Data: 17/10/16
 # Brief: 
 import tensorflow as tf
-import numpy as np
 
 
 class TextCNN:

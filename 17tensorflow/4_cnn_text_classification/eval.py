@@ -3,16 +3,15 @@
 # Data: 17/10/16
 # Brief: cnn网络结构
 
-import tensorflow as tf
-import numpy as np
-import os
-import time
-import datetime
-import data_helpers
 import csv
+import os
+
+import numpy as np
+import tensorflow as tf
 from tensorflow.contrib import learn
-from text_cnn import TextCNN
+
 import config
+import data_helpers
 
 # params
 print("\nparameters evaluate:")
@@ -24,18 +23,21 @@ if config.evaluate["eval_all_train_data"]:
                                                   config.config["negative_data_file"])
     y_test = np.argmax(y_test, axis=1)
 else:
-    x_raw = ["In my opinion, this is Rembrandt's greatest work", "everything is off."]
-    y_test = [1, 0]
+    x_raw = ["many insightful moments .", "everything is off.", "i hate you .", "it is a bad film."]
+    y_test = [1, 0, 0, 1]
 
 # map data into vocabulary
 checkpoint_dir = config.evaluate["checkpoint_dir"]
 vocab_path = os.path.join(checkpoint_dir, "..", "vocab")
+print("vocab_path:", vocab_path)
 vocab_processor = learn.preprocessing.VocabularyProcessor.restore(vocab_path)
 x_test = np.array(list(vocab_processor.transform(x_raw)))
 
 print("\nEvluating...\n")
 
 checkpoint_file = tf.train.latest_checkpoint(checkpoint_dir)
+print("checkpoint file", checkpoint_file)
+
 graph = tf.Graph()
 with graph.as_default():
     session_conf = tf.ConfigProto(allow_soft_placement=config.config["allow_soft_placement"],

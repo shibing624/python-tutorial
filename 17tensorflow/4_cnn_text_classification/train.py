@@ -3,15 +3,17 @@
 # Data: 17/10/17
 # Brief: train data
 
-import tensorflow as tf
-import numpy as np
+import datetime
 import os
 import time
-import datetime
+
+import numpy as np
+import tensorflow as tf
 from tensorflow.contrib import learn
+
+import config
 import data_helpers
 from text_cnn import TextCNN
-import config
 
 # params
 print("\nparameters config:")

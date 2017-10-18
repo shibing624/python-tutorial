@@ -3,10 +3,9 @@
 # Data: 17/10/16
 # Brief: 数据处理
 
-import numpy as np
 import re
-import itertools
-from collections import Counter
+
+import numpy as np
 
 
 def clean_str(string):
