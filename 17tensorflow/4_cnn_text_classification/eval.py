@@ -23,8 +23,9 @@ if config.evaluate["eval_all_train_data"]:
                                                   config.config["negative_data_file"])
     y_test = np.argmax(y_test, axis=1)
 else:
-    x_raw = ["many insightful moments .", "everything is off.", "i hate you .", "it is a bad film."]
-    y_test = [1, 0, 0, 1]
+    x_raw = ["many insightful moments .", "everything is off.", "i hate you .", "it is a bad film.",
+             "good man and bad person."]
+    y_test = [1, 0, 0, 1, 1]
 
 # map data into vocabulary
 checkpoint_dir = config.evaluate["checkpoint_dir"]

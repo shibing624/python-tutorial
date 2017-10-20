@@ -75,8 +75,10 @@ with tf.Graph().as_default():
         grad_summaries_total = tf.summary.merge(grad_summaries)
 
         # output directory for models and summaries
+        today = str(datetime.datetime.today().strftime("%Y%m%d"))
         timestamp = str(int(time.time()))
-        out_dir = os.path.abspath(os.path.join(os.path.curdir, "runs", timestamp))
+        folder = today + "-" + timestamp
+        out_dir = os.path.abspath(os.path.join(os.path.curdir, "runs", folder))
         print("writing to {}\n".format(out_dir))
 
         # summaries for loss and accuracy

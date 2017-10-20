@@ -6,8 +6,8 @@
 config = {
     # data
     "dev_sample_percentage": 0.1,  # percentage of the training data for validation
-    "positive_data_file": "./data/en_polarity/pos.txt",  # positive data
-    "negative_data_file": "./data/en_polarity/neg.txt",  # negative data
+    "positive_data_file": "./data/zh_polarity/pos.txt",  # positive data
+    "negative_data_file": "./data/zh_polarity/neg.txt",  # negative data
 
     # model
     "embedding_dim": 128,  # dimensionality of character embedding (default: 128)
