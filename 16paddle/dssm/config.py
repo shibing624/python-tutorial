@@ -19,8 +19,12 @@ config = {
     "num_workers": 4,  # num worker threads, default 1
     "use_gpu": False,  # use GPU devices
     "class_num": 2,  # number of categories for classification task
-    "model_output_prefix": "./output/",  # prefix of the path for model to store
+    "model_output_prefix": "./data/output/",  # prefix of the path for model to store
     "num_batches_to_log": 100,  # log
     "num_batches_to_test": 200,  # batches to test
     "num_batches_to_save_model": 400,  # number of batches to output model, (default: 400)
+
+    "prediction_output_path": "./data/output/prediction.txt",  # output prediction file
+    "model_path": "./data/output/dssm_classification_rnn_pass_00009.tar",  # saved model path
+    "infer_data_paths": ["./data/classification/test/right.txt"],  # infer data path
 }

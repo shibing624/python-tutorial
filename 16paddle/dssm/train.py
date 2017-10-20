@@ -5,17 +5,17 @@
 
 
 import paddle.v2 as paddle
-from network import DSSM
-import reader
-from utils import TaskType, load_dic, logger, ModelType, ModelArch, display_args
+
 import config
+import reader
+from network import DSSM
+from utils import load_dic, logger, ModelType, ModelArch, display_args
 
 
 def train(train_data_paths=None,
           test_data_paths=None,
           source_dic_path=None,
           target_dic_path=None,
-          model_type=ModelType.create_classification(),
           model_arch=ModelArch.create_rnn(),
           batch_size=10,
           num_passes=10,
@@ -23,7 +23,6 @@ def train(train_data_paths=None,
           share_embed=False,
           class_num=2,
           num_workers=1,
-          dnn_dims="256,128,64,32",
           use_gpu=False):
     """
     train DSSM
@@ -33,7 +32,7 @@ def train(train_data_paths=None,
     default_test_paths = ["./data/classification/test/right.txt",
                           "./data/classification/test/wrong.txt"]
     default_dic_path = "./data/vocab.txt"
-    layer_dims = [int(i) for i in dnn_dims.split(',')]
+    layer_dims = [int(i) for i in config.config['dnn_dims'].split(',')]
     use_default_data = not train_data_paths
     if use_default_data:
         train_data_paths = default_train_paths
@@ -58,7 +57,6 @@ def train(train_data_paths=None,
     cost, prediction, label = DSSM(
         dnn_dims=layer_dims,
         vocab_sizes=[len(load_dic(path)) for path in [source_dic_path, target_dic_path]],
-        model_type=model_type,
         model_arch=model_arch,
         share_semantic_generator=share_semantic_generator,
         class_num=class_num,
@@ -93,21 +91,24 @@ def train(train_data_paths=None,
             # test model
             if event.batch_id > 0 and event.batch_id % config.config['num_batches_to_test'] == 0:
                 if test_reader is not None:
-                    if model_type.is_classification():
-                        result = trainer.test(reader=test_reader, feeding=feeding)
-                        logger.info("Test at Pass %d, %s" % (event.pass_id, result.metrics))
-                    else:
-                        result = None
+                    result = trainer.test(reader=test_reader, feeding=feeding)
+                    logger.info("Test at Pass %d, %s" % (event.pass_id, result.metrics))
 
             # save model
             if event.batch_id > 0 and event.batch_id % config.config['num_batches_to_save_model'] == 0:
-                model_desc = "classification_{arch}".format(arch=str(config.config['model_arch']))
+                model_desc = "classification_{arch}".format(arch=str(model_arch))
                 with open("%sdssm_%s_pass_%05d.tar" %
                               (config.config['model_output_prefix'], model_desc,
                                event.pass_id), "w") as f:
                     parameters.to_tar(f)
                 logger.info("save model: %sdssm_%s_pass_%05d.tar" %
                             (config.config['model_output_prefix'], model_desc, event.pass_id))
+
+        # if isinstance(event, paddle.event.EndPass):
+        #     result = trainer.test(reader=test_reader, feeding=feeding)
+        #     logger.info("Test with pass %d, %s" % (event.pass_id, result.metrics))
+        #     with open("./data/output/endpass/dssm_params_pass" + str(event.pass_id) + ".tar", "w") as f:
+        #         parameters.to_tar(f)
 
     trainer.train(reader=train_reader,
                   event_handler=_event_handler,
@@ -127,7 +128,6 @@ if __name__ == '__main__':
           num_passes=config.config["num_passes"],
           share_semantic_generator=config.config["share_network_between_source_target"],
           share_embed=config.config["share_embed"],
-          dnn_dims=config.config["dnn_dims"],
           class_num=config.config["class_num"],
           num_workers=config.config["num_workers"],
           use_gpu=config.config["use_gpu"])
