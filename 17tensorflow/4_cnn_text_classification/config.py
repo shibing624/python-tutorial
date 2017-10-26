@@ -29,6 +29,7 @@ config = {
 }
 
 evaluate = {
-    "checkpoint_dir": "runs/1508229684/checkpoints",  # checkpoint directory from training run
+    "infer_data": "./data/input_data.txt",  # infer data
+    "checkpoint_dir": "runs/20171020-1508503142/checkpoints",  # checkpoint directory from training run
     "eval_all_train_data": False,  # evaluate on all training data
 }

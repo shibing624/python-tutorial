@@ -75,6 +75,29 @@ def load_data_labels(positive_data_file, negative_data_file):
     return [x_text, y]
 
 
+def load_infer_data(lines):
+    """
+    Loads infer data
+    :param positive_data_file:
+    :param negative_data_file:
+    :return: split sentence and labels
+    """
+    x_text = [s.strip() for s in lines]
+    clean_text = []
+    for sent in x_text:
+        # 中文
+        if contain_chinese(sent):
+            # 用1元切分
+            # clean_text.append(" ".join(list(sent)))
+            # jieba切词
+            clean_text.append(" ".join(jieba.cut(sent)))
+        else:
+            # 英文用clean_str切分
+            clean_text.append(clean_str(sent))
+    x_text = clean_text
+    return x_text
+
+
 def batch_iter(data, batch_size, num_epochs, shuffle=True):
     """
     Generate a batch iterator for dataset
