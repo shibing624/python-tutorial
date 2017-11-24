@@ -84,5 +84,6 @@ x_raw = [x.encode("utf-8") for x in x_raw]
 predictions_human_readable = np.column_stack((np.array(x_raw), all_predictions))
 out_path = os.path.join(checkpoint_dir, "..", "prediction.csv")
 print("Saving evaluation to {0}".format(out_path))
+print(predictions_human_readable)
 with open(out_path, "w")as f:
     csv.writer(f).writerows(predictions_human_readable)
