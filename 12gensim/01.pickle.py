@@ -51,7 +51,7 @@ print("Load 2:", pickle.loads(data_string_2))
 with open('data.pkl', 'wb') as f:
     pickle.dump(data, f)
 
-with open('data.pkl') as f:
+with open('data.pkl',"rb") as f:
     data_from_file = pickle.load(f)
 
 print(data_from_file)

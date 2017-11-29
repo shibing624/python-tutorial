@@ -25,7 +25,7 @@ t1 = nltk.UnigramTagger(train_sents, backoff=t0)
 t2 = nltk.BigramTagger(train_sents, backoff=t1)
 
 output = open('t2.pkl', 'wb')
-pickle.dump(t2, output, -1)
+pickle.dump(t2, output)
 output.close()
 
 input = open('t2.pkl', 'rb')
