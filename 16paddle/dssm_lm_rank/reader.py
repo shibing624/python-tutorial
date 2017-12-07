@@ -2,62 +2,55 @@
 # Author: XuMing <shibing624@126.com>
 # Data: 17/10/18
 # Brief: read data set
-from utils import load_dict, logger, sent2lm
+from utils import logger
 
 
-class Dataset(object):
-    def __init__(self, train_path, test_path, word_dict, is_infer=False):
-        self.train_path = train_path
-        self.test_path = test_path
-        self.word_dict = word_dict
-        self.is_infer = is_infer
+def rnn_reader(file_path, word_dict, is_infer):
+    """
+    create reader for RNN, each line is a sample.
 
-    def train(self):
-        '''
-        Load trainset.
-        '''
-        logger.info("[reader] load trainset from %s" % self.train_path)
-        with open(self.train_path) as f:
+    :param file_path: file path.
+    :param word_dict: vocab with content of '{word, id}',
+                      'word' is string type , 'id' is int type.
+    :return: data reader.
+    """
+
+    def reader():
+        with open(file_path) as f:
             for line_id, line in enumerate(f):
-                yield self.record_reader(line)
+                yield record_reader(line, word_dict, is_infer)
 
-    def test(self):
-        '''
-        Load testset.
-        '''
-        with open(self.test_path) as f:
-            for line_id, line in enumerate(f):
-                yield self.record_reader(line)
-
-    def infer(self):
-        self.is_infer = True
-        with open(self.train_path) as f:
-            for line in f:
-                yield self.record_reader(line)
-
-    def record_reader(self, line):
-        '''
-        data format:
-            <source words> [TAB] <target words> [TAB] <label>
-        '''
-        fs = line.strip().split('\t')
-        assert len(fs) == 3, "wrong format for rank\n" + \
-                             "the format should be " + \
-                             "<source words> [TAB] <target words> [TAB] <label>"
-
-        source = sent2lm(fs[0], self.word_dict)
-        target = sent2lm(fs[1], self.word_dict)
-        if not self.is_infer:
-            label = int(fs[2])
-            return source, target, label
-        return source, target
+    return reader
 
 
-if __name__ == "__main__":
-    train_path = "./data/rank/train.txt"
-    test_path = "./data/rank/test.txt"
-    dic_path = "./data/vocab.txt"
-    word_dict = load_dict(dic_path)
-    dataset = Dataset(train_path, test_path, word_dict)
-    for record in dataset.train():
-        print(record)
+def record_reader(line, word_dict, is_infer):
+    """
+    data format:
+        <source words> [TAB] <target words> [TAB] <label>
+    :param line:
+    :param word_dict:
+    :return:
+    """
+    fs = line.strip().split('\t')
+    assert len(fs) == 3, "wrong format for rank\n" + \
+                         "the format should be " + \
+                         "<source words> [TAB] <target words> [TAB] <label>"
+
+    left = sent2lm(fs[0], word_dict)
+    right = sent2lm(fs[1], word_dict)
+    if not is_infer:
+        label = int(fs[2])
+        return left[0], left[1], right[0], right[1], label
+    return left[0], left[1], right[0], right[1]
+
+
+def sent2lm(sent, word_dict):
+    """
+    transform a sentence to a list of language model ids.
+    :param sent:
+    :param word_dict:
+    :return:
+    """
+    UNK = word_dict['<unk>']
+    ids = [word_dict.get(w, UNK) for w in sent.strip().lower().split()] + [word_dict['<e>']]
+    return ids[:-1], ids[1:]

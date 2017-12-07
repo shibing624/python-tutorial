@@ -43,8 +43,8 @@ def build_dict(data_file,
     sorted_words = sorted(
         word_count.iteritems(), key=lambda x: x[1], reverse=True)
 
-    stop_pos = len(sorted_words) if sorted_words[-1][
-                                        1] > cutoff_word_fre else next(idx for idx, v in enumerate(sorted_words)
+    stop_pos = len(sorted_words) if \
+        sorted_words[-1][1] > cutoff_word_fre else next(idx for idx, v in enumerate(sorted_words)
                                                                        if v[1] < cutoff_word_fre)
 
     stop_pos = min(max_word_num, stop_pos)
@@ -69,20 +69,7 @@ def load_dict(dict_path):
         for id, line in enumerate(f):
             word = line.strip().split("\t")[0]
             dic[word] = id
-    logger.info("dictionary size = %d" % (len(dic)))
     return dic
-
-
-def sent2lm(sent, word_dict):
-    """
-    transform a sentence to a list of language model ids.
-    :param sent:
-    :param word_dict:
-    :return:
-    """
-    UNK = word_dict['<unk>']
-    ids = [word_dict.get(w, UNK) for w in sent.strip().lower().split()] + [word_dict['<e>']]
-    return ids[:-1], ids[1:]
 
 
 def load_reverse_dict(dict_path):

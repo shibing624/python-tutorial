@@ -3,8 +3,9 @@
 # Brief: 定义dssm网络结构
 
 import paddle.v2 as paddle
-from utils import logger
 from paddle.v2.attr import ParamAttr
+
+from utils import logger
 
 
 def dssm_lm(vocab_sizes=[],
@@ -60,40 +61,60 @@ def dssm_lm(vocab_sizes=[],
     left_output = paddle.layer.fc(input=[features[0]], size=vocab_sizes[0], act=paddle.activation.Softmax())
     right_output = paddle.layer.fc(input=[features[1]], size=vocab_sizes[1], act=paddle.activation.Softmax())
 
+    # perplexity
     left_entropy = paddle.layer.cross_entropy_cost(input=left_output, label=left_target)
-    left_trans = paddle.layer.trans(left_entropy)
-    left_score = paddle.layer.sum_cost(left_trans)
-
     right_entropy = paddle.layer.cross_entropy_cost(input=right_output, label=right_target)
-    right_trans = paddle.layer.trans(right_entropy)
-    right_score = paddle.layer.sum_cost(right_trans)
+
+    # pooling to sum/avg score
+    left_score = paddle.layer.pooling(input=left_entropy, pooling_type=paddle.pooling.Sum())
+    right_score = paddle.layer.pooling(input=right_entropy, pooling_type=paddle.pooling.Sum())
 
     # cost
     if not is_infer:
         cost = paddle.layer.rank_cost(left_score, right_score, label=label)
         return cost, label
-    return right_output
+    # infer
+    return left_score, right_score
 
 
 def create_embedding(input, emb_dim=256, prefix=""):
+    """
+    A word embedding vector layer
+    :param input:
+    :param emb_dim:
+    :param prefix:
+    :return:
+    """
     logger.info("create embedding table [%s] which dim is %d" % (prefix, emb_dim))
     emb = paddle.layer.embedding(input=input, size=emb_dim, param_attr=ParamAttr(name='%s_emb.w' % prefix))
     return emb
 
 
 def create_gru(emb, hidden_size=256, stacked_rnn_num=2, prefix=''):
-    '''
+    """
     A GRU sentence vector learner.
-    '''
+    :param emb:
+    :param hidden_size:
+    :param stacked_rnn_num:
+    :param prefix:
+    :return:
+    """
+    logger.info("create gru")
     for i in range(stacked_rnn_num):
         rnn_cell = paddle.networks.simple_gru(input=rnn_cell if i else emb, size=hidden_size)
     return rnn_cell
 
 
 def create_lstm(emb, hidden_size=256, stacked_rnn_num=2, prefix=''):
-    '''
+    """
     A LSTM sentence vector learner.
-    '''
+    :param emb:
+    :param hidden_size:
+    :param stacked_rnn_num:
+    :param prefix:
+    :return:
+    """
+    logger.info("create lstm")
     for i in range(stacked_rnn_num):
         rnn_cell = paddle.networks.simple_lstm(input=rnn_cell if i else emb, size=hidden_size)
     return rnn_cell

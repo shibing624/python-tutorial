@@ -5,32 +5,43 @@
 
 
 import os
-import paddle.v2 as paddle
 
+import paddle.v2 as paddle
+import numpy as np
 import config
 import reader
 from network import dssm_lm
-from utils import logger, build_dict, load_dict, display_args
+from utils import logger, build_dict, load_dict
 
 
 def train(train_data_path=None,
           test_data_path=None,
           word_dict=None,
-          batch_size=10,
+          batch_size=32,
           num_passes=10,
           share_semantic_generator=False,
           share_embed=False,
-          num_workers=1,
-          use_gpu=False):
+          num_workers=4,
+          use_gpu=False,
+          is_infer=False):
     """
     train DSSM
     """
-    dataset = reader.Dataset(train_data_path, test_data_path, word_dict)
+    # define reader
+    reader_args = {
+        "file_path": train_data_path,
+        "word_dict": word_dict,
+        "is_infer": is_infer,
+    }
+    train_reader = paddle.batch(
+        paddle.reader.shuffle(reader.rnn_reader(**reader_args), buf_size=102400),
+        batch_size=batch_size)
+    test_reader = None
+    if os.path.exists(test_data_path) and os.path.getsize(test_data_path):
+        test_reader = paddle.batch(
+            paddle.reader.shuffle(reader.rnn_reader(**reader_args), buf_size=65536),
+            batch_size=batch_size)
 
-    train_reader = paddle.batch(paddle.reader.shuffle(dataset.train, buf_size=102400),
-                                batch_size=batch_size)
-    test_reader = paddle.batch(paddle.reader.shuffle(dataset.test, buf_size=65536),
-                               batch_size=batch_size)
     # initialize PaddlePaddle
     paddle.init(use_gpu=use_gpu, trainer_count=num_workers)
 
@@ -42,7 +53,7 @@ def train(train_data_path=None,
         stacked_rnn_num=config.stacked_rnn_num,
         rnn_type=config.rnn_type,
         share_semantic_generator=share_semantic_generator,
-        share_embed=share_embed)()
+        share_embed=share_embed)
 
     # create parameters
     parameters = paddle.parameters.create(cost)
@@ -50,13 +61,15 @@ def train(train_data_path=None,
         learning_rate=1e-3,
         regularization=paddle.optimizer.L2Regularization(rate=1e-3),
         model_average=paddle.optimizer.ModelAverage(average_window=0.5, max_average_window=10000))
+
     # create trainer
     trainer = paddle.trainer.SGD(
         cost=cost,
         parameters=parameters,
         update_equation=adam_optimizer)
 
-    feeding = {"source_input": 0, "target_input": 1, "label_input": 2}
+    # feed to train
+    feeding = {"left_input": 0, "left_target": 1, "right_input": 2, "right_target": 3, "label": 4}
 
     # define the event_handler callback
     def _event_handler(event):
@@ -68,8 +81,9 @@ def train(train_data_path=None,
         if isinstance(event, paddle.event.EndIteration):
             # output train log
             if event.batch_id % config.num_batches_to_log == 0:
-                logger.info("Pass %d, Batch %d, Cost %f, %s" %
-                            (event.pass_id, event.batch_id, event.cost, event.metrics))
+                if test_reader is not None:
+                    logger.info("Pass %d Batch %d : Cost %f, %s" %
+                                (event.pass_id, event.batch_id, event.cost, event.metrics))
 
             # save model
             if event.batch_id > 0 and event.batch_id % config.num_batches_to_save_model == 0:
@@ -82,17 +96,16 @@ def train(train_data_path=None,
                             (model_desc, event.pass_id))
 
         if isinstance(event, paddle.event.EndPass):
-            if test_reader is not None:
-                result = trainer.test(reader=test_reader)
-                logger.info("Test with Pass %d, %s" %
-                            (event.pass_id, result.metrics))
             save_name = os.path.join(config.model_save_dir, "dssm_pass_%05d.tar" % event.pass_id)
             with open(save_name, "w") as f:
                 parameters.to_tar(f)
+            result = trainer.test(reader=test_reader, feeding=feeding)
+            logger.info("Test with Pass %d, %s" % (event.pass_id, result.metrics))
 
+    logger.info("start training...")
     trainer.train(reader=train_reader,
                   event_handler=_event_handler,
-                  # feeding=feeding,
+                  feeding=feeding,
                   num_passes=num_passes)
     logger.info("training finish.")
 
@@ -114,7 +127,7 @@ def main():
           word_dict=word_dict,
           batch_size=config.batch_size,
           num_passes=config.num_passes,
-          share_semantic_generator=config.share_network_between_source_target,
+          share_semantic_generator=config.share_semantic_generator,
           share_embed=config.share_embed,
           num_workers=config.num_workers,
           use_gpu=config.use_gpu)

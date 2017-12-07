@@ -19,14 +19,13 @@ test_data_path = "data/rank/test.txt"
 # word dictionary will be built from training data.
 dic_path = "data/rank/vocab.txt"
 
-share_network_between_source_target = False  # whether to share network parameters between source and target
-share_embed = False  # whether to share word embedding between source and target
+share_semantic_generator = True  # whether to share network parameters between source and target
+share_embed = True  # whether to share word embedding between source and target
 
-num_workers = 1
+num_workers = 1 # threads
 use_gpu = False  # to use gpu or not
 
-num_batches_to_log = 100
-num_batches_to_test = 200
+num_batches_to_log = 50
 num_batches_to_save_model = 400  # number of batches to output model
 
 # directory to save the trained model
@@ -39,8 +38,12 @@ emb_dim = 256
 hidden_size = 256
 stacked_rnn_num = 2
 batch_size = 32  # the number of training examples in one forward/backward pass
-num_passes = 20  # how many passes to train the model
+num_passes = 10  # how many passes to train the model
 
+##################  for model infer  ##################
+model_path = "output/dssm_pass_00009.tar"
+infer_path = "data/rank/test.txt"
+prediction_output_path  = "data/rank/pred.txt"
 
 if not os.path.exists(model_save_dir):
     os.mkdir(model_save_dir)

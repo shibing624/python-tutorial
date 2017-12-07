@@ -3,63 +3,79 @@
 # Data: 17/10/18
 # Brief: 预测
 
-import itertools
+
+import os
+import sys
+
 import paddle.v2 as paddle
-import reader
-from network import DSSM
-from utils import logger, ModelArch, ModelType, load_dic
+import numpy as np
 import config
-
-paddle.init(use_gpu=False, trainer_count=1)
-
-
-class Inferer(object):
-    def __init__(self, model_path):
-        logger.info("create DSSM model")
-        self.source_dic_path = config.config["source_dic_path"]
-        self.target_dic_path = config.config["target_dic_path"]
-        dnn_dims = config.config["dnn_dims"]
-        layer_dims = [int(i) for i in dnn_dims.split(',')]
-        model_arch = ModelArch(config.config["model_arch"])
-        share_semantic_generator = config.config["share_network_between_source_target"]
-        share_embed = config.config["share_embed"]
-        class_num = config.config["class_num"]
-        prediction = DSSM(
-            dnn_dims=layer_dims,
-            vocab_sizes=[len(load_dic(path)) for path in [self.source_dic_path, self.target_dic_path]],
-            model_arch=model_arch,
-            share_semantic_generator=share_semantic_generator,
-            class_num=class_num,
-            share_embed=share_embed,
-            is_infer=True)()
-
-        # load parameter
-        logger.info("load model parameters from %s " % model_path)
-        self.parameters = paddle.parameters.Parameters.from_tar(
-            open(model_path, "r"))
-        self.inferer = paddle.inference.Inference(
-            output_layer=prediction, parameters=self.parameters)
-
-    def infer(self, data_path):
-        logger.info("infer data...")
-        dataset = reader.Dataset(train_paths=data_path,
-                                 test_paths=None,
-                                 source_dic_path=self.source_dic_path,
-                                 target_dic_path=self.target_dic_path)
-        infer_reader = paddle.batch(dataset.infer, batch_size=1000)
-        prediction_output_path = config.config["prediction_output_path"]
-        logger.warning("write prediction to %s" % prediction_output_path)
-        with open(prediction_output_path, "w")as f:
-            for id, batch in enumerate(infer_reader()):
-                res = self.inferer.infer(input=batch)
-                prediction = [" ".join(map(str, x)) for x in res]
-                assert len(batch) == len(prediction), ("predict error, %d inputs,"
-                                                       "but %d predictions") % (len(batch), len(prediction))
-                f.write("\n".join(map(str, prediction)) + "\n")
+import reader
+from network import dssm_lm
+from utils import logger, load_dict, load_reverse_dict
 
 
-if __name__ == '__main__':
-    model_path = config.config["model_path"]
-    infer_data_paths = config.config["infer_data_paths"]
-    inferer = Inferer(model_path)
-    inferer.infer(infer_data_paths)
+def infer(model_path, dic_path, infer_path, prediction_output_path, rnn_type="gru", batch_size=1):
+    logger.info("begin to predict...")
+    # check files
+    assert os.path.exists(model_path), "trained model not exits."
+    assert os.path.exists(dic_path), " word dictionary file not exist."
+    assert os.path.exists(infer_path), "infer file not exist."
+
+    logger.info("load word dictionary.")
+    word_dict = load_dict(dic_path)
+    word_reverse_dict = load_reverse_dict(dic_path)
+    logger.info("dictionary size = %d" % (len(word_dict)))
+
+    try:
+        word_dict["<unk>"]
+    except KeyError:
+        logger.fatal("the word dictionary must contain <unk> token.")
+        sys.exit(-1)
+
+    # initialize PaddlePaddle
+    paddle.init(use_gpu=config.use_gpu, trainer_count=config.num_workers)
+
+    # load parameter
+    logger.info("load model parameters from %s " % model_path)
+    parameters = paddle.parameters.Parameters.from_tar(
+        open(model_path, "r"))
+
+    # load the trained model
+    prediction = dssm_lm(
+        vocab_sizes=[len(word_dict), len(word_dict)],
+        emb_dim=config.emb_dim,
+        hidden_size=config.hidden_size,
+        stacked_rnn_num=config.stacked_rnn_num,
+        rnn_type=rnn_type,
+        share_semantic_generator=config.share_semantic_generator,
+        share_embed=config.share_embed,
+        is_infer=True)
+    inferer = paddle.inference.Inference(
+        output_layer=prediction, parameters=parameters)
+    feeding = {"left_input": 0, "left_target": 1, "right_input": 2, "right_target": 3}
+
+    logger.info("infer data...")
+    # define reader
+    reader_args = {
+        "file_path": infer_path,
+        "word_dict": word_dict,
+        "is_infer": True,
+    }
+    infer_reader = paddle.batch(reader.rnn_reader(**reader_args), batch_size=batch_size)
+    logger.warning("output prediction to %s" % prediction_output_path)
+    with open(prediction_output_path, "w")as f:
+        for id, item in enumerate(infer_reader()):
+            left_text = " ".join([word_reverse_dict[id] for id in item[0][0]])
+            right_text = " ".join([word_reverse_dict[id] for id in item[0][2]])
+            probs = inferer.infer(input=item, field=["value"], feeding=feeding)
+            f.write("%f\t%f\t%s\t%s" % (probs[0], probs[1], left_text, right_text))
+            f.write("\n")
+
+
+if __name__ == "__main__":
+    infer(model_path=config.model_path,
+          dic_path=config.dic_path,
+          infer_path=config.infer_path,
+          prediction_output_path=config.prediction_output_path,
+          rnn_type=config.rnn_type)
