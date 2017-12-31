@@ -5,3 +5,4 @@ nltk
 Keras
 scikit-learn
 pypinyin
+tensorflow
