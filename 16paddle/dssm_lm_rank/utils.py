@@ -45,7 +45,7 @@ def build_dict(data_file,
 
     stop_pos = len(sorted_words) if \
         sorted_words[-1][1] > cutoff_word_fre else next(idx for idx, v in enumerate(sorted_words)
-                                                                       if v[1] < cutoff_word_fre)
+                                                        if v[1] < cutoff_word_fre)
 
     stop_pos = min(max_word_num, stop_pos)
     with open(save_path, "w") as fdict:

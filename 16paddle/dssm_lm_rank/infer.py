@@ -8,7 +8,7 @@ import os
 import sys
 
 import paddle.v2 as paddle
-import numpy as np
+
 import config
 import reader
 from network import dssm_lm

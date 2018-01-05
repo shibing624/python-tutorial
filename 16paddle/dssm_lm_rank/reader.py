@@ -2,7 +2,6 @@
 # Author: XuMing <shibing624@126.com>
 # Data: 17/10/18
 # Brief: read data set
-from utils import logger
 
 
 def rnn_reader(file_path, word_dict, is_infer):
