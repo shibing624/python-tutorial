@@ -9,15 +9,13 @@ from lr import LR
 from xgb import XGB
 from xgb_lr import XGBLR
 
-train_file = "./data/train.data.sample"
-test_file = "./data/test.data.sample"
+train_file = "./data/train.demo.txt"
+test_file = "./data/test.demo.txt"
 max_feature_cnt = 40
 feature_max_df = 0.55
 feature_min_df = 3
 ngram_range = (1, 2)
 model_path = './data/'
-tfidf_model_name = model_path + 'tfidf_feature.model'
-best_feature_model_name = model_path + 'best_feature.model'
 xgb_model_name = model_path + 'xgb.model'
 lr_model_name = model_path + 'lr.model'
 xgblr_xgb_model_name = model_path + 'xgblr_xgb.model'
@@ -25,7 +23,7 @@ xgblr_lr_model_name = model_path + 'xgblr_lr.model'
 one_hot_encoder_model_name = model_path + 'xgblr_ont_hot_encoder.model'
 
 
-class ClassificationTest(unittest.TestCase):
+class ATest(unittest.TestCase):
     """Test Case for classification
     """
 
@@ -40,52 +38,35 @@ class ClassificationTest(unittest.TestCase):
     def test_init(self):
         print("test_init")
         """测试初始化函数，捕捉异常"""
-        data_x, data_y = load_load(train_file)
+        data_x, data_y = load_variant_data(train_file)
         self.assertEqual(len(data_x) > 0, True)
 
     def model_train(self, train_file):
-        train_x, train_y = load_load(train_file)
-        features = Feature(tfidf_model_name, best_feature_model_name)
-        features.fit(max_feature_cnt, feature_max_df,
-                     feature_min_df, ngram_range, train_x, train_y)
-        model_train_x_feature = features.transform(train_x)
+        train_x, train_y = load_variant_data(train_file)
         # xgboost
         print('train a single xgb model...')
         xgb_clf = LR(xgb_model_name)
-        xgb_clf.train_model(model_train_x_feature, train_y)
+        xgb_clf.train_model(train_x, train_y)
         print('train a single xgb model done.\n')
 
         # lr
         print('train a single lr model...')
         lr_clf = LR(lr_model_name)
-        lr_clf.train_model(model_train_x_feature, train_y)
+        lr_clf.train_model(train_x, train_y)
         print('train a single LR model done.\n')
 
-        # xgboost+lr
-        print('train a xgboost+lr model...')
-        xgb_lr_clf = XGBLR(xgblr_xgb_model_name, xgblr_lr_model_name, one_hot_encoder_model_name)
-        xgb_lr_clf.train_model(model_train_x_feature, train_y)
-        print('train a xgboost+lr model done.\n')
-
     def model_test(self, test_file):
-        test_x, test_y = load_load(test_file)
-        features = Feature(tfidf_model_name, best_feature_model_name)
-        features.load_model()
-        model_test_x_feature = features.transform(test_x)
+        test_x, test_y = load_variant_data(test_file)
 
         xgb_clf = XGB(xgb_model_name)
-        xgb_clf.test_model(model_test_x_feature, test_y)
+        xgb_clf.test_model(test_x, test_y)
 
         lr_clf = LR(lr_model_name)
-        lr_clf.test_model(model_test_x_feature, test_y)
-
-
-        xgb_lr_clf = XGBLR(xgblr_xgb_model_name, xgblr_lr_model_name, one_hot_encoder_model_name)
-        xgb_lr_clf.test_model(model_test_x_feature, test_y)
+        lr_clf.test_model(test_x, test_y)
 
     def test_models(self):
         self.model_train(train_file)
-        self.model_test(test_file=test_file)
+        self.model_test(test_file)
 
 
 if __name__ == '__main__':

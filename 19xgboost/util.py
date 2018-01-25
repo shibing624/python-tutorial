@@ -42,7 +42,9 @@ def load_variant_data(data_path):
             if len(parts) < 2:
                 print('err, must more than 2 parts.')
                 continue
-            data = ' '.join(parts[1:])
+            data_content = ' '.join(parts[1:])
+            data = data_content.strip().split()
+            data = [float(x) for x in data]
             tag = parts[0].strip()
             if tag == '':
                 continue
