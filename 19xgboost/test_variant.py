@@ -3,7 +3,7 @@
 # Data: 18/1/25
 # Brief: 
 import unittest
-from util import load_sample_data
+from util import load_variant_data
 from feature import Feature
 from lr import LR
 from xgb import XGB
@@ -40,11 +40,11 @@ class ClassificationTest(unittest.TestCase):
     def test_init(self):
         print("test_init")
         """测试初始化函数，捕捉异常"""
-        data_x, data_y = load_sample_data(train_file)
+        data_x, data_y = load_load(train_file)
         self.assertEqual(len(data_x) > 0, True)
 
     def model_train(self, train_file):
-        train_x, train_y = load_sample_data(train_file)
+        train_x, train_y = load_load(train_file)
         features = Feature(tfidf_model_name, best_feature_model_name)
         features.fit(max_feature_cnt, feature_max_df,
                      feature_min_df, ngram_range, train_x, train_y)
@@ -68,7 +68,7 @@ class ClassificationTest(unittest.TestCase):
         print('train a xgboost+lr model done.\n')
 
     def model_test(self, test_file):
-        test_x, test_y = load_sample_data(test_file)
+        test_x, test_y = load_load(test_file)
         features = Feature(tfidf_model_name, best_feature_model_name)
         features.load_model()
         model_test_x_feature = features.transform(test_x)

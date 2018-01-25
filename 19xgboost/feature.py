@@ -2,7 +2,6 @@
 # Author: XuMing <shibing624@126.com>
 # Data: 18/1/25
 # Brief: 
-import sys
 from sklearn.feature_selection import SelectKBest, chi2
 from sklearn.feature_extraction.text import TfidfVectorizer
 import pickle
@@ -27,6 +26,8 @@ class Feature(object):
                                       min_df=vec_min_df, max_df=vec_max_df)
         self.best = SelectKBest(chi2, k=best_k)
         train_tf_vec = self.tf_vec.fit_transform(train_x)
+        train_best = self.best.fit_transform(train_tf_vec, train_y)
+        # return train_tf_vec, train_best
 
     def set_feature_para(self, max_feature_cnt, feature_max_df,
                          feature_min_df, ngram_range):
@@ -40,13 +41,14 @@ class Feature(object):
         self.set_feature_para(max_feature_cnt, feature_max_df,
                               feature_min_df, ngram_range)
         self.fit_model(train_x, train_y)
-
-        pickle.dump(self.tf_vec, self.feature_vec_name, True)
-        pickle.dump(self.best, self.best_feature_name, True)
+        with open(self.feature_vec_name, "wb") as f1, open(self.best_feature_name, 'wb') as f2:
+            pickle.dump(self.tf_vec, f1, True)
+            pickle.dump(self.best, f2, True)
 
     def load_model(self):
-        self.tf_vec = pickle.load(self.feature_vec_name)
-        self.best = pickle.load(self.best_feature_name)
+        with open(self.feature_vec_name, "rb") as f1, open(self.best_feature_name, 'rb') as f2:
+            self.tf_vec = pickle.load(f1)
+            self.best = pickle.load(f2)
         self.init = True
 
     def transform(self, x_test):

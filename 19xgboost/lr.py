@@ -3,7 +3,7 @@
 # Data: 18/1/25
 # Brief: 
 import pickle
-from sklearn.linear_model import LogisticRegression as LR
+from sklearn.linear_model import LogisticRegression
 
 
 class LR(object):
@@ -16,20 +16,24 @@ class LR(object):
         self.init = False
 
     def train_model(self, train_x, train_y):
-        self.clf = LR()
+        self.clf = LogisticRegression()
         self.clf.fit(train_x, train_y)
         self.init = True
-        pickle.dump(self.clf, self.lr_name, True)
+        with open(self.lr_name, 'wb') as f:
+            pickle.dump(self.clf, f, True)
 
-    def load_model(self):
-        self.clf = pickle.load(self.lr_name)
-        self.init = True
+    def load_model(self, lr_name):
+        with open(lr_name, 'rb') as f:
+            self.clf = pickle.load(f)
+            self.init = True
 
     def test_model(self, test_x, test_y):
         if not self.init:
-            self.load_model()
+            print("not init lr model. load ...")
+            self.load_model(self.lr_name)
+            print("load lr model done.")
 
-        pred_y = self.clr.predict(test_x)
+        pred_y = self.clf.predict(test_x)
         total = len(test_y)
         correct = 0
         for idx in range(total):
