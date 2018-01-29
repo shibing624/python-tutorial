@@ -4,10 +4,8 @@
 # Brief: 
 import unittest
 from util import load_variant_data
-from feature import Feature
 from lr import LR
-from xgb import XGB
-from xgb_lr import XGBLR
+from basic_xgb import XGB
 
 train_file = "./data/train.demo.txt"
 test_file = "./data/test.demo.txt"
@@ -42,27 +40,27 @@ class ATest(unittest.TestCase):
         self.assertEqual(len(data_x) > 0, True)
 
     def model_train(self, train_file):
-        train_x, train_y = load_variant_data(train_file)
+        train_data = load_variant_data(train_file)
         # xgboost
         print('train a single xgb model...')
-        xgb_clf = LR(xgb_model_name)
-        xgb_clf.train_model(train_x, train_y)
+        xgb_clf = XGB(xgb_model_name)
+        xgb_clf.train_model(train_data)
         print('train a single xgb model done.\n')
 
-        # lr
-        print('train a single lr model...')
-        lr_clf = LR(lr_model_name)
-        lr_clf.train_model(train_x, train_y)
-        print('train a single LR model done.\n')
+        # # lr
+        # print('train a single lr model...')
+        # lr_clf = LR(lr_model_name)
+        # lr_clf.train_model(train_x, train_y)
+        # print('train a single LR model done.\n')
 
     def model_test(self, test_file):
-        test_x, test_y = load_variant_data(test_file)
+        test_data = load_variant_data(test_file)
 
         xgb_clf = XGB(xgb_model_name)
-        xgb_clf.test_model(test_x, test_y)
-
-        lr_clf = LR(lr_model_name)
-        lr_clf.test_model(test_x, test_y)
+        xgb_clf.test_model(test_data)
+        #
+        # lr_clf = LR(lr_model_name)
+        # lr_clf.test_model(test_x, test_y)
 
     def test_models(self):
         self.model_train(train_file)

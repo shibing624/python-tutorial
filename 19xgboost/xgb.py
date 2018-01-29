@@ -12,9 +12,8 @@ class XGB(object):
     xgboost model for text classification
     """
 
-    def __init__(self, xgb_model_name, nthread=30,
-                 eval_metric='mlogloss'):
-        self.nthread = nthread
+    def __init__(self, xgb_model_name,
+                 eval_metric='auc'):
         self.eval_metric = eval_metric
         self.xgb_model_name = xgb_model_name
         self.init = False
@@ -26,7 +25,7 @@ class XGB(object):
         :param train_y:
         :return:
         """
-        self.clf = xgb.XGBClassifier(nthread=self.nthread)
+        self.clf = xgb.XGBClassifier()
         self.clf.fit(train_x, train_y, eval_metric=self.eval_metric,
                      eval_set=[(train_x, train_y)])
         self.init = True
