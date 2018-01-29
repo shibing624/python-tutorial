@@ -39,4 +39,4 @@ class LR(object):
         for idx in range(total):
             if pred_y[idx] == test_y[idx]:
                 correct += 1
-        print('Test LR:', total, correct, correct * 1.0 / total)
+        print('Test LR: total_count, right_count, pred:', total, correct, correct * 1.0 / total)
