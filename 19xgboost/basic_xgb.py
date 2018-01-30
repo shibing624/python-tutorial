@@ -6,6 +6,7 @@ import pickle
 import numpy as np
 import pandas as pd
 import xgboost as xgb
+from sklearn.metrics import classification_report
 
 
 class XGB(object):
@@ -77,5 +78,14 @@ class XGB(object):
         print('pred:', preds[:10])
         total_count = int(len(preds))
         right_count = sum(1 for i in range(len(preds)) if int(preds[i] > 0.5) == labels[i])
+        out_preds = []
+        for i in range(len(preds)):
+            if float(preds[i]) > 0.5:
+                out_preds.append(1)
+            else:
+                out_preds.append(0)
+        target_names = ['risk', 'norisk']
+        report = classification_report(labels, out_preds, target_names=target_names)
+        print(report)
 
-        print('Xgb test: total_count, right_count, pred:', total_count, right_count, right_count/total_count)
+        print('Xgb test: total_count, right_count, pred:', total_count, right_count, right_count / total_count)
