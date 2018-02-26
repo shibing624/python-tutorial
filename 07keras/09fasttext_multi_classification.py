@@ -82,7 +82,7 @@ num_classes = 3
 max_features = 20000
 max_len = 400
 batch_size = 32
-embedding_dims = 200
+embedding_dims = 50
 epochs = 10
 SAVE_MODEL_PATH = 'fasttext_multi_classification_model.h5'
 pwd_path = os.path.abspath(os.path.dirname(__file__))
@@ -94,8 +94,8 @@ print('data_dir path:', train_data_dir)
 print('loading data...')
 x_train, y_train = get_corpus(train_data_dir)
 x_test, y_test = get_corpus(test_data_dir)
-y_train = keras.utils.to_categorical(y_train)
-y_test = keras.utils.to_categorical(y_test)
+y_train = keras.utils.to_categorical(y_train, num_classes=num_classes)
+y_test = keras.utils.to_categorical(y_test, num_classes=num_classes)
 
 sent_maxlen = max(map(len, (x for x in x_train + x_test)))
 print('-')
@@ -157,8 +157,8 @@ model = Sequential()
 model.add(Embedding(max_features, embedding_dims, input_length=max_len))
 # pooling the embedding
 model.add(GlobalAveragePooling1D())
-# output
-model.add(Dense(3, activation='softmax'))
+# output multi classification of num_classes
+model.add(Dense(num_classes, activation='softmax'))
 
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 model.fit(x_train, y_train,
