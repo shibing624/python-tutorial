@@ -4,13 +4,13 @@
 # Bi-gram : 0.9056 test accuracy after 5 epochs.
 import os
 
+import keras
 import numpy as np
 from keras.layers import Dense
 from keras.layers import Embedding
 from keras.layers import GlobalAveragePooling1D
 from keras.models import Sequential
 from keras.preprocessing import sequence
-from keras.preprocessing.sequence import pad_sequences
 
 
 def get_corpus(data_dir):
@@ -24,9 +24,10 @@ def get_corpus(data_dir):
     for file_name in os.listdir(data_dir):
         with open(os.path.join(data_dir, file_name), mode='r', encoding='utf-8') as f:
             for line in f:
-                parts = line.strip().split(',')
+                parts = line.rstrip().split(',')
                 if parts and len(parts) > 1:
-                    lbl = parts[0]
+                    # keras categorical label start with 0
+                    lbl = int(parts[0]) - 1
                     sent = parts[1]
                     sent_split = sent.split()
                     words.append(sent_split)
@@ -34,11 +35,11 @@ def get_corpus(data_dir):
     return words, labels
 
 
-def vectorize_words(words, word_idx, maxlen):
+def vectorize_words(words, word_idx):
     inputs = []
     for word in words:
         inputs.append([word_idx[w] for w in word])
-    return pad_sequences(inputs, maxlen=maxlen)
+    return inputs
 
 
 def create_ngram_set(input_list, ngram_value=2):
@@ -58,6 +59,11 @@ def add_ngram(sequences, token_indice, ngram_range=2):
     :param token_indice:
     :param ngram_range:
     :return:
+    Example: adding bi-gram
+    >>> sequences = [[1, 3, 4, 5], [1, 3, 7, 9, 2]]
+    >>> token_indice = {(1, 3): 1337, (9, 2): 42, (4, 5): 2017}
+    >>> add_ngram(sequences, token_indice, ngram_range=2)
+    [[1, 3, 4, 5, 1337, 2017], [1, 3, 7, 9, 2, 1337, 42]]
     """
     new_seq = []
     for input in sequences:
@@ -72,11 +78,12 @@ def add_ngram(sequences, token_indice, ngram_range=2):
 
 
 ngram_range = 2
+num_classes = 3
 max_features = 20000
 max_len = 400
 batch_size = 32
-embedding_dims = 50
-epochs = 5
+embedding_dims = 200
+epochs = 10
 SAVE_MODEL_PATH = 'fasttext_multi_classification_model.h5'
 pwd_path = os.path.abspath(os.path.dirname(__file__))
 print('pwd_path:', pwd_path)
@@ -87,11 +94,10 @@ print('data_dir path:', train_data_dir)
 print('loading data...')
 x_train, y_train = get_corpus(train_data_dir)
 x_test, y_test = get_corpus(test_data_dir)
-
-# Reserve 0 for masking via pad_sequences
+y_train = keras.utils.to_categorical(y_train)
+y_test = keras.utils.to_categorical(y_test)
 
 sent_maxlen = max(map(len, (x for x in x_train + x_test)))
-
 print('-')
 print('Sentence max length:', sent_maxlen, 'words')
 print('Number of training data:', len(x_train))
@@ -102,10 +108,20 @@ print(y_train[0], x_train[0])
 print('-')
 print('Vectorizing the word sequences...')
 
-print(len(x_train), 'train seq')
-print(len(x_test), 'test seq')
 print('Average train sequence length: {}'.format(np.mean(list(map(len, x_train)), dtype=int)))
 print('Average test sequence length: {}'.format(np.mean(list(map(len, x_test)), dtype=int)))
+
+vocab = set()
+for w in x_train + x_test:
+    vocab |= set(w)
+vocab = sorted(vocab)
+vocab_size = len(vocab) + 1
+print('Vocab size:', vocab_size, 'unique words')
+word_idx = dict((c, i + 1) for i, c in enumerate(vocab))
+ids_2_word = dict((value, key) for key, value in word_idx.items())
+
+x_train = vectorize_words(x_train, word_idx)
+x_test = vectorize_words(x_test, word_idx)
 
 if ngram_range > 1:
     print('Adding {}-gram features'.format(ngram_range))
@@ -130,22 +146,9 @@ if ngram_range > 1:
     print('Average train sequence length: {}'.format(train_mean_len))
     print('Average test sequence length: {}'.format(test_mean_len))
 
-vocab = set()
-for w in x_train + x_test + y_test:
-    vocab |= set(w)
-vocab = sorted(vocab)
-vocab_size = len(vocab) + 1
-print('Vocab size:', vocab_size, 'unique words')
-word_idx = dict((c, i + 1) for i, c in enumerate(vocab))
-ids_2_word = dict((value, key) for key, value in word_idx.items())
-
 print('pad sequences (samples x time)')
-# x_train = sequence.pad_sequences(x_train, maxlen=max_len)
-# x_test = sequence.pad_sequences(x_test, maxlen=max_len)
-x_train = vectorize_words(x_train, word_idx, max_len)
-x_test = vectorize_words(x_test, word_idx, max_len)
-print('x_train shape:', x_train.shape)
-print('x_test shape:', x_test.shape)
+x_train = sequence.pad_sequences(x_train, maxlen=max_len)
+x_test = sequence.pad_sequences(x_test, maxlen=max_len)
 
 print('build model...')
 model = Sequential()
@@ -166,5 +169,5 @@ model.save(SAVE_MODEL_PATH)
 print('save model:', SAVE_MODEL_PATH)
 probs = model.predict(x_test, batch_size=batch_size)
 assert len(probs) == len(y_test)
-for answer, prob in zip(y_test, probs):
-    print('answer_test_index:%s\tprob_index:%s\tprob:%s' % (answer, prob.argmax(), prob.max()))
+for label, prob in zip(y_test, probs):
+    print('label_test_index:%s\tprob_index:%s\tprob:%s' % (label.argmax(), prob.argmax(), prob.max()))
