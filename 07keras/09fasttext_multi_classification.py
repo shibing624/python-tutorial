@@ -24,7 +24,8 @@ def get_corpus(data_dir):
     for file_name in os.listdir(data_dir):
         with open(os.path.join(data_dir, file_name), mode='r', encoding='utf-8') as f:
             for line in f:
-                parts = line.rstrip().split(',')
+                # label in first sep
+                parts = line.rstrip().split(',', 1)
                 if parts and len(parts) > 1:
                     # keras categorical label start with 0
                     lbl = int(parts[0]) - 1

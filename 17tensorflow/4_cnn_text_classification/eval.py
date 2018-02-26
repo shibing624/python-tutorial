@@ -12,31 +12,27 @@ from tensorflow.contrib import learn
 
 import config
 import data_helpers
+from util import to_categorical
 
-# params
-print("\nparameters evaluate:")
-for k, v in config.evaluate.items():
-    print("{}={}".format(k, v))
-
-if config.evaluate["eval_all_train_data"]:
-    x_raw, y_test = data_helpers.load_data_labels(config.config["positive_data_file"],
-                                                  config.config["negative_data_file"])
-    y_test = np.argmax(y_test, axis=1)
-elif config.evaluate["infer_data"]:
-    infer_datas = list(open(config.evaluate["infer_data"], "r", encoding="utf-8").readlines())
+if config.eval_all_train_data:
+    x_raw, y = data_helpers.load_data_labels(config.data_dir)
+    y = to_categorical(y)
+    y = np.argmax(y, axis=1)
+elif config.infer_data_path:
+    infer_datas = list(open(config.infer_data_path, "r", encoding="utf-8").readlines())
     infer_datas = [s.strip() for s in infer_datas]
     x_raw = data_helpers.load_infer_data(infer_datas)
-    y_test = []
+    y = []
 else:
     x_raw = data_helpers.load_infer_data(
         ["do you think it is right.", "everything is off.", "i hate you .", "it is a bad film.",
          "good man and bad person.", "价格不是最便宜的，招商还是浦发银行是238*12=2856.00人家还可以分期的。",
          u"驱动还有系统要自装,还有显卡太鸡巴低了.还有装系统太麻烦了"
          ])
-    y_test = [1, 0, 0, 0, 1, 0, 1]
+    y = [1, 0, 0, 0, 1, 0, 1]
 
 # map data into vocabulary
-checkpoint_dir = config.evaluate["checkpoint_dir"]
+checkpoint_dir = config.checkpoint_dir
 vocab_path = os.path.join(checkpoint_dir, "..", "vocab")
 print("vocab_path:", vocab_path)
 vocab_processor = learn.preprocessing.VocabularyProcessor.restore(vocab_path)
@@ -49,8 +45,8 @@ print("checkpoint file", checkpoint_file)
 
 graph = tf.Graph()
 with graph.as_default():
-    session_conf = tf.ConfigProto(allow_soft_placement=config.config["allow_soft_placement"],
-                                  log_device_placement=config.config["log_device_placement"])
+    session_conf = tf.ConfigProto(allow_soft_placement=config.allow_soft_placement,
+                                  log_device_placement=config.log_device_placement)
     sess = tf.Session(config=session_conf)
     with sess.as_default():
         # load the saved meta graph and restore variables
@@ -65,7 +61,7 @@ with graph.as_default():
         predictions = graph.get_operation_by_name("output/predictions").outputs[0]
 
         # generate batches for one epoch
-        batches = data_helpers.batch_iter(list(x_test), config.config["batch_size"], 1, shuffle=False)
+        batches = data_helpers.batch_iter(list(x_test), config.batch_size, 1, shuffle=False)
 
         # collect the predictions
         all_predictions = []
@@ -74,10 +70,10 @@ with graph.as_default():
             all_predictions = np.concatenate([all_predictions, batch_predictions])
 
 # print accuracy if y_test is defined
-if y_test is not None and len(y_test) > 0:
-    correct_predictions = float(sum(all_predictions == y_test))
-    print("Total number of test examples: {}".format(len(y_test)))
-    print("Accuracy: {:g}".format(correct_predictions / float(len(y_test))))
+if y is not None and len(y) > 0:
+    correct_predictions = float(sum(all_predictions == y))
+    print("Total number of test examples: {}".format(len(y)))
+    print("Accuracy: {:g}".format(correct_predictions / float(len(y))))
 
 # save the evaluation to csv
 x_raw = [x.encode("utf-8") for x in x_raw]

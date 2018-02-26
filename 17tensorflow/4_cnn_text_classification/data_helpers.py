@@ -3,7 +3,9 @@
 # Data: 17/10/16
 # Brief: 数据处理
 
+import os
 import re
+
 import jieba
 import numpy as np
 
@@ -41,38 +43,42 @@ def contain_chinese(string):
     return zh_pattern.search(string)
 
 
-def load_data_labels(positive_data_file, negative_data_file):
+def get_segment(sent):
+    clean_text = []
+    # 中文
+    if contain_chinese(sent):
+        # 用1元切分
+        # clean_text.append(" ".join(list(sent)))
+        # jieba切词
+        clean_text.append(" ".join(jieba.cut(sent)))
+    else:
+        # 英文用clean_str切分
+        clean_text.append(clean_str(sent))
+    return clean_text
+
+
+def load_data_labels(data_dir):
     """
     Loads polarity data from files, splits data to words and labels,
     Split chinese word with
-    :param positive_data_file:
-    :param negative_data_file:
+    :param data_dir:
     :return: split sentence and labels
     """
-    positive_data = list(open(positive_data_file, "r", encoding="utf-8").readlines())
-    positive_data = [s.strip() for s in positive_data]
-    negative_data = list(open(negative_data_file, "r", encoding="utf-8").readlines())
-    negative_data = [s.strip() for s in negative_data]
-    # split by words
-    x_text = positive_data + negative_data
-    clean_text = []
-    for sent in x_text:
-        # 中文
-        if contain_chinese(sent):
-            # 用1元切分
-            # clean_text.append(" ".join(list(sent)))
-            # jieba切词
-            clean_text.append(" ".join(jieba.cut(sent)))
-        else:
-            # 英文用clean_str切分
-            clean_text.append(clean_str(sent))
-    # x_text = [clean_str(sent) for sent in x_text]
-    x_text = clean_text
-    # generate labels
-    positive_labels = [[0, 1] for i in positive_data]
-    negative_labels = [[1, 0] for i in negative_data]
-    y = np.concatenate([positive_labels, negative_labels], axis=0)
-    return [x_text, y]
+    words = []
+    labels = []
+    for file_name in os.listdir(data_dir):
+        with open(os.path.join(data_dir, file_name), mode='r', encoding='utf-8') as f:
+            for line in f:
+                # label in first sep
+                parts = line.strip().split(',', 1)
+                if parts and len(parts) > 1:
+                    # label start with 0
+                    lbl = int(parts[0])
+                    sent = parts[1]
+                    sent_split = " ".join(jieba.cut(sent))
+                    words.append(sent_split)
+                    labels.append(lbl)
+    return [words, labels]
 
 
 def load_infer_data(lines):
@@ -94,8 +100,7 @@ def load_infer_data(lines):
         else:
             # 英文用clean_str切分
             clean_text.append(clean_str(sent))
-    x_text = clean_text
-    return x_text
+    return clean_text
 
 
 def batch_iter(data, batch_size, num_epochs, shuffle=True):
