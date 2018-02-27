@@ -1,10 +1,5 @@
-# python-tutorial-exercise
-python教程，包括：python基础、numpy、scipy、python进阶、matplotlib、OOP、tensorflow、keras、pandas、NLP analysis.
-
-
-## 07 keras
-* bAbi: 分别用记忆网络（memory network）和RNN网络实现阅读理解任务
-* 01.base: 认识keras变量
+* babi:阅读理解任务
+* 01.base:keras变量
 * 02mlp_multi_classification: 多层感知器多分类深度网络
 * 03mlp_binary_classification: 多层感知器二分类深度网络
 * 04vgg_conv: VGG，图像经典卷积网络结构
