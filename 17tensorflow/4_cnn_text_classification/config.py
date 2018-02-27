@@ -18,9 +18,9 @@ l2_reg_lambda = 0.0  # l2 regulaization lambda
 
 # train
 batch_size = 64  # batch size (default: 64)
-num_epochs = 200  # number of training epochs (default: 200)
+num_epochs = 5  # number of training epochs (default: 5)
 evaluate_every = 100  # evaluate model on dev set after this many steps (default: 100)
-checkpoint_every = 100  # save model after this many epochs (default: 100)
+checkpoint_every = 100  # save model after this many steps (default: 100)
 num_checkpoints = 5  # number of checkpoints to store
 
 # proto
