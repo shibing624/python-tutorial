@@ -51,6 +51,7 @@ encoder_input_data = np.zeros((len(input_texts), max_encoder_seq_len, num_encode
 decoder_input_data = np.zeros((len(input_texts), max_decoder_seq_len, num_decoder_tokens), dtype='float32')
 decoder_target_data = np.zeros((len(input_texts), max_decoder_seq_len, num_decoder_tokens), dtype='float32')
 
+# one hot representation
 for i, (input_text, target_text) in enumerate(zip(input_texts, target_texts)):
     for t, char in enumerate(input_text):
         encoder_input_data[i, t, input_token_index[char]] = 1.0
@@ -138,7 +139,7 @@ def decode_sequence(input_seq):
     return decoded_sentence
 
 
-for seq_index in range(100):
+for seq_index in range(10):
     # take one sequence (part of the training set) for decoding.
     input_seq = encoder_input_data[seq_index:seq_index + 1]
     decoded_sentence = decode_sequence(input_seq)

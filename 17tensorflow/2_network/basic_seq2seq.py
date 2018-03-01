@@ -120,7 +120,6 @@ def decoding_layer(target_char_indices, decoding_embedding_size, num_layers, rnn
     :param decoder_input:
     :return:
     """
-    print('build model...')
     # embedding
     target_vocab_size = len(target_char_indices)
     decoder_embeddings = tf.Variable(tf.random_uniform([target_vocab_size, decoding_embedding_size]))
@@ -185,6 +184,7 @@ def seq2seq(input_data, targets, lr, target_sequence_len,
     :param num_layers:
     :return:
     """
+    print('build model...')
     # get state output of encoder
     _, encoder_state = get_encoder_layer(input_data,
                                          rnn_size, num_layers,
@@ -282,13 +282,14 @@ def train():
     train_graph = tf.Graph()
     with train_graph.as_default():
         # get inputs
-        input_data, targets, lr, target_sequence_len, target_sequence_maxlen, source_sequence_len = get_input()
-        training_decoder_output, predicting_decoder_output = seq2seq(input_data, targets, lr, target_sequence_len,
+        input_data, targets, learning_rate, target_sequence_len, target_sequence_maxlen, source_sequence_len = get_input()
+        training_decoder_output, predicting_decoder_output = seq2seq(input_data, targets,
+                                                                     learning_rate, target_sequence_len,
                                                                      target_sequence_maxlen, source_sequence_len,
                                                                      len(source_char_indices), len(target_char_indices),
                                                                      encoding_embedding_size, decoding_embedding_size,
-                                                                     rnn_size, num_layers, target_char_indices,
-                                                                     batch_size)
+                                                                     rnn_size, num_layers,
+                                                                     target_char_indices, batch_size)
         training_logits = tf.identity(training_decoder_output.rnn_output, 'logits')
         predicting_logits = tf.identity(predicting_decoder_output.sample_id, name='predictions')
 
@@ -297,7 +298,7 @@ def train():
             # loss
             cost = tf.contrib.seq2seq.sequence_loss(training_logits, targets, masks)
             # optimizer
-            optimizer = tf.train.AdamOptimizer(lr)
+            optimizer = tf.train.AdamOptimizer(learning_rate)
             # gradient clipping
             gradients = optimizer.compute_gradients(cost)
             capped_gradients = [(tf.clip_by_value(grad, -5., 5.), var) for grad, var in gradients if grad is not None]
@@ -312,14 +313,14 @@ def train():
                 _, loss = sess.run([train_op, cost],
                                    {input_data: sources_batch,
                                     targets: targets_batch,
-                                    lr: learning_rate,
+                                    learning_rate: learning_rate,
                                     target_sequence_len: targets_length,
                                     source_sequence_len: sources_lengths})
                 if batch_i % display_step == 0:
                     validation_loss = sess.run([cost],
                                                {input_data: valid_sources_batch,
                                                 targets: valid_targets_batch,
-                                                lr: learning_rate,
+                                                learning_rate: learning_rate,
                                                 target_sequence_len: valid_targets_lengths,
                                                 source_sequence_len: valid_sources_lengths})
                     print('Epoch {:>3}/{} Batch {:>4}/{} - Training Loss: {:>6.3f} - Validation Loss: {:>6.3f}'.format(
@@ -356,8 +357,8 @@ def infer():
     source_indices_char, source_char_indices = extract_char_vocab(source_data)
     target_indices_char, target_char_indices = extract_char_vocab(target_data)
 
-    input_word = 'common'
-    text = source_2_seq(input_word)
+    input_word = 'hello'
+    text = source_2_seq(input_word, source_char_indices)
     loaded_graph = tf.Graph()
     with tf.Session(graph=loaded_graph) as sess:
         loader = tf.train.import_meta_graph(checkpoint + '.meta')
@@ -382,5 +383,5 @@ def infer():
 
 
 if __name__ == '__main__':
-    train()
-    # infer()
+    # train()
+    infer()
