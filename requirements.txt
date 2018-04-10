@@ -2,7 +2,8 @@ numpy
 scipy
 matplotlib
 nltk
-Keras
+keras
 scikit-learn
 pypinyin
 tensorflow
+click
