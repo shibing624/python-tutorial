@@ -2,7 +2,7 @@
 # Author: XuMing <xuming624@qq.com>
 # Brief: http://pytorch.org/tutorials/beginner/blitz/neural_networks_tutorial.html#define-the-network
 
-# 1. define network
+# define network
 import torch
 from torch.autograd import Variable
 import torch.nn as nn
@@ -56,3 +56,31 @@ target = target.view(1, -1)
 criterion = nn.MSELoss()
 loss = criterion(output, target)
 print('loss:', loss)
+
+print(loss.grad_fn)
+print(loss.grad_fn.next_functions[0][0])
+print(loss.grad_fn.next_functions[0][0].next_functions[0][0])
+
+network.zero_grad()
+print(network.conv1.bias.grad)
+
+loss.backward()
+print(network.conv1.bias.grad)
+
+# update weights
+learning_rate = 0.1
+for i in network.parameters():
+    i.data.sub_(i.grad.data * learning_rate)
+
+print(i.data)
+
+import torch.optim as optim
+
+optimizer = optim.SGD(network.parameters(), lr=0.01)
+optimizer.zero_grad()
+output = network(input)
+loss = criterion(output, target)
+loss.backward()
+optimizer.step()  # does the update
+
+print(loss)
