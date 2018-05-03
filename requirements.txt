@@ -7,3 +7,4 @@ scikit-learn
 pypinyin
 tensorflow
 click
+xlearn
