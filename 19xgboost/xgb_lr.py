@@ -4,10 +4,11 @@
 # Brief: 
 
 import pickle
-from sklearn.preprocessing import OneHotEncoder
-from sklearn.linear_model import LogisticRegression
-from xgboost import DMatrix
+
 import xgboost as xgb
+from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import OneHotEncoder
+from xgboost import DMatrix
 
 
 class XGBLR(object):
@@ -79,3 +80,4 @@ class XGBLR(object):
             if lr_pred_res[idx] == test_y[idx]:
                 correct += 1
         print("Xgb+LR test:", total, correct, correct * 1.0 / total)
+        return lr_pred_res

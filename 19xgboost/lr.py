@@ -3,6 +3,7 @@
 # Data: 18/1/25
 # Brief: 
 import pickle
+
 from sklearn.linear_model import LogisticRegression
 
 
@@ -40,3 +41,4 @@ class LR(object):
             if pred_y[idx] == test_y[idx]:
                 correct += 1
         print('Test LR: total_count, right_count, pred:', total, correct, correct * 1.0 / total)
+        return pred_y

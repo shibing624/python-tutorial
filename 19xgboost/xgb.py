@@ -2,9 +2,10 @@
 # Author: XuMing <shibing624@126.com>
 # Data: 18/1/25
 # Brief: 
-import xgboost as xgb
-import numpy as np
 import pickle
+
+import numpy as np
+import xgboost as xgb
 
 
 class XGB(object):
@@ -54,3 +55,4 @@ class XGB(object):
             if pred_label[idx] == test_y[idx]:
                 correct += 1
         print('Xgb test:', total, correct, correct * 1.0 / total)
+        return pred_label
