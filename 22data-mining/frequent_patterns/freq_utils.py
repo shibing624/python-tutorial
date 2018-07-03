@@ -58,55 +58,35 @@ def loadUnixData(fileRead, fileWrite):
     return dataSet
 
 
-def getAuthorsData(fileRead, fileWrite):
+def load_title_data(file_path, flag, row_num=1):
     '''
-    加载原始作者数据预处理
-    :param fileName:
+    加载title的数据
+    :param file_path:
     :return:
     '''
-    f = open(fileRead, 'r')
-    fwrite = open(fileWrite, "w")
+    dataSetDict = {}
     dataSet = []
-    i = 0
-    for line in f.readlines():
-        if line == "\n":
-            continue
-        line = line[:len(line) - 2]
-        line_arr = line.strip().split(',')
-        dataSet.append(line_arr)
-        fwrite.write(line + "\n")
-    return dataSet
-
-
-def getUnixData(fileRead, fileWrite):
-    '''
-    加载数据Unix用户命令数据
-    :param fileName:
-    :return:
-    '''
-    f = open(fileRead, 'r')
-    fwrite = open(fileWrite, "w")
-    dataSet = []
-    temp = ''
-    for line in f.readlines():
-        if line == "\n":
-            continue
-        line = line.split("\n")[0]
-        print(line)
-        if line == "**SOF**":
-            temp = ''
-        elif line == "**EOF**":
-            if temp == "":
-                continue
-            fwrite.write(temp + "\n")
-        else:
-            if temp == "":
-                temp = line
-            else:
-                temp = temp + ',' + line
+    count = 0
+    print(file_path)
+    with open(file_path, 'r', encoding='utf-8') as f:
+        for line in f:
+            if count > row_num:
+                break
+            line = list(line.strip())
+            dataSet.append(line)
+            dataLine = [word for word in line]
+            dataSetDict[frozenset(dataLine)] = dataSetDict.get(frozenset(dataLine), 0) + 1
+            count += 1
+    return dataSetDict, dataSet
 
 
 def printDataSet(dataSet):
     for i in range(len(dataSet)):
         for j in range(len(dataSet[i])):
             print(dataSet[i][j])
+
+
+def save_freqItems(freqItems_fp, save_path):
+    with open(save_path, 'w', encoding='utf-8') as f:
+        for i in freqItems_fp:
+            f.write(' '.join(i[0]) + '\t' + str(i[1]) + '\n')

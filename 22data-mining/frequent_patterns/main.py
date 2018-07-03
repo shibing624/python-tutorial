@@ -3,9 +3,10 @@
 # Brief:
 import time
 from eclat import eclat_zc
-from freq_utils import loadDblpData, loadData, loadUnixData
+from freq_utils import loadDblpData, load_title_data, printDataSet, save_freqItems
 from apriori import apriori_zc
 from fp_growth import fp_growth
+
 
 def test_fp_growth(minSup, dataSetDict, dataSet):
     freqItems = fp_growth(dataSetDict, minSup)
@@ -31,6 +32,7 @@ def print_freqItems(logo, freqItems):
         print(i, freqItems[i])
     print(len(freqItems))
     print("-------------------", logo, " end ---------------")
+
 
 def do_experiment_data_size():
     data_name = 'unixData8_pro.txt'
@@ -151,7 +153,7 @@ def do_test():
 def do_dblp_data():
     data_name = 'dblpDataAll.txt'
     x_name = "Min_Support"
-    data_num = 2715700
+    data_num = 980
     minSup = 100
     dataSetDict, dataSet = loadDblpData(("dataSet/" + data_name), ',', data_num)
 
@@ -165,9 +167,27 @@ def do_dblp_data():
         print(item)
 
 
-if __name__ == '__main__':
-    x_value, y_value = do_experiment_min_support()
-    x_value, y_value = do_experiment_data_size()
-    do_test()
+def do_title_data():
+    data_name = 'title.txt'
+    x_name = "Min_Support"
+    data_num = 22846
+    minSup = data_num / 100
+    dataSetDict, dataSet = load_title_data(("dataSet/" + data_name), ',', data_num)
+    printDataSet(dataSet[:10])
+    time_fp = 0
+    ticks0 = time.time()
+    freqItems_fp = test_eclat(minSup, dataSetDict, dataSet)
+    time_fp += time.time() - ticks0
+    print(time_fp)
 
+    print(freqItems_fp[:10])
+    save_freqItems(freqItems_fp, "dataSet/title_out.txt")
+
+
+if __name__ == '__main__':
+    # x_value, y_value = do_experiment_min_support()
+    # x_value, y_value = do_experiment_data_size()
+    # do_test()
+    #
     do_dblp_data()
+    # do_title_data()

@@ -20,13 +20,10 @@ def get_data(pos_file, neg_file, unsup_file):
     :return: 
     """
 
-    def get_folder_txt(folder_path):
+    def get_folder_txt(path):
         result = []
-        for parent, dirnames, filenames in os.walk(folder_path):
-            for filename in filenames:
-                path = os.path.join(folder_path, filename)
-                with open(path, 'r', encoding='utf-8') as f:
-                    result.append(f.read())
+        with open(path, 'r', encoding='utf-8') as f:
+            result.append(f.read())
         return result
 
     pos_reviews = get_folder_txt(pos_file)
@@ -185,9 +182,9 @@ if __name__ == "__main__":
     # 设置向量维度和训练次数
     size, epoch_num = 400, 10
     # 获取训练与测试数据及其类别标注
-    neg_file = 'douban_imdb_data/aclImdb/train/neg'
-    pos_file = 'douban_imdb_data/aclImdb/train/pos'
-    unsup_file = 'douban_imdb_data/aclImdb/train/unsup'
+    neg_file = '../data/douban_imdb_data/neg.txt'
+    pos_file = '../data/douban_imdb_data/pos.txt'
+    unsup_file = '../data/douban_imdb_data/unsup.txt'
     x_train, x_test, unsup_reviews, y_train, y_test = get_data(neg_file, pos_file, unsup_file)
     # 对数据进行训练，获得模型
     model_dm, model_dbow = train(x_train, x_test, unsup_reviews, size, epoch_num)

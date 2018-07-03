@@ -62,8 +62,10 @@ model.add(Dense(len(chars)))
 model.add(Activation('softmax'))
 
 model.compile(optimizer=RMSprop(lr=0.01), loss='categorical_crossentropy')
+model.summary()
 
-
+print("*"*40)
+print(model.summary())
 def sample(preds, temperature=1.0):
     preds = np.asarray(preds).astype('float64')
     preds = np.log(preds) / temperature

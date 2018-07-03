@@ -22,9 +22,9 @@ import ast,os
 from sklearn.linear_model import LogisticRegression
 
 # 获取训练与测试数据及其类别标注
-neg_file = 'neg.txt'
-pos_file = 'douban_imdb_data/aclImdb/train/pos'
-unsup_file = 'douban_imdb_data/aclImdb/train/unsup'
+neg_file = '../data/douban_imdb_data/neg.txt'
+pos_file = '../data/douban_imdb_data/pos.txt'
+unsup_file = '../data/douban_imdb_data/unsup.txt'
 sentences = gensim.models.doc2vec.TaggedLineDocument(neg_file)
 model = gensim.models.doc2vec.Doc2Vec(sentences)
 model.save('neg.d2v.model')
@@ -39,7 +39,6 @@ print(model.doesnt_match("my god this really".split()))
 print(model.doesnt_match("I'm sure I missed some plot points".split()))
 
 
-print(model.most_similar(positive=['but', 'what'], negative=['fact']))
 print(model.most_similar(positive=['blue', 'shirt'], negative=['blue']))
 
 
