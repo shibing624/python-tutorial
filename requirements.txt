@@ -6,6 +6,7 @@ keras
 scikit-learn
 pypinyin
 tensorflow
+torch
 click
 xlearn
 wave
