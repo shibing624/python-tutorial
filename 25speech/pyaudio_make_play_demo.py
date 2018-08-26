@@ -17,6 +17,7 @@ CHANNELS = 2
 RATE = 44100
 RECORD_SECONDS = 5
 
+
 p = pyaudio.PyAudio()
 
 stream = p.open(format=p.get_format_from_width(WIDTH),
