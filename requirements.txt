@@ -8,3 +8,5 @@ pypinyin
 tensorflow
 click
 xlearn
+wave
+pyaudio
