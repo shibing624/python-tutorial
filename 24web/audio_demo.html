@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript">
+        (function () {
+            //颜色动画插件  收录 前端网 halcheung 大侠的笔记。网址 http://www.w3cfuns.com/notes/17953/6ceda0bfa4a98d2d1a8c03fb638bae4e.html
+            // store the jq animate function temporarily
+            var _anim = $.fn.animate;
+            // override jq animate function
+            $.fn.extend({
+                animate: function (styles, speed, easing, callback) {
+                    if (typeof styles == "object") {
+                        var colorStyles = null,
+                            that = this;
+                        for (var style in styles) {
+                            // init colorStyle object
+                            if (!colorStyles && /color/gi.exec(style)) colorStyles = {};
+                            // get the color styles
+                            if (style == "color") {
+                                colorStyles.color = styles[style];
+                            } else if (style == "background-color" || style == "backgroundColor") {
+                                colorStyles.backgroundColor = styles[style];
+                            } else if (style == "border-color" || style == "borderColor") {
+                                colorStyles.borderColor = styles[style];
+                            } else if (style == "border-top-color" || style == "borderTopColor") {
+                                colorStyles.borderTopColor = styles[style];
+                            } else if (style == "border-right-color" || style == "borderRightColor") {
+                                colorStyles.borderRightColor = styles[style];
+                            } else if (style == "border-bottom-color" || style == "borderBottomColor") {
+                                colorStyles.borderBottomColor = styles[style];
+                            } else if (style == "border-left-color" || style == "borderLeftColor") {
+                                colorStyles.borderLeftColor = styles[style];
+                            }
+                            delete styles[style];
+                        }
+                        // if check color styles positive
+                        if (colorStyles) {
+                            // color animation class
+                            function animColor() {
+                                // color animation function
+                                this.anim = function (colorStyle, targetStyleColor) {
+                                    targetStyleColor = formatColor(targetStyleColor);
+                                    var currentColor = formatColor($(that).get(0).style[colorStyle]),
+                                        step = calcStep(currentColor, targetStyleColor);
+                                    changeColor(colorStyle, currentColor, targetStyleColor, step);
+                                };
+                                // color value step of animation
+                                function calcStep(startColor, endColor) {
+                                    var maxDiff = -1, animStep = 1;
+                                    for (var i = 0; i < 3; i++) {
+                                        if (Math.abs(endColor[i] - startColor[i]) > maxDiff) {
+                                            maxDiff = Math.abs(endColor[i] - startColor[i]);
+                                        }
+                                    }
+                                    animStep = Math.floor(maxDiff / (speed / 20));
+                                    //console.log(maxDiff + "," + speed);
+                                    animStep = !animStep ? 1 : animStep;
+                                    return animStep;
+                                }
+
+                                // set the middle frame color of element
+                                function changeColor(colorStyle, middleStyle, toStyle, step) {
+                                    middleStyle = changeColorStep(middleStyle, toStyle, step);
+                                    $(that).get(0).style[colorStyle] = "rgb(" + middleStyle[0] + "," + middleStyle[1] + "," + middleStyle[2] + ")";
+                                    if (middleStyle[0] == toStyle[0] && middleStyle[1] == toStyle[1] && middleStyle[2] == toStyle[2]) {
+                                        $(that).get(0).style[colorStyle] = hexColor(middleStyle);
+                                        return;
+                                    }
+                                    setTimeout(function () {
+                                        changeColor(colorStyle, middleStyle, toStyle, step);
+                                    }, 20);
+                                }
+
+                                // calculate step color
+                                function changeColorStep(curClr, tgtClr, step) {
+                                    for (var i = 0; i < 3; i++) {
+                                        if (curClr[i] < tgtClr[i]) {
+                                            curClr[i] += step;
+                                            if (curClr[i] > tgtClr[i]) curClr[i] = tgtClr[i];
+                                        } else if (curClr[i] > tgtClr[i]) {
+                                            curClr[i] -= step;
+                                            if (curClr[i] < tgtClr[i]) curClr[i] = tgtClr[i];
+                                        }
+                                    }
+                                    return curClr;
+                                }
+
+                                // convert hex color to rgb color
+                                function formatColor(styleColor) {
+                                    if (!styleColor) {
+                                        return [0, 0, 0];
+                                    } else {
+                                        var r = g = b = 0;
+                                        if (/^#[a-f0-9]{3}$/gi.exec(styleColor)) {
+                                            r = parseInt(styleColor.substr(1, 1) + styleColor.substr(1, 1), 16);
+                                            g = parseInt(styleColor.substr(2, 1) + styleColor.substr(2, 1), 16);
+                                            b = parseInt(styleColor.substr(3, 1) + styleColor.substr(3, 1), 16);
+                                        } else if (/^#[a-f0-9]{6}$/gi.exec(styleColor)) {
+                                            r = parseInt(styleColor.substr(1, 2), 16);
+                                            g = parseInt(styleColor.substr(3, 2), 16);
+                                            b = parseInt(styleColor.substr(5, 2), 16);
+                                        } else if (styleColor.toLowerCase().indexOf("rgb") != -1) {    // rgb
+                                            styleColor = styleColor.toLowerCase().split(/\(|\)/gi)[1].split(',');
+                                            r = styleColor[0].trim() * 1;
+                                            g = styleColor[1].trim() * 1;
+                                            b = styleColor[2].trim() * 1;
+                                        }
+                                        return [r, g, b];
+                                    }
+                                }
+
+                                // convert rgb color to hex color
+                                function hexColor(rgb) {
+                                    var r = ("0" + rgb[0].toString(16)).substr(-2),
+                                        g = ("0" + rgb[1].toString(16)).substr(-2),
+                                        b = ("0" + rgb[2].toString(16)).substr(-2);
+                                    return "#" + r + g + b;
+                                }
+                            }
+
+                            // play color animation
+                            for (var styl in colorStyles) {
+                                var anim = new animColor();
+                                anim.anim(styl, colorStyles[styl]);
+                                anim = null;
+                            }
+                        }
+                    }
+
+                    // most important step: get the original function of jq animate
+                    return _anim.apply(this, [styles, speed, easing, callback]);
+                }
+            });
+        })();
+        (function () {
+            $.fn.dragToDrop = function (fun) {
+                var eventStr = "dragleave drop dragenter dragover";
+                $(document).on(eventStr, function (e) {
+                    e.preventDefault(); // 禁用 document 默认行为
+                });
+                $(this).on(eventStr, function (e) {
+                    e.preventDefault();
+                    var files;
+                    if (e.type == "drop") files = e.originalEvent.dataTransfer.files; //获取文件对象
+                    fun(files);
+                })
+                return this;
+            }
+
+        })();
+        (function () { //列队播放音频文件
+            var music;
+            var i = 0;
+            var flag = false;
+            var playlist = [];
+            $.audio = function (data) {
+                playlist.push(data);
+                //console.log(music)
+                if (!music || $.type(music) != "object") {
+                    music = new Audio(data);
+                    music.play();
+                }
+                $(music).on("play", function () {
+                    flag = false;
+                });
+                $(music).on('ended', function () {
+                    if (flag) return;
+                    flag = true;
+                    i++;
+                    if (i >= playlist.length) {
+                        music = null;
+                        return;
+                    }
+                    this.src = playlist[i];
+                    this.play();
+                    return;
+                });
+            }
+        })();
+        (function () {
+            $.readFileData = function (obj, fun) { //读取文件内容
+                var reader = new FileReader();//新建一个FileReader
+                reader.readAsDataURL(obj, "UTF-8");//以base64编码方式读取文件
+                reader.onload = function (e) {
+                    fun(e.target.result);
+                }
+            }
+            $.eachFiles = function (files) { // 遍历文件列表
+                var obj = $("#look ul").length > 0 ? $("#look ul") : $("<ul>").appendTo($("#look"))
+                var fileType = "mp3,ogg,wav,mid,midi,wma,asf";
+                $.each(files, function (i, n) {
+                    $.readFileData(n, function (data) {
+                        obj.append($("<li>").css({
+                            "text-overflow": "ellipsis",
+                            "white-space": "nowrap"
+                        }).text(n.name + " - " + data));
+                        if (fileType.indexOf(n.name.split(".")[1]) > -1) $.audio(data);
+                    });
+                });
+            }
+            Number.prototype.toFormatString = function (n, d) {
+                return (Array(d).join(0) + this.toString(n)).slice(-d);
+            }
+            window.rgb = function (a, b, c) {
+                return "#" + a.toFormatString(16, 2) + b.toFormatString(16, 2) + c.toFormatString(16, 2);
+            }
+            window.compileString = function (str) {
+                return new Function("return " + str)();
+            }
+            window.RBGToHex = function (str) {
+                return compileString(str);
+            }
+            window.HexToRGB = function (str) {
+                if (str.length == 4) str = str.replace(/^#([A-Fa-f0-9]{1})([A-Fa-f0-9]{1})([A-Fa-f0-9]{1})/, "$1,$2,$3")
+                if (str.length == 7) str = str.replace(/^#([A-Fa-f0-9]{2})([A-Fa-f0-9]{2})([A-Fa-f0-9]{2})/, "$1,$2,$3")
+                var arr = str.split(",");
+                $.each(arr, function (i, n) {
+                    if (n.length == 1) {
+                        if (parseInt(n, 16) > 0) n += n;
+                    }
+                    arr[i] = parseInt(n, 16)
+                });
+                return "rgb(" + arr.join(",") + ")";
+            }
+        })();
+        $(function () {
+            $("#form input[name='fileTrans']").change(function () {
+                if (!(window.File || window.FileReader || window.FileList || window.Blob)) {
+                    alert('你妈喊你换Chrome浏览器啦');
+                    return;
+                }
+                var files = $(this).prop('files');//通过文件域获取到文件列表
+                if (!files || files.length == 0) {
+                    alert('请选择文件');
+                    return;
+                }
+                $.eachFiles(files);
+            }).dragToDrop(function (files) { //通过拖拽获取文件列表
+                var flieStyle = $("#flieStyle");
+                if (files && files.length > 0) {
+                    $.eachFiles(files);
+                    flieStyle.animate({"border-color": "#000"}, 10, "swing");
+                    return;
+                }
+                var color = RBGToHex(flieStyle.css("border-color")) == RBGToHex(HexToRGB("#0ff")) ? "#000" : "#0ff";
+                //console.log(RBGToHex(HexToRGB(color)))
+                flieStyle.animate({"border-color": color}, 10, "swing")
+            });
+        });
+    </script>
+</head>
+<body>
+<h1>媒体文件 转 base64 编码</h1>
+<div style="font-size:12px;color:gray;margin-bottom:10px;">PS：选择一个或多个文件，如果是音频格式并且您的浏览器支持，便可能会听到 base64 编码后的声音。</div>
+<form id="form">
+    <div id="flieStyle"
+         style="border:dashed 1px black;background-color:snow;width:150px;height:150px;position:relative;line-height:2rem;font-size:12px;margin:30px auto;">
+        <input type="file" name="fileTrans" multiple="multiple"
+               style="width:150px;height:150px;position:absolute;opacity:0;background-color:black;">
+        <span style="text-align:center;width:100%;margin-top:2.5rem;display:block;"><input type="button" value="点击选择文件"><br>拖动文件到此框中</span>
+    </div>
+</form>
+<div id="look"></div>
+</body>
+</html>
