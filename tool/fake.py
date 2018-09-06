@@ -199,7 +199,6 @@ def check_RateRule(rule_set, source_str):
 
 
 def main():
-    # 执行凤巢数据检测
     # wordseg_agent = wordseg_init()
     rule_set1 = load_comb_rule_vocabs("./data/Inputdata/jjy.rule.txt")  # 规则库1，金融教育医疗行业，gb18030格式，转为unicode
     rule_set2 = load_comb_rule_vocabs("./data/Inputdata/quanhangye.rule.txt")  # 规则库3,其他行业，gb18030格式，转为unicode
