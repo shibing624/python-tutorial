@@ -51,7 +51,7 @@ out.backward(torch.randn(1, 10))
 
 # loss function
 output = network(input)
-target = Variable(torch.arange(1, 11))
+target = Variable(torch.randn(1, 10))
 target = target.view(1, -1)
 criterion = nn.MSELoss()
 loss = criterion(output, target)

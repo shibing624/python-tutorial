@@ -84,17 +84,17 @@ And for more, read the papers that introduced these topics:
 **Requirements**
 """
 from __future__ import unicode_literals, print_function, division
-from io import open
-import unicodedata
-import string
-import re
+
 import random
+import re
+import unicodedata
+from io import open
 
 import torch
 import torch.nn as nn
-from torch.autograd import Variable
-from torch import optim
 import torch.nn.functional as F
+from torch import optim
+from torch.autograd import Variable
 
 use_cuda = torch.cuda.is_available()
 
@@ -188,6 +188,7 @@ def unicodeToAscii(s):
         if unicodedata.category(c) != 'Mn'
     )
 
+
 # Lowercase, trim, and remove non-letter characters
 
 
@@ -209,7 +210,7 @@ def readLangs(lang1, lang2, reverse=False):
     print("Reading lines...")
 
     # Read the file and split into lines
-    lines = open('data/%s-%s.txt' % (lang1, lang2), encoding='utf-8').\
+    lines = open('data/%s-%s.txt' % (lang1, lang2), encoding='utf-8'). \
         read().strip().split('\n')
 
     # Split every line into pairs and normalize
@@ -250,8 +251,8 @@ eng_prefixes = (
 
 def filterPair(p):
     return len(p[0].split(' ')) < MAX_LENGTH and \
-        len(p[1].split(' ')) < MAX_LENGTH and \
-        p[1].startswith(eng_prefixes)
+           len(p[1].split(' ')) < MAX_LENGTH and \
+           p[1].startswith(eng_prefixes)
 
 
 def filterPairs(pairs):
@@ -356,6 +357,7 @@ class EncoderRNN(nn.Module):
         else:
             return result
 
+
 ######################################################################
 # The Decoder
 # -----------
@@ -407,6 +409,7 @@ class DecoderRNN(nn.Module):
             return result.cuda()
         else:
             return result
+
 
 ######################################################################
 # I encourage you to train and observe the results of this model, but to
@@ -555,7 +558,8 @@ def variablesFromPair(pair):
 teacher_forcing_ratio = 0.5
 
 
-def train(input_variable, target_variable, encoder, decoder, encoder_optimizer, decoder_optimizer, criterion, max_length=MAX_LENGTH):
+def train(input_variable, target_variable, encoder, decoder, encoder_optimizer, decoder_optimizer, criterion,
+          max_length=MAX_LENGTH):
     encoder_hidden = encoder.initHidden()
 
     encoder_optimizer.zero_grad()
@@ -672,8 +676,8 @@ def trainIters(encoder, decoder, n_iters, print_every=1000, plot_every=100, lear
         if iter % print_every == 0:
             print_loss_avg = print_loss_total / print_every
             print_loss_total = 0
-            print('%s (%d %d%%) %.4f' % (timeSince(start, iter / n_iters),
-                                         iter, iter / n_iters * 100, print_loss_avg))
+            print('%s (%d %d%%) loss avg: %.4f' % (timeSince(start, iter / n_iters),
+                                                   iter, iter / n_iters * 100, print_loss_avg))
 
         if iter % plot_every == 0:
             plot_loss_avg = plot_loss_total / plot_every
@@ -693,7 +697,6 @@ def trainIters(encoder, decoder, n_iters, print_every=1000, plot_every=100, lear
 
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
-import numpy as np
 
 
 def showPlot(points):
@@ -703,6 +706,7 @@ def showPlot(points):
     loc = ticker.MultipleLocator(base=0.2)
     ax.yaxis.set_major_locator(loc)
     plt.plot(points)
+    plt.savefig('loss_plot.png')
 
 
 ######################################################################
@@ -746,8 +750,10 @@ def evaluate(encoder, decoder, sentence, max_length=MAX_LENGTH):
         if ni == EOS_token:
             decoded_words.append('<EOS>')
             break
-        else:
+        elif ni in output_lang.index2word:
             decoded_words.append(output_lang.index2word[ni])
+        else:
+            decoded_words.append('<PAD>')
 
         decoder_input = Variable(torch.LongTensor([[ni]]))
         decoder_input = decoder_input.cuda() if use_cuda else decoder_input
@@ -794,7 +800,6 @@ hidden_size = 256
 encoder1 = EncoderRNN(input_lang.n_words, hidden_size)
 attn_decoder1 = AttnDecoderRNN(hidden_size, output_lang.n_words, dropout_p=0.1)
 
-
 if use_cuda:
     encoder1 = encoder1.cuda()
     attn_decoder1 = attn_decoder1.cuda()
@@ -805,7 +810,6 @@ trainIters(encoder1, attn_decoder1, 75000, print_every=5000)
 #
 
 evaluateRandomly(encoder1, attn_decoder1)
-
 
 ######################################################################
 # Visualizing Attention
@@ -848,6 +852,7 @@ def showAttention(input_sentence, output_words, attentions):
     ax.yaxis.set_major_locator(ticker.MultipleLocator(1))
 
     plt.show()
+    plt.savefig(input_sentence[:10] + '.jpg')
 
 
 def evaluateAndShowAttention(input_sentence):

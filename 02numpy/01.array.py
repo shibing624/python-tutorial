@@ -5,11 +5,16 @@
 """
 from __future__ import print_function
 from __future__ import unicode_literals
+import tracemalloc
 
+tracemalloc.start(10)
+
+time1 = tracemalloc.take_snapshot()
 # 导入numpy
 # 很多其他科学计算的第三方库都是以Numpy为基础建立的。
 # Numpy的一个重要特性是它的数组计算。
 from numpy import *
+
 
 # 使用前一定要先导入 Numpy 包，导入的方法有以下几种：
 # import numpy
@@ -85,13 +90,27 @@ print(a)
 b = sin(a)
 print(b)
 
+
 # 画图
 from matplotlib import pyplot as plt
 
 plt.plot(a, b)
-plt.show()
+# plt.show()
 
 # 从数组中选择元素
 # 假设我们想选取数组b中所有非负的部分，首先可以利用 b 产生一组布尔值：
 mask = b >= 0
 print(mask)
+
+
+time2 = tracemalloc.take_snapshot()
+
+stats = time2.compare_to(time1, 'lineno')
+print('*'*32)
+for stat in stats[:3]:
+    print(stat)
+
+stats = time2.compare_to(time1, 'traceback')
+print('*'*32)
+for stat in stats[:3]:
+    print(stat.traceback.format())
