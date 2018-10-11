@@ -1,0 +1,52 @@
+
+body {
+    background-image: url("../images/bg.jpg");
+    text-align: center;
+    background-repeat: repeat-x;
+    background-position: 0px 0px;
+}
+
+.table {
+    border: 1px solid #90BFFF;
+    width: 810px;
+}
+
+tr {
+    font-family: 微软雅黑;
+    font-weight: 800;
+    color: #448EF3;
+}
+
+input {
+    border: 1px solid #448EF3;
+    color: #448EF3;
+    font-weight: bold;
+    font-family: "微软雅黑";
+    height: 35px;
+    line-height: 30px;
+    border-radius: 5px;
+}
+
+.submit {
+    width: 150px;
+    height: 40px;
+    cursor: hand;
+    font-size: 20px;
+    color: #ffffff;
+    background-color: #448EF3;
+    border: 0px;
+}
+
+.thead {
+    height: 40px;
+    background: #90BFFF;
+    font-family: "微软雅黑";
+    font-size: 30px;
+    font-weight: 700;
+    color: #ffffff;
+    background: #90BFFF;
+}
+
+#3 {
+    margin-bottom: 100px;
+}
