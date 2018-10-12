@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js 图片转base64方式</title>
+</head>
+<body>
+<p id="container1"></p>
+<script>
+    getBase64("./blurry_dog.png")
+    function getBase64(imgUrl) {
+        window.URL = window.URL || window.webkitURL;
+        var xhr = new XMLHttpRequest();
+        xhr.open("get", imgUrl, true);
+        xhr.responseType = "blob";
+        xhr.onload = function () {
+            if (this.status == 200) {
+                //得到一个blob对象
+                var blob = this.response;
+                console.log("blob", blob)
+                // 至关重要
+                var oFileReader = new FileReader();
+                oFileReader.onloadend = function (e) {
+                    var base64 = e.target.result;
+                    console.log("方式一》》》》》》》》》", base64)
+                };
+                oFileReader.readAsDataURL(blob);
+                //====为了在页面显示图片，可以删除====
+                var img = document.createElement("img");
+                img.onload = function (e) {
+                    window.URL.revokeObjectURL(img.src); // 清除释放
+                };
+                var src = window.URL.createObjectURL(blob);
+                img.src = src
+                document.getElementById("container1").appendChild(img);
+                //====为了在页面显示图片，可以删除====
+
+            }
+        }
+        xhr.send();
+    }
+</script>
+</body>
+</html>
