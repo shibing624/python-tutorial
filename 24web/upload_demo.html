@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js 图片转base64方式</title>
+</head>
+<body>
+<p id="container2"></p>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    var imgSrc = "https://z649319834.github.io/Learn_Example/video_track/webvtt.jpg";
+
+    //width、height调用时传入具体像素值，控制大小 ,不传则默认图像大小
+    function getBase64Image(img, width, height) {
+        var canvas = document.createElement("canvas");
+        canvas.width = width ? width : img.width;
+        canvas.height = height ? height : img.height;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        var dataURL = canvas.toDataURL();
+        return dataURL;
+    }
+    function getCanvasBase64(img) {
+        var image = new Image();
+        //至关重要
+        image.crossOrigin = '';
+        image.src = img;
+        //至关重要
+        var deferred = $.Deferred();
+        if (img) {
+            image.onload = function () {
+                deferred.resolve(getBase64Image(image));//将base64传给done上传处理
+                document.getElementById("container2").appendChild(image);
+            }
+            return deferred.promise();//问题要让onload完成后再return sessionStorage['imgTest']
+        }
+    }
+    getCanvasBase64(imgSrc)
+        .then(function (base64) {
+            console.log("方式二》》》》》》》》》", base64);
+        }, function (err) {
+            console.log(err);
+        });
+</script>
+</body>
+</html>

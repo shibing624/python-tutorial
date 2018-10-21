@@ -1,0 +1,938 @@
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
+    margin: 0;
+    padding: 0
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+
+fieldset, img {
+    border: 0;
+    vertical-align: top
+}
+
+address, caption, cite, code, dfn, em, strong, th, var {
+    font-style: normal;
+    font-weight: 400
+}
+
+ol, ul {
+    list-style: none
+}
+
+caption, th {
+    text-align: left
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+    font-weight: 400
+}
+
+q:before, q:after {
+    content: ""
+}
+
+abbr, acronym {
+    border: 0;
+    font-variant: normal
+}
+
+sup {
+    vertical-align: text-top
+}
+
+sub {
+    vertical-align: text-bottom
+}
+
+input, textarea, select {
+    font-family: inherit;
+    font-size: inherit
+}
+
+legend {
+    color: #000
+}
+
+.inner-te, .inner {
+    margin: 0 auto
+}
+
+@media (max-width: 1278px) {
+    .inner-te, .inner {
+        width: 993px
+    }
+}
+
+@media (min-width: 1279px) and (max-width: 1506px) {
+    .inner-te, .inner {
+        margin: 0 143px;
+        width: auto
+    }
+}
+
+@media (min-width: 1507px) {
+    .inner-te, .inner {
+        width: 1220px
+    }
+}
+
+body {
+    font: 12px Arial, "PingFang SC", "Hiragino Sans GB", STHeiti, "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif
+}
+
+html, body {
+    background: #fff
+}
+
+body.no-interaction {
+    pointer-events: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
+}
+
+a {
+    text-decoration: none;
+    color: #666
+}
+
+a:hover {
+    text-decoration: underline
+}
+
+i {
+    font-style: normal
+}
+
+/*.clearfix:before, .clearfix:after {*/
+    /*content: " ";*/
+    /*display: table*/
+/*}*/
+
+/*.clearfix:after {*/
+    /*clear: both*/
+/*}*/
+
+.container {
+    background: #fff
+}
+
+.cut-font {
+    overflow: hidden;
+    white-space: nowrap;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis
+}
+
+.card-shadow {
+    -webkit-box-shadow: 1px 2px 1px 0 rgba(0, 0, 0, .072);
+    -moz-box-shadow: 1px 2px 1px 0 rgba(0, 0, 0, .072);
+    box-shadow: 1px 2px 1px 0 rgba(0, 0, 0, .072);
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=135, Color="#e3e3e3") \9
+}
+
+.arrow {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    font-size: 0
+}
+
+.hide {
+    display: none
+}
+
+.show {
+    display: block
+}
+
+#passport-login-pop {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box
+}
+
+.download-guide {
+    width: 200px;
+    height: 36px;
+    float: right
+}
+
+.download-guide-ul {
+    width: 100%;
+    height: 100%;
+    list-style: none
+}
+
+.download-guide-ul .guide-list {
+    display: inline-block;
+    float: left;
+    height: 36px;
+    width: 98px;
+    color: #666;
+    cursor: pointer;
+    border: 1px solid transparent;
+    position: relative
+}
+
+.download-guide-ul .guide-list:hover {
+    background-color: #fcfcfc;
+    border: 1px solid #eee
+}
+
+.download-app:hover .app-contain {
+    display: block;
+    text-decoration: none
+}
+
+.app-list-name:hover {
+    text-decoration: none
+}
+
+.guide-list .list-name {
+    width: 100%;
+    height: 100%;
+    display: block;
+    text-align: center;
+    line-height: 36px
+}
+
+.app-contain {
+    position: relative;
+    width: 100px;
+    height: 140px;
+    display: none;
+    z-index: 999;
+    left: -1px;
+    background-image: url(//fanyi.bdstatic.com/static/translation/img/header/downloadGuide/download-app_257f105.png);
+    background-repeat: no-repeat;
+    -moz-background-size: 100%;
+    background-size: 100%;
+    border: 1px solid #eee;
+    text-decoration: none;
+    padding-top: 100px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+.download-plugin:hover .plugin-contain {
+    display: block
+}
+
+.plugin-contain {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 463px;
+    position: absolute;
+    z-index: 99;
+    background-color: #fff;
+    left: -170px;
+    top: 36px;
+    border: 1px solid #eee;
+    font-family: Arial, "PingFang SC", "Hiragino Sans GB", STHeiti, "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+    padding-top: 30px;
+    padding-left: 25px;
+    padding-bottom: 30px;
+    display: none;
+    cursor: default
+}
+
+.plugin-contain * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+.plugin-contain a:hover {
+    text-decoration: none
+}
+
+.plugin-contain h2 {
+    font-size: 16px;
+    color: #000;
+    line-height: 16px
+}
+
+.plugin-contain .note {
+    font-size: 12px;
+    color: #CCC;
+    vertical-align: middle
+}
+
+.plugin-contain .desc {
+    font-size: 12px;
+    color: #999;
+    line-height: 28px
+}
+
+.plugin-contain .browser-border, .plugin-contain .logo-list-li {
+    border: 1px solid #e5e5e5
+}
+
+.plugin-contain .browser-border:hover, .plugin-contain .logo-list-li:hover {
+    border-color: #00a0e9
+}
+
+.plugin-contain .ocr-extension-browser {
+    display: block;
+    width: 138px;
+    height: 58px;
+    padding-left: 62px;
+    line-height: 56px;
+    font-size: 12px;
+    color: #4A4A4A;
+    margin: 7px 0 30px;
+    background-repeat: no-repeat;
+    background-image: url(//fanyi.bdstatic.com/static/translation/widget/header/downloadGuide/img/chrome_6767d2f.png);
+    -moz-background-size: 32px 32px;
+    background-size: 32px 32px;
+    background-position: 20px center
+}
+
+.plugin-contain .logo-list {
+    font-size: 0
+}
+
+.plugin-contain .logo-list-li {
+    margin-top: 7px;
+    margin-right: 7px;
+    width: 63px;
+    height: 63px;
+    position: relative;
+    display: inline-block;
+    vertical-align: top
+}
+
+.plugin-contain .logo-list-li a {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    text-align: center;
+    padding-top: 40px;
+    -moz-background-size: 30px 30px;
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    background-position: center 7px
+}
+
+.plugin-contain .logo-list-li span {
+    font-size: 12px;
+    line-height: 1;
+    -webkit-transform: scale(0.8);
+    -moz-transform: scale(0.8);
+    -ms-transform: scale(0.8);
+    -o-transform: scale(0.8);
+    transform: scale(0.8);
+    display: inline-block
+}
+
+.plugin-contain .browser1 a {
+    background-image: url(//fanyi.bdstatic.com/static/translation/widget/header/downloadGuide/img/chrome_6767d2f.png)
+}
+
+.plugin-contain .browser2 a {
+    background-image: url(//fanyi.bdstatic.com/static/translation/widget/header/downloadGuide/img/baidu_b76f076.png)
+}
+
+.plugin-contain .browser3 a {
+    background-image: url(//fanyi.bdstatic.com/static/translation/widget/header/downloadGuide/img/qq_6c105d0.png)
+}
+
+.plugin-contain .browser4 a {
+    background-image: url(//fanyi.bdstatic.com/static/translation/widget/header/downloadGuide/img/360_f91f361.png)
+}
+
+.plugin-contain .browser5 a {
+    background-image: url(//fanyi.bdstatic.com/static/translation/widget/header/downloadGuide/img/360speed_c333d6c.png)
+}
+
+.plugin-contain .browser6 a {
+    background-image: url(//fanyi.bdstatic.com/static/translation/widget/header/downloadGuide/img/cheetah_a9595c4.png)
+}
+
+.plugin-contain .browser7 a {
+    background-image: url(//fanyi.bdstatic.com/static/translation/widget/header/downloadGuide/img/uc_948a046.png)
+}
+
+.plugin-contain .browser8 a {
+    background-image: url(//fanyi.bdstatic.com/static/translation/widget/header/downloadGuide/img/opera_ce2f8fc.png)
+}
+
+.app-contain {
+    text-align: center
+}
+
+.header {
+    height: 31px;
+    line-height: 31px;
+    padding: 14px 0;
+    background: #fff
+}
+
+.logo-image {
+    padding-top: 0
+}
+
+.menu-text {
+    height: 49px;
+    margin: 0 0 0 50px
+}
+
+.logo-activity {
+    width: 152px;
+    height: 48px;
+    margin-top: -14px;
+    margin-left: 16px
+}
+
+.divide-wrap {
+    position: relative;
+    height: 1px;
+    z-index: 1
+}
+
+.colorbar {
+    width: 100%;
+    height: 100%;
+    z-index: 11;
+    background: url(//fanyi.bdstatic.com/static/translation/img/header/colorbar_623c2a2.png) center no-repeat;
+    position: relative
+}
+
+.colorbar-before {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    z-index: 9;
+    background-color: #1b24ff
+}
+
+.colorbar-after {
+    content: "";
+    position: absolute;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    z-index: 9;
+    background-color: #fd0371
+}
+
+.logo {
+    float: left;
+    height: auto !important;
+    zoom: 1
+}
+
+.logo-image {
+    display: inline-block;
+    vertical-align: top;
+    font: 14px Arial, "PingFang SC", "Hiragino Sans GB", STHeiti, "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+    color: #9b9b9b
+}
+
+.manual-trans-info {
+    position: relative;
+    width: 85px;
+    height: 38px;
+    color: #333;
+    float: right;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+.manual-trans-info * {
+    -webkit-box-sizing: inherit;
+    -moz-box-sizing: inherit;
+    box-sizing: inherit
+}
+
+.manual-trans-info .list-name {
+    position: relative;
+    display: block;
+    width: 82px;
+    text-align: center;
+    line-height: 38px;
+    border: 1px solid transparent
+}
+
+.manual-trans-info:hover a {
+    text-decoration: none
+}
+
+.manual-trans-info:hover .list-name {
+    border: 1px solid #eee;
+    background-color: #fcfcfc
+}
+
+.manual-trans-info .list-container {
+    display: none;
+    position: absolute;
+    left: -139px;
+    top: 37px;
+    width: 360px;
+    border: 1px solid #eee;
+    font-size: 14px;
+    text-align: center;
+    background-color: #fff;
+    z-index: 99
+}
+
+.manual-trans-info .list-container {
+    padding: 25px 25px 30px
+}
+
+.entry-trans-info:hover .list-container {
+    display: block
+}
+
+.manual-trans-info .list-container .content-text {
+    height: 24px;
+    margin: 0;
+    line-height: 24px
+}
+
+.manual-trans-info .list-container .content-text .content-text-num {
+    color: #4395ff
+}
+
+.manual-trans-info .infolist-ul {
+    width: 100%;
+    height: 100%;
+    list-style: none;
+    margin-top: 17px
+}
+
+.manual-trans-info .info-li {
+    float: left;
+    width: 144px;
+    height: 155px;
+    margin: 0 5px;
+    border: 1px solid #f1f1f1
+}
+
+.manual-trans-info .info-li:hover {
+    border: 1px solid #00a4ed
+}
+
+.manual-trans-info .info-li h1 {
+    line-height: 14px;
+    margin: 16px 0 13px
+}
+
+.manual-trans-info .info-li p {
+    font-size: 12px;
+    line-height: 24px;
+    color: #999
+}
+
+.navigation {
+    float: right;
+    zoom: 1
+}
+
+.navigation li {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    vertical-align: top
+}
+
+.navigation li .split-line {
+    margin: 0 10px
+}
+
+.account-wrap {
+    position: relative;
+    height: 36px;
+    z-index: 2
+}
+
+.account-wrap .arrow-down {
+    margin-left: 5px;
+    vertical-align: -2px;
+    _vertical-align: 0px;
+}
+
+.account-head {
+    line-height: 36px;
+    height: 36px;
+    display: inline-block;
+    min-width: 56px;
+    padding: 1px 11px
+}
+
+.account-panel {
+    position: absolute;
+    border: 1px solid #eee;
+    border-bottom: 0;
+    background: #fff;
+    right: 0;
+    top: 0;
+    min-width: 76px;
+    display: none
+}
+
+.account-panel li {
+    display: block
+}
+
+.account-panel li a {
+    display: block;
+    padding: 0 10px;
+    height: 36px;
+    line-height: 36px;
+    border-bottom: 1px solid #eee;
+    text-decoration: none;
+    text-align: left
+}
+
+.account-panel li a:hover {
+    background: #fcfcfc
+}
+
+.wrap-login .account-head {
+    width: 53px;
+    padding-left: 24px;
+    padding-right: 0
+}
+
+.wrap-login .account-panel {
+    min-width: 78px
+}
+
+.account-panel .account-login, .account-panel .account-register {
+    padding-left: 23px
+}
+
+.header .inner {
+    *position: relative
+}
+
+.browser-edition-tip {
+    position: absolute;
+    left: 200px;
+    height: 25px;
+    line-height: 25px;
+    background: #fffdf0;
+    padding: 0 10px
+}
+
+.trans-machine {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    float: right;
+    position: relative;
+    height: 38px;
+    color: #666;
+    border: 1px solid transparent
+}
+
+.trans-machine:hover {
+    border: 1px solid #eee;
+    background-color: #fcfcfc
+}
+
+.trans-machine * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+.trans-machine a {
+    display: inline-block;
+    padding: 1px 17px 0;
+    line-height: 36px
+}
+
+.trans-machine a:hover {
+    text-decoration: none
+}
+
+.trans-machine .icon-hotlk {
+    position: absolute;
+    top: -1px;
+    right: -4px
+}
+
+/*!--------------------------------------------------------------------
+STYLES "Outdated Browser"
+Version:    1.1.2 - 2015
+author:     Burocratik
+website:    http://www.burocratik.com
+* @preserve
+-----------------------------------------------------------------------*/
+#outdated {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 170px;
+    text-align: center;
+    text-transform: uppercase;
+    z-index: 1500;
+    background-color: #f25648;
+    color: #fff
+}
+
+* html #outdated {
+    position: absolute
+}
+
+#outdated h6 {
+    font-size: 25px;
+    line-height: 25px;
+    margin: 30px 0 10px
+}
+
+#outdated p {
+    font-size: 16px;
+    line-height: 12px;
+    margin-top: 40px
+}
+
+#outdated a {
+    font-weight: 700;
+    color: #fff
+}
+
+#outdated #btnUpdateBrowser {
+    display: block;
+    position: relative;
+    padding: 10px 20px;
+    margin: 30px auto 0;
+    width: 230px;
+    color: #fff;
+    text-decoration: none;
+    border: 2px solid #fff;
+    cursor: pointer
+}
+
+#outdated #btnUpdateBrowser:hover {
+    color: #f25648;
+    background-color: #fff
+}
+
+#outdated .last {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    width: 20px;
+    height: 20px
+}
+
+#outdated .last[dir=rtl] {
+    right: auto !important;
+    left: 25px !important
+}
+
+#outdated #btnCloseUpdateBrowser {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: #fff;
+    font-size: 36px;
+    line-height: 36px
+}
+
+.scroll-wrapper {
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: relative
+}
+
+.scroll-wrapper > .scroll-content {
+    border: 0 !important;
+    -webkit-box-sizing: content-box !important;
+    -moz-box-sizing: content-box !important;
+    box-sizing: content-box !important;
+    height: auto;
+    left: 0;
+    margin: 0;
+    max-height: none;
+    max-width: none !important;
+    overflow: scroll !important;
+    padding: 0;
+    position: relative !important;
+    top: 0;
+    width: auto !important
+}
+
+.scroll-wrapper > .scroll-content::-webkit-scrollbar {
+    height: 0;
+    width: 0
+}
+
+.scroll-element {
+    display: none
+}
+
+.scroll-element, .scroll-element div {
+    -webkit-box-sizing: content-box !important;
+    -moz-box-sizing: content-box !important;
+    box-sizing: content-box !important
+}
+
+.scroll-element.scroll-x.scroll-scrollx_visible, .scroll-element.scroll-y.scroll-scrolly_visible {
+    display: block
+}
+
+.scroll-element .scroll-bar, .scroll-element .scroll-arrow {
+    cursor: default
+}
+
+.scroll-textarea {
+    border: 1px solid #ccc;
+    border-top-color: #999
+}
+
+.scroll-textarea > .scroll-content {
+    overflow: hidden !important
+}
+
+.scroll-textarea > .scroll-content > textarea {
+    border: 0 !important;
+    -webkit-box-sizing: border-box !important;
+    -moz-box-sizing: border-box !important;
+    box-sizing: border-box !important;
+    height: 100% !important;
+    margin: 0;
+    max-height: none !important;
+    max-width: none !important;
+    overflow: scroll !important;
+    outline: 0;
+    padding: 2px;
+    position: relative !important;
+    top: 0;
+    width: 100% !important
+}
+
+.scroll-textarea > .scroll-content > textarea::-webkit-scrollbar {
+    height: 0;
+    width: 0
+}
+
+.scrollbar-inner > .scroll-element, .scrollbar-inner > .scroll-element div {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 10
+}
+
+.scrollbar-inner > .scroll-element div {
+    display: block;
+    height: 100%;
+    left: 0;
+    top: 0;
+    width: 100%
+}
+
+.scrollbar-inner > .scroll-element.scroll-x {
+    bottom: 2px;
+    height: 8px;
+    left: 0;
+    width: 100%
+}
+
+.scrollbar-inner > .scroll-element.scroll-y {
+    height: 100%;
+    right: 2px;
+    top: 0;
+    width: 4px
+}
+
+.scrollbar-inner > .scroll-element .scroll-element_outer {
+    overflow: hidden
+}
+
+.scrollbar-inner > .scroll-element .scroll-element_outer, .scrollbar-inner > .scroll-element .scroll-element_track, .scrollbar-inner > .scroll-element .scroll-bar {
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px
+}
+
+.scrollbar-inner > .scroll-element .scroll-bar {
+    background-color: #e1e1e1
+}
+
+.scrollbar-inner > .scroll-element.scroll-draggable .scroll-bar {
+    background-color: #919191
+}
+
+.scrollbar-inner > .scroll-element.scroll-x.scroll-scrolly_visible .scroll-element_track {
+    left: -12px
+}
+
+.scrollbar-inner > .scroll-element.scroll-y.scroll-scrollx_visible .scroll-element_track {
+    top: -12px
+}
+
+.scrollbar-inner > .scroll-element.scroll-x.scroll-scrolly_visible .scroll-element_size {
+    left: -12px
+}
+
+.scrollbar-inner > .scroll-element.scroll-y.scroll-scrollx_visible .scroll-element_size {
+    top: -12px
+}
+
+.webuploader-container {
+    position: relative
+}
+
+.webuploader-element-invisible {
+    position: absolute !important;
+    clip: rect(1px 1px 1px 1px);
+    clip: rect(1px, 1px, 1px, 1px)
+}
+
+.webuploader-pick {
+    position: relative
+}
+
+.webuploader-pick-hover {
+}
+
+.webuploader-pick-disable {
+    opacity: .6;
+    pointer-events: none
+}
+
+.inner-te {
+    margin: 0 auto
+}
+
+@media (max-width: 1278px) {
+    .inner-te {
+        width: 993px
+    }
+}
+
+@media (min-width: 1279px) and (max-width: 1506px) {
+    .inner-te {
+        margin: 0 143px;
+        width: auto
+    }
+}
+
+@media (min-width: 1507px) {
+    .inner-te {
+        width: 1220px
+    }
+}

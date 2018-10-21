@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style id="stndz-style"></style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>文本修剪</title>
+    <meta name="keywords" content="文本修剪：实时删除文本中的新行、制表键、空格、回车、换行"/>
+    <meta name="description"
+          content="文本修剪，在线字符串文本压缩,去掉回车、换行、空格和制表符，文本修剪，实时删除文本中的新行、制表键、空格、回车、换行，支持中、英、日、韩、泰、法、西、德等多种热门语言。"/>
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="//hm.baidu.com/hm.js?64ecd82404c51e03dc91cb9e8c025574"></script>
+
+    <link rel="stylesheet" type="text/css" href="public.css">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script>
+        $(function () {
+            $("#baidu_translate_input").keyup(function () {
+                StrReplace();
+            });
+            function StrReplace() {
+                var StrInput = $("#baidu_translate_input").val();
+                StrInput = formatStr(StrInput);
+                StrInput = replaceSpace(StrInput);
+                $("#outputstr").val(StrInput);
+            }
+
+            function formatStr(strInput) {
+                strInput = strInput.replace(/\r/ig, "");
+                strInput = strInput.replace(/\n/ig, "");
+                return strInput;
+            }
+
+            function replaceSpace(strInput) {
+                return strInput.replace(/[ ]/g, "");
+            }
+
+            $('textarea').each(function (index, element) {
+                var $element = $(element);
+                var defaultValue = $element.val();
+                $element.focus(function () {
+                    var actualValue = $element.val();
+                    if (actualValue == defaultValue) {
+                        $element.val('');
+                    }
+                });
+                $element.blur(function () {
+                    var actualValue = $element.val();
+                    if (!actualValue) {
+                        $element.val(defaultValue);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <div class="inner">
+            <div class="logo">
+                <h1>文本修剪：实时删除文本中的新行、制表键、空格、回车、换行</h1>
+            </div>
+            <div class="browser-edition-tip" style="display:none">
+                <span>抱歉，您正在使用的浏览器未被完全支持，我们强烈推荐您进行浏览器升级。</span>
+                <a href="###">关闭</a>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="divide-wrap">
+        <div class="colorbar-before"></div>
+        <div class="colorbar-after"></div>
+        <div class="colorbar"></div>
+    </div>
+    <div class="main main-outer" id="main-outer" style="min-height: 553px;">
+        <div class="main main-inner">
+            <div class="inner">
+                <div class="translate-wrap">
+                    <div class="translateio">
+                        <div class="translate-main clearfix">
+                            <div class="trans-left">
+                                <div class="trans-input-wrap">
+                                    <div class="image-wrap">
+                                        <div id="image-holder" style="background-image: none;"></div>
+                                    </div>
+                                    <div class="input-wrap" style="height: auto;" dir="ltr">
+                                        <a href="###" class="textarea-clear-btn" title="清空"
+                                           style="float: right; margin: 0px 0px 0px 10px; display: none;"></a>
+                                        <div class="doc-trans-file"></div>
+                                        <div class="textarea-wrap" style="height: 70px; padding-bottom: 0px;">
+                                            <div class="textarea-bg">
+                                                <span class="prompt-text">输入文字</span>
+                                            </div>
+                                            <div class="textarea-bg-text" id="textarea-bg-text"></div>
+                                            <textarea id="baidu_translate_input" data-height="70"
+                                                      style="height: 70px; overflow: auto;"
+                                                      class="textarea"></textarea>
+                                        </div>
+                                        <ul class="sug-wrap" id="sug-wrap" style="display: none;"></ul>
+                                        <div class="input-operate">
+                                            <a href="###" class="operate-btn op-sound data-hover-tip"
+                                               data-hover-tip-text="发音" style="display: none;"><span
+                                                class="icon-sound"></span></a>
+                                            <div class="op-favor-container">
+                                                <a href="javascript:void(0);" class="operate-btn op-favo data-hover-tip"
+                                                   data-hover-tip-text="添加到收藏夹" title="添加到收藏夹"
+                                                   style="display: none;"><span class="icon-favo"></span></a>
+                                                <div class="input-coll-extra-container">
+                                                    <div class="input-coll-group-container">
+                                                        <a class="close-input-coll-group" href="javascript:"></a>
+                                                        <header class="gray">
+                                                            添加收藏到&nbsp;<span class="black">(单选)</span>&nbsp;：
+                                                        </header>
+                                                        <hr>
+                                                        <div class="scroll-wrapper input-coll-ol scrollbar-inner"
+                                                             style="position: relative;">
+                                                            <ol class="input-coll-ol scrollbar-inner scroll-content"
+                                                                style="height: auto; margin-bottom: 0px; margin-right: 0px; max-height: 0px;">
+                                                            </ol>
+                                                            <div class="scroll-element scroll-x">
+                                                                <div class="scroll-element_outer">
+                                                                    <div class="scroll-element_size"></div>
+                                                                    <div class="scroll-element_track"></div>
+                                                                    <div class="scroll-bar"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="scroll-element scroll-y">
+                                                                <div class="scroll-element_outer">
+                                                                    <div class="scroll-element_size"></div>
+                                                                    <div class="scroll-element_track"></div>
+                                                                    <div class="scroll-bar"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                        <div class="new-coll-group-container">
+                                                            <a class="add-new-group" href="javascript:">新收藏分组</a>
+                                                            <div class="new-coll-group-input-container">
+                                                                <input type="text" placeholder="请输入新分组名称"
+                                                                       class="new-group-name"><a
+                                                                class="new-group-confirm disabled-new-group-confirm"
+                                                                href="javascript:">创建并添加</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="new-coll-group-err-msg"></div>
+                                                </div>
+                                                <script type="text/template" id="tpl-input-ol">
+                                                    {{each groupList as group}}
+                                                    <li class="input-coll-li"
+                                                        title="{{group.nameDisplayLegth > 14 ? group.name : ''}}"
+                                                        data-group-id="{{group.id}}" data-stat-id="18">{{group.name}}
+                                                    </li>
+                                                    {{/each}}
+                                                </script>
+                                            </div>
+                                            <div class="trans-correct" style="display: none;"><span
+                                                class="correct-text">您是不是要找:</span><a href="###"
+                                                                                      class="correct-link correct-query">strip</a>
+                                            </div>
+                                            <div class="trans-prompt" style="display: none;">
+                                                <p class="prompt-wrap"><span class="prompt-text">您输入的可能是:</span> <a
+                                                    href="javascript:" class="prompt-link source-lang"
+                                                    data-lang="zh">中文</a></p>
+                                            </div>
+                                        </div>
+                                        <div id="upload-btn" style="display: none;">
+                                            <div class="btn-dot"></div>
+                                            <div class="btn-dot"></div>
+                                            <div class="btn-dot"></div>
+                                            <div class="upload-tip">点击上传文件，支持txt格式</div>
+                                        </div>
+                                        <div id="upload-btn-hidden" class="webuploader-container">
+                                            <div class="webuploader-pick"></div>
+                                            <div id="rt_rt_1cnvcrnl1qlmsg31ru6nom1l8c1"
+                                                 style="position: absolute; top: 0px; left: 0px; width: 1px; height: 1px; overflow: hidden;">
+                                                <input type="file" name="file" class="webuploader-element-invisible"
+                                                       accept="image/*,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf"><label
+                                                style="opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255);"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <script type="text/html" id="tplSugItem">
+                                {{each data}}
+                                <li class="sug-item" data-sug-title="{{$value.k}}">
+                                    <span class="sug-query">{{$value.queryInK}}</span><span class="sug-query-rest">{{$value.kRest}}</span>
+                                    <span class="sug-translate">{{$value.v}}</span>
+                                </li>
+                                {{/each}}
+                            </script>
+                            <script type="text/html" id="tplLangPrompt">
+                                <span class="prompt-text">{{isOcr ? '上传图片原文' : '您输入的'}}可能是:</span>
+                                <a href="javascript:" class="prompt-link source-lang"
+                                   data-lang="{{lang}}">{{langText}}</a>
+                            </script>
+                            <div class="trans-right">
+                                <div class="output-wrap output-blank">text1
+                                </div>
+                                <span class="hover-tips-wrap" id="hover-tips" style="display:none;">
+                                    <span class="tips-content">清空内容</span>
+                                    <span class="tips-arrow-down"></span>
+                                </span>
+                            </div>
+                            <script type="text/html" id="tplOrdinaryResult">
+                                <div class="output-mod ordinary-wrap">
+                                    <!--翻译结果展示与编辑区域-->
+
+
+                                    <!--翻译结果功能控制区域-->
+                                </div>
+                            </script>
+                            <script type="text/html" id="tplEditOutputTextarea">
+                                <!--<a href="javascript:void(0);" class="output--clear-btn" title="清空"></a>-->
+                                <div class="textarea-wrap">
+                                    <textarea class="textarea" id="baidu_translate_output_edit" data-height="70">
+                                    text2</textarea>
+                                </div>
+                            </script>
+                            <script type="text/html" id="tplLongTextPrompt">
+                                <div class="long-text-prompt-wrap">
+                                    <!--<p>{{message}}</p>-->
+                                </div>
+                            </script>
+                        </div>
+                        <div class="preview-placeholder">
+                            <img id="preview-img">
+                        </div>
+                    </div>
+                    <div class="trans-other-wrap clearfix">
+                        <div class="history-wrap" style="display: block;">
+                            <div class="history-container">
+                                <div class="history-title">
+                                    <div class="history-control-bar">
+                                        <div class="history-remove-edit">
+                                            <span class="history-remove-all">清空</span><span
+                                            class="split-symbol">|</span><span class="history-edit-btn">编辑</span>
+                                        </div>
+                                        <span class="history-complete">完成</span>
+                                    </div>
+                                    <h1><span class="history-icon icon-history"></span>历史记录</h1>
+                                </div>
+                                <div class="history-tip">
+                                    <p>暂时没有您的历史记录</p>
+                                    <!--<p class="history-tip-row">不想显示历史记录？<a class="history-tip-setting">点此设置</a></p>-->
+                                </div>
+                            </div>
+                        </div>
+                        <script type="text/template" id="tplHistoryItem">
+                            {{each list as item}}
+                            <li><span class="history-item-remove icon-remove"></span>
+                                <a href="{{item.url}}" {{if item.from==='ara'}}dir="rtl"{{/if}} class="history-item">{{item.word}}</a>
+                            </li>{{/each}}
+                        </script>
+                        <div class="hot-link-out-container" style="display: none;"></div>
+                        <div class="trans-left" style="">
+                            <nav id="side-nav" class="" style="">
+                                <div class="sidv-nav-position-layer">
+                                    <div class="side-nav-wrapper"></div>
+                                    <div id="nav-mask"></div>
+                                    <script type="text/html" id="tplNavSTList">
+                                        {{each navListIdAndText as navItem navIdx}}
+                                        <div class="nav-st-item" data-sort-id="{{navItem.id}}" data-sortable="y">
+                                            <div class="nav-st-item-text-prev"><span></span></div>
+                                            {{navItem.text}}
+                                        </div>
+                                        {{/each}}
+                                    </script>
+                                </div>
+                            </nav>
+                            <script type="text/html" id="tplSideNav">
+                                <ol class="nav-ol{{sectionData.length === 1 ? ' single-item' : ''}}">
+                                    <a href="javascript:" class="nav-sort-btn" data-stat-id="62">排序</a>
+                                    {{each sectionData as section idx}}
+                                    <li data-section-idx="{{idx}}"
+                                        class="{{if section.isSub}}nav-sub-item{{else}}nav-item{{/if}}{{if section.isNew}} prefix-new{{/if}}"
+                                        data-stat-id="37" data-stat-add="{{section.title}}">
+                                        <a href="javascript:">{{section.title}}{{if section.isNew}}<span
+                                            class="icon-new new-icon-btn"></span>{{/if}}</a>
+                                    </li>
+                                    {{/each}}
+                                    <a href="javascript:" class="nav-search-again">继续查词</a>
+                                </ol>
+                            </script>
+                            <div id="left-result-container"></div>
+                            <script type="text/template" id="tplDictionary">
+                                {{if isFirstCard}}
+                                <div class="output-mod dictionary-wrap dictionary-wrap-f result-section"
+                                     data-nav-text="简明释义"></div>
+                                {{else}}
+                                <section class="result-section dictionary-wrap dictionary-wrap-nf need-collapse"
+                                         data-nav-text="简明释义" data-collapse-height="700">
+                                </section>
+                                {{/if}}
+                            </script>
+
+                        </div>
+                        <div class="trans-right trans-other-right" id="transOtherRight">
+                            <div class="trans-ad-app-wrap hide" style="display: none;"><a class="trans-ad-app-control"
+                                                                                          href="javascript:void(0);"></a>
+                                <a title="二维码下载" class="trans-ad-app" target="_blank"
+                                   href="http://fanyi.baidu.com/appdownload/download.html"></a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="doc-trans-view-wrap">
+                    <div class="loading-exit-btn doc-trans-btn-common doc-trans-btn-white">退出</div>
+                    <div class="view-btn-group">
+                        <a class="export-doc-btn doc-trans-btn-common doc-trans-btn-blue"></a>
+                        <a class="view-re-upload-btn doc-trans-btn-common doc-trans-btn-white">翻译下一篇</a>
+                    </div>
+                    <div class="doc-whole-container">
+                        <div class="src-doc-container">
+                            <div class="file-name-container">
+                                <p class="file-name">Deep Context Model for Grammatical Error Correction.pdf</p>
+                            </div>
+                            <div class="view-file-name"></div>
+                            <div class="src-doc-position-container">
+                                <div class="scroll-wrapper src-doc-scroll-wrapper scrollbar-inner"
+                                     style="position: relative;">
+                                    <div class="src-doc-scroll-wrapper scrollbar-inner scroll-content"
+                                         style="height: 100px; margin-bottom: 0px; margin-right: 0px; max-height: none;">
+                                        <div class="src-doc-padding-wrapper"></div>
+                                    </div>
+                                    <div class="scroll-element scroll-x">
+                                        <div class="scroll-element_outer">
+                                            <div class="scroll-element_size"></div>
+                                            <div class="scroll-element_track"></div>
+                                            <div class="scroll-bar"></div>
+                                        </div>
+                                    </div>
+                                    <div class="scroll-element scroll-y">
+                                        <div class="scroll-element_outer">
+                                            <div class="scroll-element_size"></div>
+                                            <div class="scroll-element_track"></div>
+                                            <div class="scroll-bar"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dst-doc-container">
+                            <div class="loading-container">
+                                <p>小译正在努力翻译…</p>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar"></div>
+                                </div>
+                                <p><span class="doc-view-from-lang">中文</span><span class="dir-arrow"></span><span
+                                    class="doc-view-to-lang">英语</span></p>
+                            </div>
+                            <div class="loading-err-container">
+                                <p class="err-title">文档解析失败</p>
+                                <p class="err-content">文档字数超限，建议拆分文档翻译哦</p>
+                                <a class="doc-trans-btn-common doc-trans-btn-blue err-exit-btn">退出</a>
+                                <a class="doc-trans-btn-common doc-trans-btn-white err-re-upload-btn">重新上传</a>
+                            </div>
+                            <div class="view-dst-title">译文（来自机器翻译）</div>
+                            <div class="dst-doc-position-container">
+                                <div class="scroll-wrapper dst-doc-scroll-wrapper scrollbar-inner"
+                                     style="position: relative;">
+                                    <div class="dst-doc-scroll-wrapper scrollbar-inner scroll-content"
+                                         style="height: 100px; margin-bottom: 0px; margin-right: 0px; max-height: none;">
+                                        <div class="dst-doc-padding-wrapper"></div>
+                                    </div>
+                                    <div class="scroll-element scroll-x">
+                                        <div class="scroll-element_outer">
+                                            <div class="scroll-element_size"></div>
+                                            <div class="scroll-element_track"></div>
+                                            <div class="scroll-bar"></div>
+                                        </div>
+                                    </div>
+                                    <div class="scroll-element scroll-y">
+                                        <div class="scroll-element_outer">
+                                            <div class="scroll-element_size"></div>
+                                            <div class="scroll-element_track"></div>
+                                            <div class="scroll-bar"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="zonedword-wrap" class="zonedword zonedword-wrap" style="top: 594px; left: 849px; display: none;">
+        <div class="zonedword-title" style="cursor: move;">
+            <a href="javascript:void(0);" class="zonedword-close" title="关闭"><span class="icon-zclose"></span></a>
+            <div class="zonedword-setting">
+                <a href="javascript:void(0);" class="zonedword-setting-icon" title="设置"><span
+                    class="icon-zsetting"></span></a>
+                <div class="setting-options" style="display: none;">
+                    <span class="setting-options-arrow"><em class="setting-arrow-inner"></em></span>
+                    <a href="javascript:void(0);" class="zonedword-switch setting-checked">
+                        <span class="check-label">划词翻译</span><span class="check-option"></span>
+                    </a>
+                </div>
+            </div>
+            <span>百度翻译</span>
+        </div>
+        <div class="zonedword-content">
+            <div class="zonedword-search-wrap">
+                <div class="zonedword-search-input-wrap">
+                    <input class="zonedword-search-input" type="text" value="" data-dir="zh2en">
+                </div>
+                <a class="zonedword-search-button" href="###">查询</a>
+            </div>
+            <div class="zonedword-result-wrap">
+                <p class="zonedword-loading-tip" style="display: none;">
+                    <img src="//fanyi.bdstatic.com/static/translation/img/translate/zonedword/loading_50c5e3e.gif"
+                         width="32" height="32" alt="" style="margin-bottom:5px;">
+                    <br>
+                    努力翻译中...</p>
+                <p class="zonedword-error-tip" style="display: none;"></p>
+                <div class="zonedword-result-container">
+                    <div class="zoned-coll-extra-container" style="visibility: visible; display: none;">
+                        <div class="scroll-wrapper zoned-coll-group-container scrollbar-inner"
+                             style="position: absolute;">
+                            <div class="zoned-coll-group-container scrollbar-inner scroll-content"
+                                 style="height: auto; margin-bottom: 0px; margin-right: 0px; max-height: 0px;">
+                                <header class="gray">添加收藏到&nbsp;<span class="black">(单选)</span>&nbsp;：</header>
+                                <hr>
+                                <ol class="zoned-coll-ol scrollbar-inner">
+                                </ol>
+                            </div>
+                            <div class="scroll-element scroll-x">
+                                <div class="scroll-element_outer">
+                                    <div class="scroll-element_size"></div>
+                                    <div class="scroll-element_track"></div>
+                                    <div class="scroll-bar"></div>
+                                </div>
+                            </div>
+                            <div class="scroll-element scroll-y">
+                                <div class="scroll-element_outer">
+                                    <div class="scroll-element_size"></div>
+                                    <div class="scroll-element_track"></div>
+                                    <div class="scroll-bar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script type="text/template" id="tpl-zoned-ol">
+                        {{each groupList as group}}
+                        <li class="zoned-coll-li" title="{{group.nameDisplayLegth > 14 ? group.name : ''}}"
+                            data-group-id="{{group.id}}" data-stat-id="21">{{group.name}}
+                        </li>
+                        {{/each}}
+                    </script>
+                    <div class="zonedword-result clearfix">
+                        <div class="output-bd clearfix" dir="ltr">
+                            <div class="fanyi-output"><p class="ordinary-output target-output"> In this paper, we
+                                propose a new classifier method. </p>
+                                <p class="ordinary-output target-output"> GEC is based on deep context model. Instead of
+                                    using the surface </p>
+                                <p class="ordinary-output target-output"> Shallow features (POS, analytic information,
+                                    etc.), we use deep. </p>
+                                <p class="ordinary-output target-output"> Direct characteristics. In particular, we use
+                                    bi directional recursion. </p>
+                                <p class="ordinary-output target-output"> A cell that represents the context (GRU).
+                                    Compared with tradition </p>
+                                <p class="ordinary-output target-output"> GEC's classifier method, our new method does
+                                    not exist. </p>
+                                <p class="ordinary-output target-output"> Detailed description of Feature Engineering
+                                    for each error type is required. Deep </p>
+                                <p class="ordinary-output target-output"> Context representation learning from large
+                                    text corpus </p>
+                                <p class="ordinary-output target-output"> In an end-to-end manner. </p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="zonedword-download-tip">
+                <p>
+                    <a class="zonedword-detail-link sec-trans"
+                       href="/#zh/en/%E5%9C%A8%E6%9C%AC%E6%96%87%E4%B8%AD%EF%BC%8C%E6%88%91%E4%BB%AC%E6%8F%90%E5%87%BA%E4%BA%86%E4%B8%80%E7%A7%8D%E6%96%B0%E7%9A%84%E5%88%86%E7%B1%BB%E5%99%A8%E6%96%B9%E6%B3%95%E3%80%82%0A%0AGEC%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%B1%82%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A8%A1%E5%9E%8B%E3%80%82%E4%BB%A3%E6%9B%BF%E4%BD%BF%E7%94%A8%E8%A1%A8%E9%9D%A2%0A%0A%E6%B5%85%E5%B1%82%E7%89%B9%E5%BE%81%EF%BC%88POS%E3%80%81%E8%A7%A3%E6%9E%90%E4%BF%A1%E6%81%AF%E7%AD%89%EF%BC%89%EF%BC%8C%E6%88%91%E4%BB%AC%E4%BD%BF%E7%94%A8%E6%B7%B1%0A%0A%E7%9B%B4%E6%8E%A5%E7%89%B9%E5%BE%81%E3%80%82%E7%89%B9%E5%88%AB%E5%9C%B0%EF%BC%8C%E6%88%91%E4%BB%AC%E4%BD%BF%E7%94%A8%E5%8F%8C%E5%90%91%E9%80%89%E9%80%9A%E9%80%92%E5%BD%92%E3%80%82%0A%0A%E8%A1%A8%E7%A4%BA%E4%B8%8A%E4%B8%8B%E6%96%87%E7%9A%84%E5%8D%95%E5%85%83%EF%BC%88GRU%EF%BC%89%E3%80%82%E4%B8%8E%E4%BC%A0%E7%BB%9F%E7%9B%B8%E6%AF%94%0A%0AGEC%E7%9A%84%E5%88%86%E7%B1%BB%E5%99%A8%E6%96%B9%E6%B3%95%EF%BC%8C%E6%88%91%E4%BB%AC%E7%9A%84%E6%96%B0%E6%96%B9%E6%B3%95%E6%B2%A1%E6%9C%89%0A%0A%E9%9C%80%E8%A6%81%E8%AF%A6%E7%BB%86%E8%AF%B4%E6%98%8E%E6%AF%8F%E4%B8%AA%E9%94%99%E8%AF%AF%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B%E3%80%82%E6%B7%B1%E7%9A%84%0A%0A%E4%B8%8A%E4%B8%8B%E6%96%87%E8%A1%A8%E7%A4%BA%E4%BB%8E%E5%A4%A7%E7%BA%AF%E6%96%87%E6%9C%AC%E8%AF%AD%E6%96%99%E5%BA%93%E4%B8%AD%E5%AD%A6%E4%B9%A0%0A%0A%E4%BB%A5%E7%AB%AF%E5%88%B0%E7%AB%AF%E7%9A%84%E6%96%B9%E5%BC%8F%E3%80%82">查看更多</a>
+                    <a class="zonedword-close-coll-link" href="javascript:" style="display: none;">收起分组</a>
+                    <a href="javascript:void(0);" class="operate-btn op-favo data-hover-tip" title="添加到收藏夹"
+                       data-hover-tip-text="添加到收藏夹" style=""><span class="icon-favo"></span></a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script type="text/template" id="tplDictZonedword">
+        <div class="dictionary-output">
+            <div class="dictionary-title clearfix">
+                {{if tplData['voice'] && tplData['voice'].length > 0}}
+                <div class="dictionary-spell" {{if tplData['dir'] == 'rtl'}}style="float:right;"{{/if}}>
+                {{each tplData['voice'] as voice}}
+                {{if voice['en_phonic']}}
+                <span class="phonetic-transcription">
+                            <span>英</span>
+                            <b>{{voice['en_phonic']}}</b>
+                            <a href="javascript:void(0);" data-sound-lan="uk&lock" data-sound-text="{{tplData['src']}}"
+                               class="operate-btn op-sound">
+                                <span class="icon-sound sound-btn"></span>
+                            </a>
+                        </span>
+                {{else if voice['us_phonic']}}
+                <span class="phonetic-transcription">
+                            <span>美</span>
+                            <b>{{voice['us_phonic']}}</b>
+                            <a href="javascript:void(0);" data-sound-lan="en&lock" data-sound-text="{{tplData['src']}}"
+                               class="operate-btn op-sound">
+                                <span class="icon-sound sound-btn"></span>
+                            </a>
+                        </span>
+                {{/if}}
+                {{/each}}
+                </span>
+
+            </div>
+            {{/if}}
+        </div>
+
+        {{each tplData['content'] as value index}}
+        {{if value['phonic']}}
+        <div class="dictionary-voice-spell">
+            <span>{{tplData['src']}}</span>
+            <span class="phonetic-transcription">{{value['phonic']}}</span>
+        </div>
+        {{/if}}
+        <div class="dictionary-comment clearfix">
+            {{each value['mean'] as mean}}
+            <p>
+                {{if mean['pre']}}
+                <b>{{mean['pre']}}</b>
+                {{/if}}
+                {{each mean['cont'] as cont cont_key}}
+                {{if cont === '1'}}
+                <a href="/#auto/auto/{{cont_key}}" target="_blank">{{cont_key}}</a>; &nbsp;
+                {{else}}
+                <span>{{cont_key}}</span>; &nbsp;
+                {{/if}}
+                {{/each}}
+            </p>
+            {{/each}}
+        </div>
+        {{/each}}
+        </div>
+    </script>
+    <script type="text/template" id="tplOrdinaryZonedword">
+        <div class="output-bd clearfix" dir="{{tplData['dir']}}">
+            <div class="fanyi-output">
+                {{each tplData['data'] as value index}}
+                {{if value.dst}}
+                <p class="ordinary-output target-output">
+                    {{value.dst}}
+                </p>
+                {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    </script>
+    <div class="footer cleafix" style="display: block;">
+        <div class="extra-wrap" style="top: 553px; display: block;">
+            <a href="feedback" class="feedback-btn extra-btn" id="index-feedback-btn">意见反馈</a>
+            <a href="###" class="backtotop-btn extra-btn" style="display: none;"></a>
+        </div>
+        <div class="inner">
+            <div class="spread-wrap">
+            </div>
+            <div class="copyright">
+                <ul>
+                    <li>
+                        <a href="//borntowin.cn" target="_blank">©2018&nbsp;borntowin</a>
+                    </li>
+                    <li>
+                        <a href="//borntowin.cn/nlp" target="_blank">自然语言处理</a>
+                        <span class="split-line">|</span>
+                    </li>
+                    <li>
+                        <a href="//borntowin.cn/image" target="_blank">智能识图</a>
+                        <span class="split-line">|</span>
+                    </li>
+                    <li>
+                        <a href="//borntowin.cn/speech">语言识别</a>
+                        <span class="split-line">|</span>
+                    </li>
+                    <li>
+                        <a href="//borntowin.cn/about"
+                           target="_blank">帮助</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        void function (e, t) {
+            for (var n = t.getElementsByTagName("img"), a = +new Date, i = [], o = function () {
+                this.removeEventListener && this.removeEventListener("load", o, !1), i.push({
+                    img: this,
+                    time: +new Date
+                })
+            }, s = 0; s < n.length; s++)!function () {
+                var e = n[s];
+                e.addEventListener ? !e.complete && e.addEventListener("load", o, !1) : e.attachEvent && e.attachEvent("onreadystatechange", function () {
+                        "complete" == e.readyState && o.call(e, o)
+                    })
+            }();
+            alog("speed.set", {fsItems: i, fs: a})
+        }(window, document);
+    </script>
+    <div id="overall-toast" class="overall-toast overall-toast-hide"><span></span></div>
+    <script src="//passport.baidu.com/passApi/js/uni_login_wrapper.js?cdnversion=201809220903"></script>
+</div>
+
+<div id="outdated">
+    <h6>您的浏览器版本太低，将不能正常使用百度翻译！</h6>
+    <p>要正常浏览本网站请升级至&nbsp;&nbsp;<a href="http://windows.microsoft.com/zh-CN/internet-explorer/downloads/ie">新版本 IE
+        浏览器</a>，或者安装&nbsp;&nbsp;<a href="http://liulanqi.baidu.com">百度浏览器</a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="关闭">×</a></p>
+</div>
+
+<script>
+    window['common'] = {
+        token: '16e001e19bf371b2e78dbed4006efa9a',
+        systime: '1537578228841',
+        logid: '64e03f795e6a6709f1f88952f94ff1ab',
+        langList: {
+            'zh': '中文',
+            'cht': '中文繁体'
+        },
+        account: {
+            is_login: '1',
+            user_name: 'somebody',
+            add_name: true
+        },
+        sid: '1000',
+        locale: 'zh',
+        remote: {
+            query: '',
+            lang: '',
+            expand: ''
+        },
+        rtSwitch: 'on',
+        rtl: [
+            'ara'],
+        langMap: {
+            'zh': ['en', 'ara', 'est', 'bul', 'pl', 'dan', 'de', 'ru', 'fra', 'fin', 'kor', 'nl', 'cs', 'rom', 'pt', 'jp', 'swe', 'slo', 'th', 'wyw', 'spa', 'el', 'hu', 'it', 'yue', 'cht', 'vie'],
+            'cht': ['zh', 'en', 'ara', 'est', 'bul', 'pl', 'dan', 'de', 'ru', 'fra', 'fin', 'kor', 'nl', 'cs', 'rom', 'pt', 'jp', 'swe', 'slo', 'th', 'wyw', 'spa', 'el', 'hu', 'it', 'yue', 'vie'],
+        },
+        // 图片翻译小流量
+        ocrHit: '1',
+        // 文档 翻译小流量
+        docHit: '1' === '1' ? true : false,
+        pdfHit: '1' === '1' ? true : false,
+        defaultNavList: '[2,1,0,3,4,6,5,7,8,12,11,9,10]',
+        ownerNavList: '[0,1,2,3,4,5,6,7,8,9,10,11,12]'
+    }
+</script>
+<script>window.bdstoken = 'e92534a3de70994b9361166c1cf38992';
+window.gtk = '320305.131321201';</script>
+<script type="text/javascript" src="//fanyi.bdstatic.com/static/translation/lib/third_party/mod_b80b8f9.js"></script>
+<script type="text/javascript" src="//fanyi.bdstatic.com/static/translation/pkg/public_c9f42eb.js"></script>
+<script type="text/javascript" src="//fanyi.bdstatic.com/static/translation/pkg/index_607693f.js"></script>
+<script type="text/javascript">!function () {
+    require('translation:widget/translate/favo/collInfo').init();
+}();
+!function () {
+    var nav = require('translation:widget/header/navigation/navigation');
+    nav.init();
+}();
+!function () {
+    require('translation:widget/header/downloadGuide/downloadGuide');
+}();
+!function () {
+    var manu = require('translation:widget/header/manualTrans/manualTrans');
+}();
+!function () {
+    require('translation:widget/translate/translang/translang');
+}();
+!function () {
+    require('translation:widget/translate/docTransLang/docTransLang');
+}();
+!function () {
+    require('translation:widget/translate/setting/setting');
+}();
+!function () {
+    require('translation:widget/translate/input/inputCollGroup/inputCollGroup').init();
+}();
+!function () {
+    require('translation:widget/translate/input/input');
+}();
+!function () {
+    require('translation:widget/translate/output/output');
+}();
+!function () {
+    var history = require('translation:widget/translate/history/history');
+    history.init();
+}();
+!function () {
+    require('translation:widget/translate/sideNav/sideNav');
+}();
+!function () {
+    require("translation:widget/translate/details/translator/translator");
+}();
+!function () {
+    require("translation:widget/translate/details/keywords/keywords");
+}();
+!function () {
+    window.festivalLinkInfo = {};
+    festivalLinkInfo.isShowFestivalLink = false;
+    // festivalLinkInfo.isShowFestivalLink = true;
+    if (festivalLinkInfo.isShowFestivalLink) {
+    }
+    require('translation:widget/translate/details/festivalLink/festivalLink').init();
+}();
+!function () {
+    require('translation:widget/translate/docTranslate/docTranslate');
+}();
+!function () {
+    require('translation:widget/translate/zonedword/zonedCollGroup/zonedCollGroup').init();
+}();
+!function () {
+    require('translation:widget/translate/zonedword/zonedword');
+}();
+!function () {
+    var extra = require('translation:widget/footer/extra/extra');
+    extra.init();
+}();
+!function () {
+    var banner = require('translation:widget/footer/banner/banner');
+    banner.init();
+}();
+!function () {
+    var copyright = require('translation:widget/footer/copyright/copyright');
+    copyright.init();
+}();
+!function () {
+    var follow = require('translation:widget/footer/follow/follow');
+    follow.init();
+}();
+!function () {
+    require('translation:widget/footer/footer');
+}();
+!function () {
+    require('translation:widget/common/stat');
+}();
+!function () {
+    void function (a, b, c, d, e, f) {
+        function g(b) {
+            a.attachEvent ? a.attachEvent("onload", b, !1) : a.addEventListener && a.addEventListener("load", b)
+        }
+
+        function h(a, c, d) {
+            d = d || 15;
+            var e = new Date;
+            e.setTime((new Date).getTime() + 1e3 * d), b.cookie = a + "=" + escape(c) + ";path=/;expires=" + e.toGMTString()
+        }
+
+        function i(a) {
+            var c = b.cookie.match(new RegExp("(^| )" + a + "=([^;]*)(;|$)"));
+            return null != c ? unescape(c[2]) : null
+        }
+
+        function j() {
+            var a = i("PMS_JT");
+            if (a) {
+                h("PMS_JT", "", -1);
+                try {
+                    a = a.match(/{["']s["']:(\d+),["']r["']:["']([\s\S]+)["']}/), a = a && a[1] && a[2] ? {
+                        s: parseInt(a[1]),
+                        r: a[2]
+                    } : {}
+                } catch (c) {
+                    a = {}
+                }
+                a.r && b.referrer.replace(/#.*/, "") != a.r || alog("speed.set", "wt", a.s)
+            }
+        }
+
+        if (a.alogObjectConfig) {
+            var k = a.alogObjectConfig.sample, l = a.alogObjectConfig.rand;
+            d = "https:" === a.location.protocol ? "https://fex.bdstatic.com" + d : "http://fex.bdstatic.com" + d, k && l && l > k || (g(function () {
+                alog("speed.set", "lt", +new Date), e = b.createElement(c), e.async = !0, e.src = d + "?v=" + ~(new Date / 864e5) + ~(new Date / 864e5), f = b.getElementsByTagName(c)[0], f.parentNode.insertBefore(e, f)
+            }), j())
+        }
+    }(window, document, "script", "/hunter/alog/dp.min.js");
+}();
+!function () {
+    require('translation:widget/translate/common/sectrans');
+}();</script>
+<div
+    style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+    <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+</div>
+<audio id="dictVoice" style="display: none"></audio>
+
+<div style="display:none;" id="original-output"><p>Strip sent</p></div>
+</body>
+</html>

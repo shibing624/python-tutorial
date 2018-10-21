@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Vue 测试实例 - 菜鸟教程(runoob.com)</title>
+    <script src="./vue.min.js"></script>
+    <style>
+        .class1 {
+            background: #444;
+            color: #eee;
+        }
+
+        .hide1 {
+            type: hidden;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <p>{{ message }}</p>
+    <p>{{ kk }}</p>
+    <div v-html="mes"></div>
+    <br>
+    <label>变色</label><input type="checkbox" v-model="class1">
+    <div v-bind:class="{'class1':class1}">
+        v-bind commond
+    </div>
+    <p v-if="seen">看得到我么</p>
+    <label>hide</label><input type="checkbox" v-model="seen">
+    <!--<p v-if:class="{'hide1':seen}">看得到我么</p>-->
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue.js!',
+            kk: 'ki kk',
+            mes: 'hello',
+            v: 123,
+            num: 1,
+            class1: false,
+            seen: true,
+
+
+        }
+    })
+</script>
+</body>
+</html>
