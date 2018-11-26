@@ -11,3 +11,4 @@ click
 xlearn
 wave
 pyaudio
+py2neo
