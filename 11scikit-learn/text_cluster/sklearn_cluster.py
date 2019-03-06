@@ -9,7 +9,6 @@ import pickle
 from sklearn.feature_extraction.text import TfidfVectorizer
 import numpy as np
 
-
 tfidf_filepath = 'tfidf.pkl'
 file_path = 'yl_10.txt'
 titles = []
@@ -64,19 +63,19 @@ def feature():
             doc = trim_stopwords(words, stopwords)
             docs.append(" ".join(doc))
             word_set |= set(doc)
-    print('word set size:%s'%len(word_set))
+    print('word set size:%s' % len(word_set))
     tfidf_vectorizer = TfidfVectorizer(max_df=0.9, min_df=0.1, analyzer='word', ngram_range=(1, 2),
                                        vocabulary=list(word_set))
-    return tfidf_vectorizer,docs
+    return tfidf_vectorizer, docs
 
 
 if not os.path.exists(tfidf_filepath):
-    tfidf_vectorizer,docs = feature()
+    tfidf_vectorizer, docs = feature()
     tfidf_matrix = tfidf_vectorizer.fit_transform(docs)  # fit the vectorizer to synopses
     # terms is just a 集合 of the features used in the tf-idf matrix. This is a vocabulary
     terms = tfidf_vectorizer.get_feature_names()  # 长度258
     print(terms)
-    print('feature name size:%s'%len(terms))
+    print('feature name size:%s' % len(terms))
 
     with open(tfidf_filepath, 'wb') as f:
         pickle.dump(tfidf_matrix, f)
@@ -105,6 +104,8 @@ linkage_matrix = linkage(dist, method='ward', metric='euclidean', optimal_orderi
 # Z[i] will tell us which clusters were merged, let's take a look at the first two points that were merged
 # We can see that ach row of the resulting array has the format [idx1, idx2, dist, sample_count]
 print(linkage_matrix)
+
+
 def show_link():
     plt.figure(figsize=(25, 10))
     plt.title('中文文本层次聚类树状图', fontproperties=zh_font)
@@ -118,17 +119,25 @@ def show_link():
     )
     plt.show()
     plt.close()
-show_link()
 
-from sklearn.cluster import KMeans
+
+# show_link()
+
+from sklearn.cluster import MiniBatchKMeans
 from sklearn.metrics.pairwise import pairwise_distances_argmin
-n_clusters=4
-X=tfidf_matrix
-kmeans = KMeans(n_clusters=4,random_state=10).fit(X)
-print(kmeans.labels_)
-print(kmeans.cluster_centers_)
 
-print("-"*30)
+n_clusters = 4
+X = tfidf_matrix
+kmeans = MiniBatchKMeans(init='k-means++', n_clusters=n_clusters, batch_size=100,
+                         n_init=10, max_no_improvement=10, verbose=0)
+kmeans.fit(X)
+print(kmeans.cluster_centers_)
+print(kmeans.labels_)
+from collections import Counter
+
+print(Counter(kmeans.labels_))
+
+print("-" * 30)
 k_means_cluster_centers = np.sort(kmeans.cluster_centers_, axis=0)
 k_means_labels = pairwise_distances_argmin(X, k_means_cluster_centers)
 print(k_means_cluster_centers)
