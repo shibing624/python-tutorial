@@ -3,11 +3,11 @@
 @author:XuMing（xuming624@qq.com)
 @description: 
 """
-import jieba
 import os
 import pickle
+
+import jieba
 from sklearn.feature_extraction.text import TfidfVectorizer
-import numpy as np
 
 tfidf_filepath = 'tfidf.pkl'
 file_path = 'yl_10.txt'
@@ -58,7 +58,7 @@ def feature():
             cols = line.split("\t")
             userid = cols[0]
             content = " ".join(cols[1:])
-            content = content.lower().replace("{地域}{投放地域}", "").replace("{关键词}", "")
+            content = content.lower()
             words = jieba.lcut(content)
             doc = trim_stopwords(words, stopwords)
             docs.append(" ".join(doc))
@@ -121,24 +121,26 @@ def show_link():
     plt.close()
 
 
-# show_link()
+show_link()
 
 from sklearn.cluster import MiniBatchKMeans
-from sklearn.metrics.pairwise import pairwise_distances_argmin
 
-n_clusters = 4
+n_clusters = 3
 X = tfidf_matrix
 kmeans = MiniBatchKMeans(init='k-means++', n_clusters=n_clusters, batch_size=100,
                          n_init=10, max_no_improvement=10, verbose=0)
 kmeans.fit(X)
 print(kmeans.cluster_centers_)
-print(kmeans.labels_)
+labels = kmeans.labels_
+print(labels)
 from collections import Counter
 
-print(Counter(kmeans.labels_))
+# good_columns = X._get_numeric_data().dropna(axis=1)
 
-print("-" * 30)
-k_means_cluster_centers = np.sort(kmeans.cluster_centers_, axis=0)
-k_means_labels = pairwise_distances_argmin(X, k_means_cluster_centers)
-print(k_means_cluster_centers)
-print(k_means_labels)
+print(Counter(kmeans.labels_))
+from sklearn.decomposition import TruncatedSVD
+
+svd = TruncatedSVD()
+plot_columns = svd.fit_transform(X)
+plt.scatter(x=plot_columns[:, 0], y=plot_columns[:, 1], c=labels)
+plt.show()
