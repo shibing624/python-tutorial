@@ -1,0 +1,101 @@
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - answer_product
+  - answer_price
+
+slots:
+  product:
+    type: text
+  price:
+    type: text
+  get_cash:
+    type: text
+  goodbye:
+    type: text
+  greet:
+    type: text
+
+entities:
+  - product
+  - price
+  - get_cash
+  - goodbye
+  - greet
+
+actions:
+  - utter_greet
+  - utter_ask_product
+  - utter_ask_price
+  - utter_ask_discount
+  - utter_ask_get_cash
+  - utter_ask_price_change
+  - utter_bullet_recovery_ratio
+  - utter_goodbye
+  - utter_default
+  - utter_thanks
+  - utter_affirm
+  - utter_deny
+
+templates:
+  utter_greet:
+    - text: "你好"
+    - text: "hi"
+
+  utter_ask_product:
+    - text: "有捕鱼游戏吗"
+    - text: "有安卓的捕鱼吗"
+    - text: "有安卓的捕鱼游戏没"
+
+  utter_ask_price:
+    - text: "你们收是什么价的？"
+    - text: "弹头回收多少钱"
+    - text: "收多少钱？咱们这边有啥活动优惠吗"
+
+  utter_ask_discount:
+    - text: "咱们这边有优惠吗"
+    - text: "可以便宜点吗"
+    - text: "有便宜点的吗"
+
+  utter_ask_get_cash:
+    - text: "能提现吗"
+    - text: "捕鱼能提现么"
+    - text: "这游戏能不能提现那？"
+    - text: "请问可不可以提现这个游戏？"
+    - text: "能上下分么"
+    - text: "游戏道具可以换钱么"
+    - text: "可以提现吗？怎么提现"
+
+  utter_ask_price_change:
+    - text: "价格每天都是变动的吗"
+    - text: "价格每天都会变吗"
+    - text: "价格会变吗？"
+
+  utter_bullet_recovery_ratio:
+    - text: "这边弹头回收比例是多少"
+    - text: "这回收鱼币的比例是多少"
+
+  utter_goodbye:
+    - text: "sorry 有课，下次聊"
+    - text: "哦，先这样，有点事"
+    - text: "嗯，我知道了"
+    - text: "有点事，晚上说哈"
+    - text: "我先看看，后面不懂再问你。"
+    - text: "我先看看，好把"
+    - text: "o, 我看看吧"
+    - text: "好吧"
+
+  utter_default:
+    - text: "我还比较小，请说明白点干嘛的哈"
+    - text: "这游戏能不能提现那？"
+    - text: "可以提现吗？怎么提现"
+    - text: "请问可不可以提现这个游戏？"
+    - text: "能上下分么"
+    - text: "游戏道具可以换钱么"
+
+
+  utter_thanks:
+    - text: "谢了"
+    - text: "谢谢哈"

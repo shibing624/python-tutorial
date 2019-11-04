@@ -39,9 +39,9 @@ def display_pil(image_path):
     print(size)
     new_img = img.resize((200, 200), Image.BILINEAR)
     new_img.show()
-    new_img.save('pil_resize_' + image_path)
+    new_img.save('data/resize_a.png')
 
 
 if __name__ == '__main__':
     # display_cv('flower.png')
-    display_pil('flower.png')
+    display_pil('data/flower.png')

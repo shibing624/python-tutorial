@@ -12,3 +12,5 @@ xlearn
 wave
 pyaudio
 py2neo
+mistletoe
+PyYaml

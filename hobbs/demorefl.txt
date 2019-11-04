@@ -1,0 +1,1 @@
+(S (NP (NNP John) ) (VP (VBD said) (SBAR (-NONE- 0)(S (NP (NNP Mary) ) (VP (VBD likes) (NP (PRP herself) ) ) ) ) ) )

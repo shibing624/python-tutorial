@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>结果</title>
+    <!--引入css-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <!--引入JavaScript-->
+    <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" language="javascript"
+            src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+</head>
+<body>
+<h2 class="card text-center">结果</h2>
+<br>
+<br>
+<div id="showRefresh" class="row">
+    <label class="col-sm-6"><input type="checkbox" id="autoRefresh"/>5秒后自动刷新</label>
+</div>
+<table id="table" class="display" cellspacing="0" width="100%">
+    <thead>
+    <tr>
+        <th>微信号</th>
+        <th>百度账号ID</th>
+        <th>风险类型</th>
+        <th>对话模型</th>
+        <th>任务状态</th>
+        <th>好友搜索截图</th>
+        <th>微信好友截图</th>
+        <th>聊天截图1</th>
+        <th>聊天截图2</th>
+        <th>聊天记录</th>
+    </tr>
+    </thead>
+</table>
+<script>
+
+    function Refresh() {
+        window.location.replace(location);
+    }
+    function is_exist_file(filepath) {
+        var xmlhttp;
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.open("GET", filepath, false);
+        xmlhttp.send();
+        if (xmlhttp.readyState === 4) {
+            if (xmlhttp.status === 200)
+                return true; //url存在
+            else if (xmlhttp.status === 404)
+                return false; //url不存在
+            else
+                return false;//其他状态
+        }
+    }
+
+
+    function show_img(data) {
+        var result;
+        if (data.length > 0) {
+            if (is_exist_file(data)) {
+                result = '<img src="' + data + '"  height="13%" />';
+            }
+        } else {
+            result = '';
+        }
+        return result;
+    }
+
+    var status_map = {
+        "NEW": "队列中",
+        "SEND_FRIEND_REQUEST": "添加好友",
+        "FRIEND": "正在运行",
+        "CHAT_ROUND_END": "完成",
+        "CHAT_RISK_EVIDENCE": "完成",
+        "CHAT_CONNECT_TIME_END": "失败，超时未答复",
+        "CHAT_DEL_USER": "失败",
+        "CHAT_HUMAN_END": "完成，人工结束"
+    };
+
+    function show_status(data) {
+        return status_map[data];
+    }
+
+    var domain_map = {
+        "gamble": "赌博",
+        "lottery": "网赚",
+        "mahjong": "麻将机",
+        "growntaller": "保健品增高",
+        "manbigger": "保健品壮阳",
+    };
+
+    function show_domain(data) {
+        return domain_map[data];
+    }
+
+    var data1 = [
+        {
+            "username": "TigerNixon",
+            "userid": "12345678",
+            "domain": "gamble",
+            "bot_type": "unit",
+            "status": "CHAT_ROUND_END",
+            "friend_search_pic_path":"1.png",
+            "head_pic_path": "1.png",
+            "content_pic_path1": "1.png",
+            "content_pic_path2": "1.png",
+            "contents": "5421",
+            "ext": "5421"
+        },
+        {
+            "username": "TigerNixon1",
+            "userid": "123456781",
+            "domain": "gamble",
+            "bot_type": "unit",
+            "status": "FRIEND",
+            "friend_search_pic_path":"1.png",
+            "head_pic_path": "1.png",
+            "content_pic_path1": "1.png",
+            "content_pic_path2": "1.png",
+            "contents": "5421",
+            "ext": "5421"
+        }
+    ];
+
+    $(document).ready(function () {
+        $("#autoRefresh").click(function () {
+            setInterval("Refresh()", 1000 * 5);
+        });
+
+        //object可以如下初始化表格
+        $('#table').DataTable({
+//            ajax: {
+//                type: "get",
+//                //url: "http://0.0.0.0:8810/get_records",
+//                dataSrc: "data"
+//            },
+            data: data1,
+            //使用对象数组，一定要配置columns，告诉 DataTables 每列对应的属性
+            //data 这里是固定不变的，name，position，salary，office 为你数据里对应的属性
+            columns: [
+                {data: 'username'},
+                {data: 'userid'},
+                {data: 'domain'},
+                {data: 'bot_type'},
+                {data: 'status'},
+                {data: 'friend_search_pic_path'},
+                {data: 'head_pic_path'},
+                {data: 'content_pic_path1'},
+                {data: 'content_pic_path2'},
+                {data: 'contents'}
+            ],
+            "columnDefs": [{
+                "render": function (data, type, row) {
+                    return show_img(data);
+                },
+                "targets": [5, 6, 7, 8]
+            }, {
+                "render": function (data, type, row) {
+                    return show_status(data);
+                },
+                "targets": 4
+            }, {
+                "render": function (data, type, row) {
+                    return show_domain(data);
+                },
+                "targets": 2
+            }
+            ]
+        });
+    });
+</script>
+</body>
+</html>

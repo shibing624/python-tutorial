@@ -17,11 +17,14 @@
    date:2016-11-29
 """
 
-from PIL import Image, ImageEnhance, ImageOps, ImageFile
-import numpy as np
-import random
-import threading, os, time
 import logging
+import os
+import random
+import threading
+import time
+
+import numpy as np
+from PIL import Image, ImageEnhance, ImageFile
 
 logger = logging.getLogger(__name__)
 ImageFile.LOAD_TRUNCATED_IMAGES = True
@@ -185,4 +188,4 @@ def threadOPS(path, new_path):
 
 
 if __name__ == '__main__':
-    threadOPS("data","new_data")
+    threadOPS("data", "new_data")
