@@ -1,20 +1,45 @@
-import fcntl
 import threading
 import time
+import json
 
 
-def writetoTxt(txtFile):
+def writetoTxt(txtFile, mutex, json_file):
     id = threading.currentThread().getName()
-    with open(txtFile, 'a') as f:
-        fcntl.flock(f.fileno(), fcntl.LOCK_EX)  # 加锁
-        print("{0} acquire lock".format(id))
-        f.write("write from {0} \r\n".format(id))
-        fcntl.flock(f.fileno(), fcntl.LOCK_UN)  # release
-        time.sleep(3)
+    mutex.acquire(10)
+    print("Thread {0} acquire lock".format(id))
+    data = load_json(json_file)
+    print('data', data, type(data))
+    time.sleep(1.5)
+    print('start add new data')
+
+    data.update({id: {"username": str(id), "sex": 'man'}})
+    save_json(data, json_file)
+    print('new data', data, type(data))
+    time.sleep(1.5)
+    mutex.release()
+    print("Thread {0} exit".format(id))
 
 
-# 在with块外，文件关闭，自动解锁
-print("{0} exit".format(id))
-for i in range(5):
-    myThread = threading.Thread(target=writetoTxt, args=("test.txt",))
-    myThread.start()
+def load_json(json_file):
+    with open(json_file, 'r') as f:
+        data = json.load(f)
+    return data
+
+
+def save_json(data, json_file):
+    with open(json_file, 'w') as f:
+        json.dump(data, f, indent=4)
+
+
+if __name__ == '__main__':
+    a = {
+        "lili": {"username": "lili_01", "sex": "woman", "age": 12, "address": "beijing,china."},
+        "lucy": {"username": "lucy_1", "sex": "woman", "age": 32}
+    }
+    json_file = "a.json"
+    save_json(a, json_file)
+
+    mutex = threading.Lock()
+    for i in range(5):
+        myThread = threading.Thread(target=writetoTxt, args=("test.txt", mutex, json_file))
+        myThread.start()
