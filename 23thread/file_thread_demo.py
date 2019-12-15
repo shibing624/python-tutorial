@@ -1,23 +1,17 @@
-import threading
-import time
 import json
+import threading
+
+mutex = threading.Lock()
 
 
-def writetoTxt(txtFile, mutex, json_file):
-    id = threading.currentThread().getName()
-    mutex.acquire(10)
-    print("Thread {0} acquire lock".format(id))
+def writetoTxt(json_file, id):
+    mutex.acquire()
     data = load_json(json_file)
     print('data', data, type(data))
-    time.sleep(1.5)
-    print('start add new data')
-
     data.update({id: {"username": str(id), "sex": 'man'}})
     save_json(data, json_file)
-    print('new data', data, type(data))
-    time.sleep(1.5)
     mutex.release()
-    print("Thread {0} exit".format(id))
+    print('new data', data, type(data))
 
 
 def load_json(json_file):
@@ -39,7 +33,6 @@ if __name__ == '__main__':
     json_file = "a.json"
     save_json(a, json_file)
 
-    mutex = threading.Lock()
     for i in range(5):
-        myThread = threading.Thread(target=writetoTxt, args=("test.txt", mutex, json_file))
+        myThread = threading.Thread(target=writetoTxt, args=(json_file,i,))
         myThread.start()
