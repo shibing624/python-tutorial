@@ -18,7 +18,3 @@ y = tf.random.uniform((3, 3))
 
 a = simple_nn_layer(x, y)
 print(a)
-with tf.GradientTape as tape:
-    logits = a
-b = logits
-print(b)

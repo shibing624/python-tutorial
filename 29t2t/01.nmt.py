@@ -71,7 +71,6 @@ ende_problem = problems.problem("translate_ende_wmt32k")
 # All vocabs are stored on GCS
 vocab_name = "vocab.translate_ende_wmt32k.32768.subwords"
 vocab_file = os.path.join(gs_data_dir, vocab_name)
-!gsutil cp {vocab_file} {data_dir}
 
 # Get the encoders from the problem
 encoders = ende_problem.feature_encoders(data_dir)
