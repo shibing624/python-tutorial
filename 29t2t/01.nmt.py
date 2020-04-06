@@ -129,7 +129,6 @@ translate_model = registry.model(model_name)(hparams, Modes.EVAL)
 # Copy the pretrained checkpoint locally
 ckpt_name = "transformer_ende_test"
 gs_ckpt = os.path.join(gs_ckpt_dir, ckpt_name)
-!gsutil -q cp -R {gs_ckpt} {checkpoint_dir}
 ckpt_path = tf.train.latest_checkpoint(os.path.join(checkpoint_dir, ckpt_name))
 ckpt_path
 
