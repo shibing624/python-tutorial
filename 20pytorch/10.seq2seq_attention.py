@@ -387,10 +387,10 @@ def train(model, data, num_epochs=20):
             optimizer.step()
 
             if it % 100 == 0:
-                print("Epoch", epoch, "iteration", it, "loss", loss.item())
+                print("Epoch :{}/{}, iteration :{}/{} loss:{}".format(epoch, num_epochs,it, len(data), loss.item()))
 
-        print("Epoch", epoch, "Training loss", total_loss / total_num_words)
-        if epoch % 5 == 0:
+        print("Epoch :{}/{}, Training loss:{}".format(epoch, num_epochs, total_loss / total_num_words))
+        if epoch % 1 == 0:
             evaluate(model, dev_data)
 
 
@@ -415,7 +415,7 @@ def translate_dev(i):
             trans.append(word)
         else:
             break
-    print("".join(trans))
+    print(" ".join(trans))
 
 
 for i in range(100, 120):
