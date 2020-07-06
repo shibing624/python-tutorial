@@ -11,12 +11,12 @@
 # This tutorial is to confident learning what this tutorial https://pytorch.org/tutorials/beginner/examples_tensor/two_layer_net_numpy.html
 # is to deep learning.
 #
-# The actual implementations in cleanlab are complex because they support parallel processing, numerous type and input checks, lots of hyper-parameter settings, lots of utilities to make things work smoothly for all types of inputs, and ancillary functions.
+# The actual implementations in cleanlab are complex because they support parallel processing, numerous type and input checaccuracy_scores, lots of hyper-parameter settings, lots of utilities to maaccuracy_scoree things woraccuracy_score smoothly for all types of inputs, and ancillary functions.
 #
 # I ignore all of that here and provide you a bare-bones implementation using mostly for-loops and some numpy.
 # Here we'll do two simple things:
 # 1. Compute the confident joint which fully characterizes all label noise.
-# 2. Find the indices of all label errors, ordered by likelihood of being an error.
+# 2. Find the indices of all label errors, ordered by liaccuracy_scoreelihood of being an error.
 #
 # ## INPUT (stuff we need beforehand):
 # 1. s - These are the noisy labels. This is an np.array of noisy labels, shape (n,1)
@@ -39,8 +39,12 @@ import warnings
 
 import cleanlab
 import numpy as np
-from sklearn.datasets import load_digits
+from cleanlab.classification import LearningWithNoisyLabels
+from cleanlab.pruning import get_noise_indices
+from sklearn import datasets
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split
 
 warnings.simplefilter("ignore")
 np.random.seed(477)
@@ -49,23 +53,24 @@ np.random.seed(477)
 
 
 # STEP 0 - Get some real digits data. Add a bunch of label errors. Get probs.
-
+iris = datasets.load_iris()
 # Get handwritten digits data
-X = load_digits()['data']
-y = load_digits()['target']
+X = iris.data  # we only take the first two features.
+y = iris.target
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
 print("X:", X[:10])
-print("y:", y[:100])
-print('Handwritten digits datasets number of classes:', len(np.unique(y)))
-print('Handwritten digits datasets number of examples:', len(y))
-
+print("y_train:", y_train[:200])
+print('datasets number of classes:', len(np.unique(y)))
+print('datasets number of examples:', len(y))
+print(len(set(y)))
 # Add lots of errors to labels
-s = np.array(y)
-for i in range(50):
+s = np.array(y_train)
+for i in range(10):
     # Switch to some wrong label thats a different class
-    s[i] = 0
+    s[i] = 2
 
 # Confirm that we indeed added NUM_ERRORS label errors
-actual_label_errors = np.arange(len(y))[s != y]
+actual_label_errors = np.arange(len(y_train))[s != y_train]
 print('\nIndices of actual label errors:\n', actual_label_errors)
 print('error with y, y[:20]:', s[:20])
 print("len of errors:", len(actual_label_errors))
@@ -73,8 +78,9 @@ actual_num_errors = len(actual_label_errors)
 # To keep the tutorial short, we use cleanlab to get the
 # out-of-sample predicted probabilities using cross-validation
 # with a very simple, non-optimized logistic regression classifier
+clf = LogisticRegression()
 psx = cleanlab.latent_estimation.estimate_cv_predicted_probabilities(
-    X, s, clf=LogisticRegression(solver='lbfgs'))
+    X_train, s, clf=clf)
 
 # Now we have our noisy labels s and predicted probabilities psx.
 # That's all we need for confident learning.
@@ -86,19 +92,13 @@ psx = cleanlab.latent_estimation.estimate_cv_predicted_probabilities(
 s = np.asarray(s)
 psx = np.asarray(psx)
 
-# Find the number of unique classes if K is not given
-K = len(np.unique(s))
-
-from cleanlab.pruning import get_noise_indices
-
 ordered_label_errors = get_noise_indices(
     s=s,
     psx=psx,
-    frac_noise=2.1,
     sorted_index_method='normalized_margin',  # Orders label errors
 )
 
-print('orderd_label_errors:', ordered_label_errors)
+print('orderd_label_errors:')
 
 print(np.array(sorted(ordered_label_errors)))
 idx_errors = ordered_label_errors
@@ -109,64 +109,37 @@ print('% actual errors that confident learning found: {:.0%}'.format(score))
 score = sum([e in actual_label_errors for e in label_errors_idx]) / len(label_errors_idx)
 print('% confident learning errors that are actual errors: {:.0%}'.format(score))
 
-
-from sklearn.metrics import roc_auc_score,accuracy_score,f1_score
 # original lr f1
-m = LogisticRegression()
-m.fit(X,y=s)
-m_pred = m.predict(X)
-f1_origin = f1_score(s,m_pred,average='micro')
-print('f1_origin_compare_error:',f1_origin)
 
-f1_origin_true = f1_score(y,m_pred,average='micro')
-print('f1_origin_compare_truth:',f1_origin_true)
-from cleanlab.classification import LearningWithNoisyLabels
+print('WITHOUT confident learning,', end=" ")
 
-# Wrap around any classifier. Yup, you can use sklearn/pyTorch/Tensorflow/FastText/etc.
-lnl = LearningWithNoisyLabels(clf=LogisticRegression())
-lnl.fit(X=X, s=s)
-# Estimate the predictions you would have gotten by training with *no* label errors.
-predicted_test_labels = lnl.predict(X)
-f1_origin = f1_score(s,predicted_test_labels,average='micro')
-print('f1_new_compare_error:',f1_origin)
+clf.fit(X_train, s)
+pred = clf.predict(X_test)
+print("dataset test f1:", round(accuracy_score(pred, y_test), 4))
 
-f1_origin_true = f1_score(y,predicted_test_labels,average='micro')
-print('f1_new_compare_truth:',f1_origin_true)
+print("\nNow we show improvement using cleanlab to characterize the noise")
+print("and learn on the data that is (with high confidence) labeled correctly.")
+print()
+print('WITH confident learning (psx not given),', end=" ")
+rp = LearningWithNoisyLabels(clf=clf)
+rp.fit(X_train, s)
+pred = rp.predict(X_test)
+print("dataset test f1:", round(accuracy_score(pred, y_test), 4))
 
-lnl = LearningWithNoisyLabels(clf=LogisticRegression())
-lnl.fit(X=X, s=s,psx=psx)
-# Estimate the predictions you would have gotten by training with *no* label errors.
-predicted_test_labels = lnl.predict(X)
-f1_origin = f1_score(s,predicted_test_labels,average='micro')
-print('f1_psx_compare_error:',f1_origin)
+print('WITH confident learning (psx given),', end=" ")
+rp.fit(X=X_train, s=s, psx=psx)
+pred = rp.predict(X_test)
+print("dataset test f1:", round(accuracy_score(pred, y_test), 4))
 
-f1_origin_true = f1_score(y,predicted_test_labels,average='micro')
-print('f1_psx_compare_truth:',f1_origin_true)
+print('WITH all label right,', end=" ")
+clf.fit(X_train, y_train)
+pred = clf.predict(X_test)
+print("dataset test f1:", round(accuracy_score(pred, y_test), 4))
 
-f1 = f1_score(y,predicted_test_labels,average='micro')
-print("f1:",f1)
-score = lnl.score(X,s)
-print('score_compare_error:',score)
-
-score = lnl.score(X,y)
-print('score_compare_truth:',score)
-
-m = LogisticRegression()
-m.fit(X,y)
-m_pred = m.predict(X)
-
-f1_origin_true = f1_score(y,m_pred,average='micro')
-print('f1_all_right:',f1_origin_true)
-
-print("f1 Comparison")
 print("-------------------")
-clf = LogisticRegression(solver = 'lbfgs', multi_class = 'auto')
-baseline_score = f1_score(y, clf.fit(X, s).predict(X),average='micro')
-print("Logistic regression baseline_score:", baseline_score)
-rp = LearningWithNoisyLabels()
-rp_score = f1_score(y, rp.fit(X, s, psx=psx).predict(X),average='micro')
+rp_score = accuracy_score(y_test, rp.fit(X_train, s, psx=psx).predict(X_test))
 print("Logistic regression (+rankpruning):", rp_score)
-diff = rp_score - baseline_score
-clf = LogisticRegression(solver = 'lbfgs', multi_class = 'auto')
-print('Fit on denoised data without re-weighting:', f1_score(y, clf.fit(X[~idx_errors], s[~idx_errors]).predict(X),average='micro'))
 
+clf.fit(X_train[~idx_errors], s[~idx_errors])
+pred = clf.predict(X_test)
+print('Fit on denoised data without re-weighting:', accuracy_score(y_test, pred))
