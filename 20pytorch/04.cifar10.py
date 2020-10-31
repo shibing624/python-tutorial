@@ -38,7 +38,7 @@ images, labels = data_iter.next()
 
 # show images
 imshow(torchvision.utils.make_grid(images))
-print(' '.join('%s' % classes[labels[i]] for i in range(4)))
+print(' '.join('%s' % classes[labels[i]] for i in range(3)))
 
 # CNN
 from torch.autograd import Variable
