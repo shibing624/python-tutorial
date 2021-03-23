@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 """
 @author:XuMing(xuming624@qq.com)
-@description: 
+@description:
 """
 import os
-from transformers import AutoModelForCausalLM, AutoTokenizer, top_k_top_p_filtering
+
 import torch
 from torch.nn import functional as F
+from transformers import AutoModelForCausalLM, AutoTokenizer, top_k_top_p_filtering
+
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 model_dir = os.path.expanduser('/Users/xuming06/Documents/Data/chinese-xlnet-base/')
 

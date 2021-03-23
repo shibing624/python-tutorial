@@ -8,7 +8,8 @@ import os
 import numpy as np
 import torch
 from transformers import AutoModel, AutoTokenizer
-os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
+
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 model_dir = os.path.expanduser('~/.pycorrector/datasets/bert_models/chinese_finetuned_lm/')
 print(model_dir)
 tokenizer = AutoTokenizer.from_pretrained(model_dir)

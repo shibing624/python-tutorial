@@ -3,9 +3,11 @@
 @author:XuMing(xuming624@qq.com)
 @description: 
 """
-from transformers import pipeline
 import os
-os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
+
+from transformers import pipeline
+
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 bert_model_dir = os.path.expanduser('~/.pycorrector/datasets/bert_models/chinese_finetuned_lm/')
 print(bert_model_dir)
 nlp = pipeline("sentiment-analysis",
@@ -17,15 +19,14 @@ nlp = pipeline("sentiment-analysis",
 result = nlp("我爱你")[0]
 print(f"label: {result['label']}, with score: {round(result['score'], 4)}")
 
-
 result = nlp("我恨你")[0]
 print(f"label: {result['label']}, with score: {round(result['score'], 4)}")
-
 
 # Custom
 from transformers import AutoModelForSequenceClassification
 import torch
-from transformers import AutoModel, AutoTokenizer
+from transformers import AutoTokenizer
+
 tokenizer = AutoTokenizer.from_pretrained(bert_model_dir)
 print("token ok")
 model = AutoModelForSequenceClassification.from_pretrained(bert_model_dir)
