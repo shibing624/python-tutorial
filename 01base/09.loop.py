@@ -36,7 +36,7 @@ print(total)  # 4999950000
 # 为了解决这个问题，我们可以使用 xrange 来代替 range 函数，
 # 其效果与range函数相同，但是 xrange 并不会一次性的产生所有的数据：
 total = 0
-for i in xrange(100000):
+for i in range(100000):
     total += i
 print(total)  # 4999950000
 
