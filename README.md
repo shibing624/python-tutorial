@@ -16,12 +16,12 @@ python教程，包括：python基础、numpy、scipy、python进阶、matplotlib
 | 04_thread       | 多线程    | 提供了多线程、多进程的例子。 |
 | 05_web      | Web开发    | 提供了Web框架、模板、Web API的使用例子。 |
 | 06_database       | 数据库    | 提供数据库（包括SQLite、MySQL、SQLAlchemy）使用例子。 |
-| 07_statistics    | 科学计算 | 提供了几个常用科学计算库（numpy、scipy、scikit-learn、pandas）的使用例子。 |
+| 07_data_science    | 数据科学 | 提供了几个常用数据科学库（numpy、scipy、scikit-learn、pandas）的使用例子。 |
 | 08_nlp       | 自然语言处理任务    | 提供了NLP任务的模型使用的例子。 |
 | 09_deep_learning | 深度学习库    | 提供了常用深度模型库（TensorFlow、PyTorch）的使用例子。|
 | 10_cv | 计算机视觉任务    | 提供了CV任务的使用例子。|
 | 11_speech | 语音识别任务    | 提供了语音识别任务的使用例子。|
-| 12_tool | 文件解析工具    | 提供了常用的实用工具，包括文件解析、微信机器人、统计脚本等例子。|
+| 12_tool | 实用工具    | 提供了常用的实用工具，包括文件解析、微信机器人、统计脚本等例子。|
 
 
 
