@@ -1,15 +1,35 @@
 # python-tutorial
+
+[![PyPI version](https://badge.fury.io/py/python-tutorial.svg)](https://badge.fury.io/py/python-tutorial)
+[![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![GitHub contributors](https://img.shields.io/github/contributors/shibing624/python-tutorial.svg)](https://github.com/shibing624/python-tutorial/graphs/contributors)
+[![License Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
+[![python_vesion](https://img.shields.io/badge/Python-3.5%2B-green.svg)](requirements.txt)
+[![GitHub issues](https://img.shields.io/github/issues/shibing624/python-tutorial.svg)](https://github.com/shibing624/python-tutorial/issues)
+[![Wechat Group](http://vlog.sfyc.ltd/wechat_everyday/wxgroup_logo.png?imageView2/0/w/60/h/20)](#Contact)
+
+
 python教程，包括：python基础、numpy、scipy、python进阶、matplotlib、OOP、tensorflow、keras、pandas、NLP analysis.
 
 
 
-在本Python教程包含了一些范例，涵盖了大多数常见Python日常脚本任务，是入门Python的学习资料，也可以作为工作中上手Python的参考实现。
+在本Python教程包含了一些范例，涵盖了大多数常见Python日常脚本任务，是入门Python的学习资料，也可以作为工作中编写Python脚本的参考实现。
+以下所有实现均在python3环境下测试。
 
 
-## nlp-tutorial的例子清单
+**Guide**
 
-| **目录**  | **主题**                                           | 简要说明                                                      |
-| --------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+- [Tutorial](#python-tutorial的例子清单)
+- [Get Started](#get-started)
+- [Contact](#Contact)
+- [Cite](#Cite)
+- [Reference](#reference)
+
+
+# python-tutorial的例子清单
+
+| **目录**  | **主题**            | 简要说明                              |
+| --------------------- | -------------------------------------------- | ---------------------------- |
 | 01_base       | Python基础    | 提供了数据类型、字符串、list、条件判断、循环的使用例子。 |
 | 02_advanced       | Python高级特性    | 提供了切片、迭代、生成器、迭代器的使用例子。 |
 | 03_oop       | 面向对象编程    | 提供了多重继承、定制类、枚举类、设计模式的使用例子。   |
@@ -57,3 +77,50 @@ xgboost 文本分类
 
 [xgb_lr.py](xgb_lr.py)
 xgboost 提取特征之间的关系，再用lr文本分类
+
+# Get Started
+
+
+
+
+# Contact
+
+- Issue(建议)：[![GitHub issues](https://img.shields.io/github/issues/shibing624/python-tutorial.svg)](https://github.com/shibing624/python-tutorial/issues)
+- 邮件我：xuming: xuming624@qq.com
+- 微信我：
+加我*微信号：xuming624, 备注：个人名称-NLP* 进Python-NLP交流群。
+
+<img src="docs/wechat.jpeg" width="200" />
+
+
+# Cite
+
+如果你在研究中使用了python-tutorial，请按如下格式引用：
+
+```latex
+@software{python-tutorial,
+  author = {Xu Ming},
+  title = {python-tutorial: Python3 Tutorial for Get Started Developer},
+  year = {2021},
+  url = {https://github.com/shibing624/python-tutorial},
+}
+```
+
+# License
+
+
+授权协议为 [The Apache License 2.0](/LICENSE)，可免费用做商业用途。请在产品说明中附加python-tutorial的链接和授权协议。
+
+
+# Contribute
+项目代码还很粗糙，如果大家对代码有所改进，欢迎提交回本项目，在提交之前，注意以下两点：
+
+ - 在本地进行单元测试
+ - 确保所有单测都是通过的
+
+之后即可提交PR。
+
+# Reference
+
+1. [缪雪峰Python3教程](https://www.liaoxuefeng.com/wiki/1016959663602400)
+2. [PythonDataScienceHandbook](https://github.com/jakevdp/PythonDataScienceHandbook)

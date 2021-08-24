@@ -4,8 +4,7 @@
 @author:XuMing
 """
 
-
-
+# 字符串的索引
 s = 'good morning'
 print(s[0])  # g
 
