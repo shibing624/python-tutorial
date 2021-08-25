@@ -71,11 +71,10 @@ Python教程，包括：Python基础，Python高级特性，面向对象编程�
 教程代码大多数为notebook书写，如下所示：
 ![notebook](./docs/imgs/readme_img.png)
 
-方便大家使用jupyter打开学习。
-
-1. 终端使用pip安装jupyter: pip install jupyter notebook
-2. 执行：```cd python-tutorial; jupyter-notebook ```
-3. 在浏览器中打开jupyter-notebook提示的url即可使用
+方便大家使用Jupyter Notebook打开学习。
+1. 下载Python：建议使用Anaconda，Python环境和包一键装好，[Python3.7 版本](https://www.anaconda.com/products/individual)
+2. 下载本项目repo：可以使用`git clone`，或者下载zip文件，解压到电脑即可
+3. 打开Jupyter Notebook：打开终端，`cd`到repo所在的文件夹，执行：```jupyter notebook ```，浏览器打开`01_base/01_字符串类型.ipynb`，跟随介绍交互使用
 
 # Contact
 
