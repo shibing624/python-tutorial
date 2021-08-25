@@ -1,6 +1,5 @@
 # python-tutorial
 
-[![PyPI version](https://badge.fury.io/py/python-tutorial.svg)](https://badge.fury.io/py/python-tutorial)
 [![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![GitHub contributors](https://img.shields.io/github/contributors/shibing624/python-tutorial.svg)](https://github.com/shibing624/python-tutorial/graphs/contributors)
 [![License Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
@@ -30,7 +29,7 @@ python教程，包括：python基础、numpy、scipy、python进阶、matplotlib
 
 | **目录**  | **主题**            | 简要说明                              |
 | --------------------- | -------------------------------------------- | ---------------------------- |
-| 01_base       | Python基础    | 提供了数据类型、字符串、list、条件判断、循环的使用例子。 |
+| [01_base](01_base)       | Python基础    | 提供了数据类型、字符串、list、条件判断、循环的使用例子。 |
 | 02_advanced       | Python高级特性    | 提供了切片、迭代、生成器、迭代器的使用例子。 |
 | 03_oop       | 面向对象编程    | 提供了多重继承、定制类、枚举类、设计模式的使用例子。   |
 | 04_thread       | 多线程    | 提供了多线程、多进程的例子。 |
@@ -81,6 +80,9 @@ xgboost 提取特征之间的关系，再用lr文本分类
 
 # Get Started
 
+
+![notebook](./docs/imgs/readme_img.png)
+<img src="docs/imgs/readme_img.png" width="500" />
 
 
 
