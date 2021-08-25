@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-# Author: XuMing <xuming624@qq.com>
-# Brief: This example demonstrates the use of fasttext for text classification
+"""
+@author:XuMing(xuming624@qq.com)
+@description: 
+"""This example demonstrates the use of fasttext for text classification
 # Bi-gram : 0.9056 test accuracy after 5 epochs.
 
 import numpy as np

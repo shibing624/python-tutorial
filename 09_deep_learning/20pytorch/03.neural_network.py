@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-# Author: XuMing <xuming624@qq.com>
-# Brief: http://pytorch.org/tutorials/beginner/blitz/neural_networks_tutorial.html#define-the-network
+"""
+@author:XuMing(xuming624@qq.com)
+@description: 
+"""http://pytorch.org/tutorials/beginner/blitz/neural_networks_tutorial.html#define-the-network
 
 # define network
 import torch

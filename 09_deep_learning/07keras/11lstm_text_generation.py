@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-# Author: XuMing <xuming624@qq.com>
-# Brief: generate text from hand writings
+"""
+@author:XuMing(xuming624@qq.com)
+@description: 
+"""generate text from hand writings
 
 import os
 import random

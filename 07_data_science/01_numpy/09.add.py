@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-@description:
-@author:XuMing
+@author:XuMing(xuming624@qq.com)
+@description: 
 """
 
 

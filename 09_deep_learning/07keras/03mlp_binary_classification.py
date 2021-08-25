@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-# Author: XuMing <xuming624@qq.com>
-# Brief: 
+"""
+@author:XuMing(xuming624@qq.com)
+@description: 
+"""
 import numpy as np
 from keras.layers import Dense, Dropout
 from keras.models import Sequential

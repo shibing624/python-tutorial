@@ -100,7 +100,7 @@ xgboost 提取特征之间的关系，再用lr文本分类
 ```latex
 @software{python-tutorial,
   author = {Xu Ming},
-  title = {python-tutorial: Python3 Tutorial for Get Started Developer},
+  title = {python-tutorial: Python3 Tutorial for Beginners},
   year = {2021},
   url = {https://github.com/shibing624/python-tutorial},
 }

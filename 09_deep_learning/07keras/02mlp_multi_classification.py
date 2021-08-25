@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-# Author: XuMing <xuming624@qq.com>
-# Brief: Multilayer Perception for multi-class softmax classification
+"""
+@author:XuMing(xuming624@qq.com)
+@description: 
+"""Multilayer Perception for multi-class softmax classification
 
 import keras
 import numpy as np

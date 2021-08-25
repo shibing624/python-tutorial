@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-# Author: XuMing <xuming624@qq.com>
-# Brief: 深度网络学习加法运算
+"""
+@author:XuMing(xuming624@qq.com)
+@description: 
+"""深度网络学习加法运算
 
 # input '100+100'
 # output '200'

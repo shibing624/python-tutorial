@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-# Author: XuMing <xuming624@qq.com>
-# Brief: memory network
+"""
+@author:XuMing(xuming624@qq.com)
+@description: 
+"""memory network
 # - Sainbayar Sukhbaatar, Arthur Szlam, Jason Weston, Rob Fergus,
 #   "End-To-End Memory Networks",
 #   http://arxiv.org/abs/1503.08895

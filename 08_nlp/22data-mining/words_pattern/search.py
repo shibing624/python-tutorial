@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-# Author: XuMing <xuming624@qq.com>
-# Brief: get special words by sentence
+"""
+@author:XuMing(xuming624@qq.com)
+@description: 
+"""get special words by sentence
 
 sentences = [
     "{甲状腺节结治疗哪家医院好}?郑州市第二中医院",

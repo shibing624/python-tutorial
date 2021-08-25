@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-# Author: XuMing <xuming624@qq.com>
-# Brief: http://pytorch.org/tutorials/beginner/blitz/autograd_tutorial.html#variable
+"""
+@author:XuMing(xuming624@qq.com)
+@description: 
+"""http://pytorch.org/tutorials/beginner/blitz/autograd_tutorial.html#variable
 import torch
 from torch.autograd import Variable
 

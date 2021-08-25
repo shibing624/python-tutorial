@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-# Author: XuMing <xuming624@qq.com>
-# Brief: 
+"""
+@author:XuMing(xuming624@qq.com)
+@description: 
+"""
 
 from fp_node import treeNode
 def create_tree(data_set, min_support=1):

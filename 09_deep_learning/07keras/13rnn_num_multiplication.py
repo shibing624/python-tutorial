@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-# Author: XuMing <xuming624@qq.com>
-# Brief: 深度网络学习乘法运算
+"""
+@author:XuMing(xuming624@qq.com)
+@description: 
+"""深度网络学习乘法运算
 # 本来觉得这个学习能力萌萌哒，想到深度网络优势是解决异或问题，呵呵哒，杀鸡用牛刀了
 
 # input '100*100'

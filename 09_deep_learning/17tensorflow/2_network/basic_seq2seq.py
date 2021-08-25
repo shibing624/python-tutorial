@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-# Author: XuMing <xuming624@qq.com>
-# Brief: 字符到字符的基本seq2seq模型
+"""
+@author:XuMing(xuming624@qq.com)
+@description: 
+"""字符到字符的基本seq2seq模型
 # input:hello; output:ehllo
 
 

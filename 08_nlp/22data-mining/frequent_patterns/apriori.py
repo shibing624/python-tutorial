@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-# Author: XuMing <xuming624@qq.com>
-# Brief: 
+"""
+@author:XuMing(xuming624@qq.com)
+@description: 
+"""
 def init_c1(data_set_dict, min_support):
     c1 = []
     freq_dic = {}

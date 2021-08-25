@@ -1,9 +1,7 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
 """
-@author: XuMing <shibing624@126.com>
-@description:
+@author:XuMing(xuming624@qq.com)
+@description: 
 """
 
 from http.server import BaseHTTPRequestHandler, HTTPServer

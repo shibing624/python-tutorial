@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-# Author: XuMing <xuming624@qq.com>
-# Brief: 
+"""
+@author:XuMing(xuming624@qq.com)
+@description: 
+"""
 class treeNode:
     def __init__(self, name_value, num_occur, parent_node):
         self.name = name_value  # 节点元素名称

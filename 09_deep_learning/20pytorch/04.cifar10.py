@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-# Author: XuMing <xuming624@qq.com>
-# Brief: http://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html
+"""
+@author:XuMing(xuming624@qq.com)
+@description: 
+"""http://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html
 import torch
 import torchvision
 import torchvision.transforms as transforms

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-# Author: XuMing <xuming624@qq.com>
-# Brief: http://pytorch.org/tutorials/beginner/blitz/tensor_tutorial.html
+"""
+@author:XuMing(xuming624@qq.com)
+@description: 
+"""http://pytorch.org/tutorials/beginner/blitz/tensor_tutorial.html
 import torch
 
 x = torch.Tensor(5, 2)
