@@ -8,7 +8,7 @@
 [![Wechat Group](http://vlog.sfyc.ltd/wechat_everyday/wxgroup_logo.png?imageView2/0/w/60/h/20)](#Contact)
 
 
-python教程，包括：python基础、numpy、scipy、python进阶、matplotlib、OOP、tensorflow、keras、pandas、NLP analysis.
+Python教程，包括：Python基础，Python高级特性，面向对象编程，多线程，Web开发，数据库，数据科学，NLP，CV，深度学习库使用教程。
 
 
 
@@ -30,18 +30,18 @@ python教程，包括：python基础、numpy、scipy、python进阶、matplotlib
 | **目录**  | **主题**            | 简要说明                              |
 | --------------------- | -------------------------------------------- | ---------------------------- |
 | [01_base](01_base)       | Python基础    | 提供了数据类型、字符串、list、条件判断、循环的使用例子。 |
-| 02_advanced       | Python高级特性    | 提供了切片、迭代、生成器、迭代器的使用例子。 |
-| 03_oop       | 面向对象编程    | 提供了多重继承、定制类、枚举类、设计模式的使用例子。   |
-| 04_thread       | 多线程    | 提供了多线程、多进程的例子。 |
-| 05_web      | Web开发    | 提供了Web框架、模板、Web API的使用例子。 |
-| 06_database       | 数据库    | 提供数据库（包括SQLite、MySQL、SQLAlchemy）使用例子。 |
-| 07_data_science    | 数据科学 | 提供了几个常用数据科学库（numpy、scipy、scikit-learn、pandas）的使用例子。 |
-| 08_nlp       | 自然语言处理任务    | 提供了NLP任务的模型使用的例子。 |
-| 09_deep_learning | 深度学习库    | 提供了常用深度模型库（TensorFlow、PyTorch）的使用例子。|
-| 10_cv | 计算机视觉任务    | 提供了CV任务的使用例子。|
-| 11_speech | 语音识别任务    | 提供了语音识别任务的使用例子。|
-| 12_spider | 爬虫    | 提供了爬虫的实现例子。|
-| 13_tool | 实用工具    | 提供了常用的实用工具，包括文件解析、微信机器人、统计脚本等例子。|
+| [02_advanced](02_advanced)       | Python高级特性    | 提供了切片、迭代、生成器、迭代器的使用例子。 |
+| [03_oop](03_oop)       | 面向对象编程    | 提供了多重继承、定制类、枚举类、设计模式的使用例子。   |
+| [04_thread](04_thread)       | 多线程    | 提供了多线程、多进程的例子。 |
+| [05_web](05_web)      | Web开发    | 提供了Web框架、模板、Web API的使用例子。 |
+| [06_database](06_database)       | 数据库    | 提供数据库（包括SQLite、MySQL、SQLAlchemy）使用例子。 |
+| [07_data_science](07_data_science)    | 数据科学 | 提供了几个常用数据科学库（numpy、scipy、scikit-learn、pandas）的使用例子。 |
+| [08_nlp](08_nlp)       | 自然语言处理任务    | 提供了NLP任务的模型使用的例子。 |
+| [09_deep_learning](09_deep_learning) | 深度学习库    | 提供了常用深度模型库（TensorFlow、PyTorch）的使用例子。|
+| [10_cv](10_cv) | 计算机视觉任务    | 提供了CV任务的使用例子。|
+| [11_speech](11_speech) | 语音识别任务    | 提供了语音识别任务的使用例子。|
+| [12_spider](12_spider) | 爬虫    | 提供了爬虫的实现例子。|
+| [13_tool](13_tool) | 实用工具    | 提供了常用的实用工具，包括文件解析、微信机器人、统计脚本等例子。|
 
 
 
@@ -65,26 +65,17 @@ python教程，包括：python基础、numpy、scipy、python进阶、matplotlib
   * 12rnn_num_add: RNN网络学习三位数以内的加法运算
   * 13rnn_num_multiplication: RNN网络学习三位数以内的乘法运算
 
-#### xgboost 
-文本特征分类
-
-[lr.py](lr.py)
-lr 文本分类
-
-[xgb.py](xgb.py)
-xgboost 文本分类
-
-
-[xgb_lr.py](xgb_lr.py)
-xgboost 提取特征之间的关系，再用lr文本分类
 
 # Get Started
 
-
+教程代码大多数为notebook书写，如下所示：
 ![notebook](./docs/imgs/readme_img.png)
-<img src="docs/imgs/readme_img.png" width="500" />
 
+方便大家使用jupyter打开学习。
 
+1. 终端使用pip安装jupyter: pip install jupyter notebook
+2. 执行：```cd python-tutorial; jupyter-notebook ```
+3. 在浏览器中打开jupyter-notebook提示的url即可使用
 
 # Contact
 
