@@ -29,18 +29,15 @@ Python教程，包括：Python基础，Python高级特性，面向对象编程�
 
 | **目录**  | **主题**            | 简要说明                              |
 | --------------------- | -------------------------------------------- | ---------------------------- |
-| [01_base](01_base)       | Python基础    | 提供了数据类型、字符串、list、条件判断、循环的使用例子。 |
-| [02_advanced](02_advanced)       | Python高级特性    | 提供了切片、迭代、生成器、迭代器的使用例子。 |
-| [03_oop](03_oop)       | 面向对象编程    | 提供了多重继承、定制类、枚举类、设计模式的使用例子。   |
-| [04_thread](04_thread)       | 多线程    | 提供了多线程、多进程的例子。 |
-| [05_web](05_web)      | Web开发    | 提供了Web框架、模板、Web API的使用例子。 |
-| [06_database](06_database)       | 数据库    | 提供数据库（包括SQLite、MySQL、SQLAlchemy）使用例子。 |
-| [07_data_science](07_data_science)    | 数据科学 | 提供了几个常用数据科学库（numpy、scipy、scikit-learn、pandas）的使用例子。 |
+| [01_base](01_base)       | Python基础    | 提供了数据类型、字符串、list、条件判断、循环、函数、文件、多进程的使用例子。 |
+| [02_advanced](02_advanced)       | Python高级特性    | 提供了数据库、高阶函数、迭代器、面向对象编程的使用例子。 |
+| [03_data_science](03_data_science)    | 数据科学 | 提供了常用数据科学库（numpy、scipy、scikit-learn、pandas）的使用例子。 |
+| [04_web](04_web)      | Web开发    | 提供了Web框架、模板、Web API的使用例子。 |
+| [05_spider](05_spider) | 爬虫    | 提供了爬虫的实现例子。|
+| [06_deep_learning](06_deep_learning) | 深度学习库    | 提供了常用深度模型库（TensorFlow、Keras、PyTorch）的使用例子。|
 | [08_nlp](08_nlp)       | 自然语言处理任务    | 提供了NLP任务的模型使用的例子。 |
-| [09_deep_learning](09_deep_learning) | 深度学习库    | 提供了常用深度模型库（TensorFlow、PyTorch）的使用例子。|
 | [10_cv](10_cv) | 计算机视觉任务    | 提供了CV任务的使用例子。|
 | [11_speech](11_speech) | 语音识别任务    | 提供了语音识别任务的使用例子。|
-| [12_spider](12_spider) | 爬虫    | 提供了爬虫的实现例子。|
 | [13_tool](13_tool) | 实用工具    | 提供了常用的实用工具，包括文件解析、微信机器人、统计脚本等例子。|
 
 
