@@ -84,8 +84,7 @@ Python教程，包括：Python基础，Python高级特性，面向对象编程�
 
 读后有收获可以支付宝打赏作者喝咖啡，读后有疑问请加微信群讨论：
 
-<img src="docs/zhifubao.png" width="150" />
-<img src="docs/wechat_zhifu.png" width="150" />
+<img src="docs/zhifubao.png" width="150" /><img src="docs/wechat_zhifu.png" width="150" />
 
 # Cite
 
