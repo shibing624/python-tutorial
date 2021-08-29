@@ -114,3 +114,4 @@ Python教程，包括：Python基础，Python高级特性，面向对象编程�
 
 1. [缪雪峰Python3教程](https://www.liaoxuefeng.com/wiki/1016959663602400)
 2. [PythonDataScienceHandbook](https://github.com/jakevdp/PythonDataScienceHandbook)
+3. [Python4DataScience.CH](https://github.com/catalystfrank/Python4DataScience.CH)
