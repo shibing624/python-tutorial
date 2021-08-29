@@ -80,7 +80,7 @@ Python教程，包括：Python基础，Python高级特性，面向对象编程�
 - 微信我：
 加我*微信号：xuming624, 备注：个人名称-NLP* 进Python-NLP交流群。
 
-<img src="docs/wechat.jpeg" width="200" />
+<img src="docs/we_image.jpeg" width="200" /><img src="docs/wechat.jpeg" width="200" />
 
 读后有收获可以支付宝打赏作者喝咖啡，读后有疑问请加微信群讨论：
 
