@@ -70,8 +70,8 @@ Python教程，包括：Python基础，Python高级特性，面向对象编程�
 
 使用Jupyter Notebook打开学习：
 1. 下载Python：建议使用Anaconda，Python环境和包一键装好，[Python3.7 版本](https://www.anaconda.com/products/individual)
-2. 下载本项目repo：可以使用`git clone`，或者下载zip文件，解压到电脑即可
-3. 打开Jupyter Notebook：打开终端，`cd`到repo所在的文件夹，执行：```jupyter notebook ```，浏览器打开`01_base/01_字符串类型.ipynb`，跟随介绍交互使用
+2. 下载本项目：可以使用`git clone`，或者下载zip文件，解压到电脑
+3. 打开Jupyter Notebook：打开终端，`cd`到本项目所在的文件夹，执行：```jupyter notebook ```，浏览器打开`01_base/01_字符串类型.ipynb`，跟随介绍交互使用
 
 # Contact
 
@@ -82,6 +82,9 @@ Python教程，包括：Python基础，Python高级特性，面向对象编程�
 
 <img src="docs/wechat.jpeg" width="200" />
 
+读后有收获可以支付宝打赏作者喝咖啡，读后有疑问请加微信群讨论：
+<img src="docs/zhifubao.png" width="100" />
+<img src="docs/wechat_zhifu.png" width="100" />
 
 # Cite
 
