@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p>{{ movies|length }} Titles</p>
+{% if current_user.is_authenticated %}
+<form method="post">
+    Name <input type="text" name="title" autocomplete="off" required>
+    Year <input type="text" name="year" autocomplete="off" required>
+    <input class="btn" type="submit" name="submit" value="Add">
+</form>
+{% endif %}
+<ul class="movie-list">
+    {% for movie in movies %}
+    <li>{{ movie.title }} - {{ movie.year }}
+        <span class="float-right">
+            {% if current_user.is_authenticated %}
+            <a class="btn" href="{{ url_for('edit', movie_id=movie.id) }}">Edit</a>
+            <form class="inline-form" method="post" action="{{ url_for('delete', movie_id=movie.id) }}">
+                <input class="btn" type="submit" name="delete" value="Delete" onclick="return confirm('Are you sure?')">
+            </form>
+            {% endif %}
+            <a class="imdb" href="https://www.imdb.com/find?q={{ movie.title }}" target="_blank" title="Find this movie on IMDb">IMDb</a>
+        </span>
+    </li>
+    {% endfor %}
+</ul>
+<img alt="Walking Totoro" class="totoro" src="{{ url_for('static', filename='images/totoro.gif') }}" title="to~to~ro~">
+{% endblock %}
