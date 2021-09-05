@@ -1,7 +1,6 @@
 # 第 8 章：watchlist
 
 
-以上教程参考自：[Flask 入门教程](https://helloflask.com/tutorial).
 
 Demo: http://watchlist.helloflask.com
 
@@ -32,3 +31,6 @@ $ flask run
 $ flask admin
 ```
 
+## Reference
+
+[Flask 入门教程](https://helloflask.com/tutorial)

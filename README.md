@@ -32,7 +32,7 @@ Python教程，包括：Python基础，Python高级特性，面向对象编程�
 | [01_base](01_base)       | Python基础    | 提供了数据类型、字符串、list、条件判断、循环、函数、文件、多进程的使用例子。 |
 | [02_advanced](02_advanced)       | Python高级特性    | 提供了数据库、高阶函数、迭代器、面向对象编程的使用例子。 |
 | [03_data_science](03_data_science)    | 数据科学 | 提供了常用数据科学库（numpy、scipy、scikit-learn、pandas）的使用例子。 |
-| [04_web](04_web)      | Web开发    | 提供了Web框架、模板、Web API的使用例子。 |
+| [04_flask](04_flask)      | Flask开发    | 提供了Web框架Flask的使用例子。 |
 | [05_spider](05_spider) | 爬虫    | 提供了爬虫的实现例子。|
 | [06_deep_learning](06_deep_learning) | 深度学习库    | 提供了常用深度模型库（TensorFlow、Keras、PyTorch）的使用例子。|
 | [08_nlp](08_nlp)       | 自然语言处理任务    | 提供了NLP任务的模型使用的例子。 |
