@@ -8,11 +8,11 @@
 [![Wechat Group](http://vlog.sfyc.ltd/wechat_everyday/wxgroup_logo.png?imageView2/0/w/60/h/20)](#Contact)
 
 
-Python教程，包括：Python基础，Python高级特性，面向对象编程，多线程，Web开发，数据库，数据科学，NLP，CV，深度学习库使用教程。
+Python实用教程，包括：Python基础，Python高级特性，面向对象编程，多线程，数据库，数据科学，Flask，爬虫开发教程。
 
 
 
-在本Python教程包含了一些范例，涵盖了大多数常见Python日常脚本任务，是入门Python的学习资料，也可以作为工作中编写Python脚本的参考实现。
+在本Python教程包含了一些范例，涵盖了大多数Python日常脚本任务，是入门Python的学习资料，也可以作为工作中编写Python脚本的参考实现。
 以下所有实现均在python3环境下测试。
 
 
