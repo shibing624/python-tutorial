@@ -1,2 +1,0 @@
-(S (NP (NNP John)) (VP (VBD saw) (NP (DT a)(JJ flashy) (NN hat)) (PP (IN at) (NP (DT the) (NN store)))))
-(S (NP (PRP He)) (VP (VBD showed) (NP (PRP it))(PP (IN to) (NP (NNP Terrence)))))

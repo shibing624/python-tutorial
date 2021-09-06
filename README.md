@@ -33,34 +33,9 @@ Python教程，包括：Python基础，Python高级特性，面向对象编程�
 | [02_advanced](02_advanced)       | Python高级特性    | 提供了数据库、高阶函数、迭代器、面向对象编程的使用例子。 |
 | [03_data_science](03_data_science)    | 数据科学 | 提供了常用数据科学库（numpy、scipy、scikit-learn、pandas）的使用例子。 |
 | [04_flask](04_flask)      | Flask开发    | 提供了Web框架Flask的使用例子。 |
-| [05_spider](05_spider) | 爬虫    | 提供了爬虫的实现例子。|
-| [06_deep_learning](06_deep_learning) | 深度学习库    | 提供了常用深度模型库（TensorFlow、Keras、PyTorch）的使用例子。|
-| [08_nlp](08_nlp)       | 自然语言处理任务    | 提供了NLP任务的模型使用的例子。 |
-| [10_cv](10_cv) | 计算机视觉任务    | 提供了CV任务的使用例子。|
-| [11_speech](11_speech) | 语音识别任务    | 提供了语音识别任务的使用例子。|
-| [13_tool](13_tool) | 实用工具    | 提供了常用的实用工具，包括文件解析、微信机器人、统计脚本等例子。|
+| [05_spider](05_spider) | 爬虫    | 提供了网络爬虫的实现例子。|
+| [06_tool](06_tool) | 实用工具    | 提供了常用的实用工具，包括参数解析、日志工具等例子。|
 
-
-
-### 09_deep_learning
-#### keras 
-> * bAbi: 阅读理解任务
-  * 记忆网络（memory network）实现阅读理解任务
-  * RNN网络实现
-> * keras 应用
-  * 01.base: 认识keras变量
-  * 02mlp_multi_classification: 多层感知器多分类深度网络
-  * 03mlp_binary_classification: 多层感知器二分类深度网络
-  * 04vgg_conv: VGG，图像经典卷积网络结构
-  * 05lstm_classification: LSTM分类网络
-  * 06sequential: 序列模型，模型保存
-  * 07shared_lstm: 模型参数共享
-  * 08imdb_fasttext: fasttext网络结构实现二分类
-  * 09fasttext_multi_classification: fasttext的深度网络结构实现多分类
-  * 10seq2seq: 法语到英语的翻译任务，seq2seq模型
-  * 11lstm_text_generation: LSTM模型实现文本生成任务
-  * 12rnn_num_add: RNN网络学习三位数以内的加法运算
-  * 13rnn_num_multiplication: RNN网络学习三位数以内的乘法运算
 
 
 # Get Started
@@ -82,7 +57,7 @@ Python教程，包括：Python基础，Python高级特性，面向对象编程�
 
 <img src="docs/we_image.jpeg" width="200" /><img src="docs/wechat.jpeg" width="200" />
 
-读后有收获可以支付宝打赏作者喝咖啡，读后有疑问请加微信群讨论：
+读后有收获可以打赏作者喝咖啡，读后有疑问请加微信群讨论：
 
 <img src="docs/wechat_zhifu.png" width="150" />
 
