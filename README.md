@@ -52,7 +52,7 @@ Python实用教程，包括：Python基础，Python高级特性，面向对象�
 
 - Issue(建议)：[![GitHub issues](https://img.shields.io/github/issues/shibing624/python-tutorial.svg)](https://github.com/shibing624/python-tutorial/issues)
 - 邮件我：xuming: xuming624@qq.com
-- 微信我：加我*微信号：xuming624*, 进Python-NLP交流群，备注：*姓名-公司名-NLP*
+- 微信我：加我*微信号：xuming624*，进Python-NLP交流群，备注：*姓名-公司名-NLP*
 
 <img src="http://42.193.145.218/github_data/nlp_wechatgroup_erweima.png" width="200" /><img src="http://42.193.145.218/github_data/xm_wechat_erweima.png" width="200" />
 
