@@ -1,0 +1,17 @@
+# Python基础
+
+## 教程列表
+
+| Notebook     |      Description      |   |
+|:----------|:-------------|------:|
+| [01_base/01_字符串类型_str.ipynb](https://github.com/shibing624/python-tutorial/blob/master/01_base/01_字符串类型_str.ipynb)  | Python字符串类型  |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/shibing624/python-tutorial/blob/master/01_base/01_字符串类型_str.ipynb) |
+| [01_base/02_列表类型_list.ipynb](https://github.com/shibing624/python-tutorial/blob/master/01_base/02_列表类型_list.ipynb)  | Python列表类型  |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/shibing624/python-tutorial/blob/master/01_base/02_列表类型_list.ipynb) |
+| [01_base/03_元组类型_tuple.ipynb](https://github.com/shibing624/python-tutorial/blob/master/01_base/03_元组类型_tuple.ipynb)  | Python元组  |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/shibing624/python-tutorial/blob/master/01_base/03_元组类型_tuple.ipynb) |
+| [01_base/04_字典类型_dict.ipynb](https://github.com/shibing624/python-tutorial/blob/master/01_base/04_字典类型_dict.ipynb)  | Python字典  |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/shibing624/python-tutorial/blob/master/01_base/04_字典类型_dict.ipynb) |
+| [01_base/05_集合类型_set.ipynb](https://github.com/shibing624/python-tutorial/blob/master/01_base/05_集合类型_set.ipynb)  | Python集合  |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/shibing624/python-tutorial/blob/master/01_base/05_集合类型_set.ipynb) |
+| [01_base/06_条件判断_if.ipynb](https://github.com/shibing624/python-tutorial/blob/master/01_base/06_条件判断_if.ipynb)  | Python条件判断  |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/shibing624/python-tutorial/blob/master/01_base/06_条件判断_if.ipynb) |
+| [01_base/07_列表推导式.ipynb](https://github.com/shibing624/python-tutorial/blob/master/01_base/07_列表推导式.ipynb)  | Python列表推导式  |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/shibing624/python-tutorial/blob/master/01_base/07_列表推导式.ipynb) |
+| [01_base/08_循环结构_loop.ipynb](https://github.com/shibing624/python-tutorial/blob/master/01_base/08_循环结构_loop.ipynb)  | Python循环  |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/shibing624/python-tutorial/blob/master/01_base/08_循环结构_loop.ipynb) |
+| [01_base/09_函数和模块.ipynb](https://github.com/shibing624/python-tutorial/blob/master/01_base/09_函数和模块.ipynb)  | Python函数  |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/shibing624/python-tutorial/blob/master/01_base/09_函数和模块.ipynb) |
+| [01_base/10_文件和异常.ipynb](https://github.com/shibing624/python-tutorial/blob/master/01_base/10_文件和异常.ipynb)  | Python文件和异常  |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/shibing624/python-tutorial/blob/master/01_base/10_文件和异常.ipynb) |
+| [01_base/11_线程和进程.ipynb](https://github.com/shibing624/python-tutorial/blob/master/01_base/11_线程和进程.ipynb)  | Python多线程和多进程  |[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/shibing624/python-tutorial/blob/master/01_base/11_线程和进程.ipynb) |
