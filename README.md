@@ -27,6 +27,7 @@ Python实用教程，包括：Python基础，Python高级特性，面向对象�
 
 # python-tutorial的例子清单
 - 目录说明
+
 | **目录**  | **主题**            | 简要说明                              |
 | --------------------- | -------------------------------------------- | ---------------------------- |
 | [01_base](01_base)       | Python基础    | 提供了数据类型、字符串、list、条件判断、循环、函数、文件、多进程的使用例子。 |
@@ -90,9 +91,11 @@ Python实用教程，包括：Python基础，Python高级特性，面向对象�
 ![notebook](./docs/imgs/readme_img.png)
 
 - 使用Colab学习教程：
+
 点击各教程的`Open In Colab`即可在Google Colab打开Notebook并运行。
 
 - 使用Jupyter Notebook学习教程：
+
 1. 下载Python：建议使用Anaconda，Python环境和包一键装好，[Python3.7 版本](https://www.anaconda.com/products/individual)
 2. 下载本项目：可以使用`git clone`，或者下载zip文件，解压到电脑
 3. 打开Jupyter Notebook：打开终端，`cd`到本项目所在的文件夹，执行：```jupyter notebook ```，浏览器打开`01_base/01_字符串类型.ipynb`，跟随介绍交互使用
