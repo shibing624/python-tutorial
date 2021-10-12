@@ -92,7 +92,7 @@ Python实用教程，包括：Python基础，Python高级特性，面向对象�
 
 - 使用Colab学习教程：
 
-点击各教程的`Open In Colab`即可在Google Colab打开Notebook并运行。
+点击各教程的[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/shibing624/python-tutorial/blob/master/01_base/01_字符串类型_str.ipynb)即可在Google Colab打开Notebook并运行。
 
 - 使用Jupyter Notebook学习教程：
 
