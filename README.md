@@ -139,7 +139,7 @@ Python实用教程，包括：Python基础，Python高级特性，面向对象�
 
 # Reference
 
-1. [缪雪峰Python3教程](https://www.liaoxuefeng.com/wiki/1016959663602400)
+1. [廖雪峰Python3教程](https://www.liaoxuefeng.com/wiki/1016959663602400)
 2. [PythonDataScienceHandbook](https://github.com/jakevdp/PythonDataScienceHandbook)
 3. [Python4DataScience.CH](https://github.com/catalystfrank/Python4DataScience.CH)
 4. [Python-100-Days](https://github.com/jackfrued/Python-100-Days)
