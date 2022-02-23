@@ -1,15 +1,10 @@
-# python-tutorial
-
-[![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](CONTRIBUTING.md)
-[![GitHub contributors](https://img.shields.io/github/contributors/shibing624/python-tutorial.svg)](https://github.com/shibing624/python-tutorial/graphs/contributors)
-[![License Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![python_vesion](https://img.shields.io/badge/Python-3.5%2B-green.svg)](requirements.txt)
+[![License Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/shibing624/python-tutorial.svg)](https://github.com/shibing624/python-tutorial/issues)
 [![Wechat Group](http://vlog.sfyc.ltd/wechat_everyday/wxgroup_logo.png?imageView2/0/w/60/h/20)](#Contact)
 
-
+# python-tutorial
 Python实用教程，包括：Python基础，Python高级特性，面向对象编程，多线程，数据库，数据科学，Flask，爬虫开发教程。
-
 
 
 在本Python教程包含了一些范例，涵盖了大多数Python日常脚本任务，是入门Python的学习资料，也可以作为工作中编写Python脚本的参考实现。
@@ -110,16 +105,16 @@ Python实用教程，包括：Python基础，Python高级特性，面向对象�
 
 
 
-# Cite
+# Citation
 
 如果你在研究中使用了python-tutorial，请按如下格式引用：
 
 ```latex
-@software{python-tutorial,
-  author = {Xu Ming},
-  title = {python-tutorial: Python3 Tutorial for Beginners},
-  year = {2021},
-  url = {https://github.com/shibing624/python-tutorial},
+@misc{python-tutorial,
+  title={python-tutorial: Python3 Tutorial for Beginners},
+  author={Ming Xu},
+  howpublished={https://github.com/shibing624/python-tutorial},
+  year={2021}
 }
 ```
 
