@@ -1,5 +1,5 @@
 Flask==1.1.2
-Werkzeug==1.0.1
+Werkzeug==2.2.3
 Flask_Login==0.5.0
 click==7.1.2
 Flask_SQLAlchemy==2.4.0
